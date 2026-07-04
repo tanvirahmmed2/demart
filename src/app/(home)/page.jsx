@@ -11,7 +11,7 @@ import React from 'react'
 
 const Homepage = () => {
   return (
-    <div className="w-full max-w-7xl overflow-x-hidden">
+    <div className="w-full max-w-7xl overflow-x-hidden mx-auto">
       
       <Hero/>
       <TopSales/>
