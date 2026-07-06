@@ -18,7 +18,8 @@ import {
   BiDetail,
   BiImage,
   BiToggleLeft,
-  BiToggleRight
+  BiToggleRight,
+  BiX
 } from 'react-icons/bi'
 import BarScanner from '@/component/helper/BarScanner'
 import RichTextEditor from '@/component/helper/RichTextEditor'
@@ -73,6 +74,23 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
 
   // Scanner state
   const [scannerActive, setScannerActive] = useState(false)
+
+  // Category modal states
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
+  const [newCatName, setNewCatName] = useState('')
+  const [newCatParentId, setNewCatParentId] = useState('')
+  const [newCatImage, setNewCatImage] = useState(null)
+  const [newCatImagePreview, setNewCatImagePreview] = useState('')
+  const [creatingCategory, setCreatingCategory] = useState(false)
+
+  // Brand modal states
+  const [isBrandModalOpen, setIsBrandModalOpen] = useState(false)
+  const [newBrandName, setNewBrandName] = useState('')
+  const [newBrandDesc, setNewBrandDesc] = useState('')
+  const [newBrandImage, setNewBrandImage] = useState(null)
+  const [newBrandImagePreview, setNewBrandImagePreview] = useState('')
+  const [newBrandIsActive, setNewBrandIsActive] = useState(true)
+  const [creatingBrand, setCreatingBrand] = useState(false)
 
   // Populate options
   useEffect(() => {
@@ -201,6 +219,98 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
     setVariants(variants.filter((_, i) => i !== index))
   }
 
+  const handleCreateCategory = async (e) => {
+    e.preventDefault()
+    if (!newCatName.trim()) {
+      toast.error('Category name is required')
+      return
+    }
+    if (!newCatImage) {
+      toast.error('Category image is required')
+      return
+    }
+
+    setCreatingCategory(true)
+    const formData = new FormData()
+    formData.append('name', newCatName.trim())
+    formData.append('parent_id', newCatParentId || '')
+    formData.append('image', newCatImage)
+
+    try {
+      const res = await axios.post('/api/category', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      const newCat = res.data
+      toast.success('Category created successfully')
+      
+      // Re-fetch all categories to get parent names populated
+      const catRes = await axios.get('/api/category')
+      setCategories(catRes.data)
+      
+      // Auto select newly created category
+      setCategoryId(newCat.category_id)
+      
+      // Reset and close
+      setNewCatName('')
+      setNewCatParentId('')
+      setNewCatImage(null)
+      setNewCatImagePreview('')
+      setIsCategoryModalOpen(false)
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to create category')
+      console.error(err)
+    } finally {
+      setCreatingCategory(false)
+    }
+  }
+
+  const handleCreateBrand = async (e) => {
+    e.preventDefault()
+    if (!newBrandName.trim()) {
+      toast.error('Brand name is required')
+      return
+    }
+    if (!newBrandImage) {
+      toast.error('Brand logo image is required')
+      return
+    }
+
+    setCreatingBrand(true)
+    const formData = new FormData()
+    formData.append('name', newBrandName.trim())
+    formData.append('description', newBrandDesc.trim())
+    formData.append('is_active', newBrandIsActive)
+    formData.append('image', newBrandImage)
+
+    try {
+      const res = await axios.post('/api/brand', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      const newBrand = res.data
+      toast.success('Brand created successfully')
+      
+      // Re-fetch all brands
+      const brandRes = await axios.get('/api/brand')
+      setBrands(brandRes.data)
+      
+      // Auto select newly created brand
+      setBrandId(newBrand.brand_id)
+      
+      // Reset and close
+      setNewBrandName('')
+      setNewBrandDesc('')
+      setNewBrandImage(null)
+      setNewBrandImagePreview('')
+      setNewBrandIsActive(true)
+      setIsBrandModalOpen(false)
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to create brand')
+      console.error(err)
+    } finally {
+      setCreatingBrand(false)
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -313,7 +423,8 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6 animate-fade-in text-slate-800">
+    <>
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6 animate-fade-in text-slate-800">
       
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-100 shadow-sm rounded-2xl p-4 md:p-6">
@@ -379,7 +490,16 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-650 uppercase">Category *</label>
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-655 uppercase">Category *</label>
+                  <button
+                    type="button"
+                    onClick={() => setIsCategoryModalOpen(true)}
+                    className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 hover:text-emerald-500 transition cursor-pointer"
+                  >
+                    <BiPlus className="text-xs" /> Add New
+                  </button>
+                </div>
                 <select
                   required
                   value={categoryId}
@@ -397,7 +517,16 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-655 uppercase">Brand *</label>
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-655 uppercase">Brand *</label>
+                  <button
+                    type="button"
+                    onClick={() => setIsBrandModalOpen(true)}
+                    className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 hover:text-emerald-500 transition cursor-pointer"
+                  >
+                    <BiPlus className="text-xs" /> Add New
+                  </button>
+                </div>
                 <select
                   required
                   value={brandId}
@@ -1112,6 +1241,282 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
 
       </div>
 
-    </form>
+      </form>
+
+      {/* Category Creation Modal */}
+      {isCategoryModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
+          <div className="bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-xl overflow-hidden flex flex-col">
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BiPlus className="text-lg text-emerald-600" />
+                <h3 className="font-bold text-slate-800 text-sm">Create New Category</h3>
+              </div>
+              <button 
+                type="button"
+                onClick={() => {
+                  setNewCatName('')
+                  setNewCatParentId('')
+                  setNewCatImage(null)
+                  setNewCatImagePreview('')
+                  setIsCategoryModalOpen(false)
+                }}
+                className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-650 transition cursor-pointer"
+              >
+                <BiX className="text-xl" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateCategory} className="p-5 flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-700 uppercase">Category Name *</label>
+                <input
+                  required
+                  type="text"
+                  placeholder="e.g. Smart Electronics"
+                  value={newCatName}
+                  onChange={(e) => setNewCatName(e.target.value)}
+                  className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-700 uppercase">Parent Category (Optional)</label>
+                <select
+                  value={newCatParentId}
+                  onChange={(e) => setNewCatParentId(e.target.value)}
+                  className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition cursor-pointer"
+                >
+                  <option value="">None (Primary Category)</option>
+                  {categories.map((cat) => (
+                    <option key={cat.category_id} value={cat.category_id}>
+                      {cat.parent_name ? `${cat.parent_name} > ` : ''}{cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-705 uppercase">Category Image *</label>
+                <div className="flex items-center gap-3">
+                  {newCatImagePreview ? (
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-slate-200 bg-white flex items-center justify-center shrink-0">
+                      <img src={newCatImagePreview} alt="Category preview" className="object-cover w-full h-full" />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNewCatImage(null)
+                          setNewCatImagePreview('')
+                        }}
+                        className="absolute inset-0 bg-black/60 text-white flex items-center justify-center text-xs hover:opacity-100 transition opacity-0 cursor-pointer font-bold"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="w-16 h-16 rounded-xl border border-dashed border-slate-300 hover:border-emerald-500 flex flex-col items-center justify-center cursor-pointer text-slate-400 hover:text-emerald-500 transition shrink-0 bg-slate-50">
+                      <BiUpload className="text-lg" />
+                      <span className="text-[9px] font-bold mt-1">Upload</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files[0]
+                          if (file) {
+                            setNewCatImage(file)
+                            setNewCatImagePreview(URL.createObjectURL(file))
+                          }
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                  <div className="flex flex-col">
+                    <span className="text-xxs text-slate-500 leading-tight">
+                      {newCatImage ? newCatImage.name : 'Choose a category display photo.'}
+                    </span>
+                    <span className="text-[9px] text-slate-400 mt-0.5">JPG, PNG, WebP up to 5MB</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 mt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNewCatName('')
+                    setNewCatParentId('')
+                    setNewCatImage(null)
+                    setNewCatImagePreview('')
+                    setIsCategoryModalOpen(false)
+                  }}
+                  className="px-4 py-2 border border-slate-200 text-slate-650 rounded-xl text-xs font-bold hover:bg-slate-50 transition cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={creatingCategory}
+                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition disabled:opacity-50 flex items-center gap-1.5 shadow-sm shadow-emerald-600/10 cursor-pointer"
+                >
+                  {creatingCategory ? (
+                    <>
+                      <BiLoaderAlt className="animate-spin text-sm" />
+                      Creating...
+                    </>
+                  ) : (
+                    'Create Category'
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Brand Creation Modal */}
+      {isBrandModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
+          <div className="bg-white w-full max-w-md rounded-2xl border border-slate-100 shadow-xl overflow-hidden flex flex-col">
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BiPlus className="text-lg text-emerald-600" />
+                <h3 className="font-bold text-slate-800 text-sm">Create New Brand</h3>
+              </div>
+              <button 
+                type="button"
+                onClick={() => {
+                  setNewBrandName('')
+                  setNewBrandDesc('')
+                  setNewBrandImage(null)
+                  setNewBrandImagePreview('')
+                  setNewBrandIsActive(true)
+                  setIsBrandModalOpen(false)
+                }}
+                className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-650 transition cursor-pointer"
+              >
+                <BiX className="text-xl" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateBrand} className="p-5 flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-700 uppercase">Brand Name *</label>
+                <input
+                  required
+                  type="text"
+                  placeholder="e.g. Sony, Apple, Nike"
+                  value={newBrandName}
+                  onChange={(e) => setNewBrandName(e.target.value)}
+                  className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-700 uppercase">Description (Optional)</label>
+                <textarea
+                  placeholder="Describe the brand..."
+                  value={newBrandDesc}
+                  onChange={(e) => setNewBrandDesc(e.target.value)}
+                  rows="2"
+                  className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition resize-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-705 uppercase">Brand Logo Image *</label>
+                <div className="flex items-center gap-3">
+                  {newBrandImagePreview ? (
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-slate-200 bg-white flex items-center justify-center shrink-0">
+                      <img src={newBrandImagePreview} alt="Brand logo preview" className="object-cover w-full h-full" />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNewBrandImage(null)
+                          setNewBrandImagePreview('')
+                        }}
+                        className="absolute inset-0 bg-black/60 text-white flex items-center justify-center text-xs hover:opacity-100 transition opacity-0 cursor-pointer font-bold"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="w-16 h-16 rounded-xl border border-dashed border-slate-300 hover:border-emerald-500 flex flex-col items-center justify-center cursor-pointer text-slate-400 hover:text-emerald-500 transition shrink-0 bg-slate-50">
+                      <BiUpload className="text-lg" />
+                      <span className="text-[9px] font-bold mt-1">Upload</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files[0]
+                          if (file) {
+                            setNewBrandImage(file)
+                            setNewBrandImagePreview(URL.createObjectURL(file))
+                          }
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                  <div className="flex flex-col">
+                    <span className="text-xxs text-slate-500 leading-tight">
+                      {newBrandImage ? newBrandImage.name : 'Choose a brand logomark.'}
+                    </span>
+                    <span className="text-[9px] text-slate-400 mt-0.5">JPG, PNG, WebP up to 5MB</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <span className="text-xs font-bold text-slate-655 uppercase">Brand Status</span>
+                <button
+                  type="button"
+                  onClick={() => setNewBrandIsActive(!newBrandIsActive)}
+                  className="flex items-center gap-1.5 text-xxs font-bold text-slate-600 hover:text-slate-800 transition focus:outline-none cursor-pointer"
+                >
+                  {newBrandIsActive ? 'Active' : 'Inactive'}
+                  {newBrandIsActive ? (
+                    <BiToggleRight className="text-2xl text-emerald-600 animate-fade-in" />
+                  ) : (
+                    <BiToggleLeft className="text-2xl text-slate-400 animate-fade-in" />
+                  )}
+                </button>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 mt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNewBrandName('')
+                    setNewBrandDesc('')
+                    setNewBrandImage(null)
+                    setNewBrandImagePreview('')
+                    setNewBrandIsActive(true)
+                    setIsBrandModalOpen(false)
+                  }}
+                  className="px-4 py-2 border border-slate-200 text-slate-650 rounded-xl text-xs font-bold hover:bg-slate-50 transition cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={creatingBrand}
+                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition disabled:opacity-50 flex items-center gap-1.5 shadow-sm shadow-emerald-600/10 cursor-pointer"
+                >
+                  {creatingBrand ? (
+                    <>
+                      <BiLoaderAlt className="animate-spin text-sm" />
+                      Creating...
+                    </>
+                  ) : (
+                    'Create Brand'
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

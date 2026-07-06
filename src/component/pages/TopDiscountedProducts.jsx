@@ -18,11 +18,10 @@ const TopDiscountedProducts = () => {
       try {
         const res = await axios.get('/api/product')
         const activeProducts = res.data.filter(p => p.is_active !== false)
-        // Filter products with discount_price > 0 and sort by discount amount descending
         const discountProducts = activeProducts
           .filter(p => p.discount_price && parseFloat(p.discount_price) > 0)
           .sort((a, b) => parseFloat(b.discount_price) - parseFloat(a.discount_price))
-        setProducts(discountProducts.slice(0, 4))
+        setProducts(discountProducts.slice(0, 8))
       } catch (err) {
         console.error('Failed to load discounted products:', err)
       } finally {
@@ -43,18 +42,15 @@ const TopDiscountedProducts = () => {
   if (products.length === 0) return null
 
   return (
-    <div className="w-full py-16 px-4 md:px-8 bg-slate-50 border-b border-slate-100">
+    <div className="w-full max-w-7xl mx-auto py-16 px-4 md:px-8 ">
       <div className="w-full flex flex-col gap-8">
         
         {/* Header */}
         <div className="flex justify-between items-end">
           <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-black uppercase tracking-widest text-red-500">
+            <span className="text-2xl md:text-3xl font-black uppercase tracking-widest text-red-500">
               Special Offers
             </span>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-              Top Discounted Products
-            </h2>
           </div>
           <Link 
             href="/offers" 

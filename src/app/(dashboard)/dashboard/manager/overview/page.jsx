@@ -14,7 +14,8 @@ import {
   BiShieldQuarter,
   BiPlusCircle,
   BiTrendingUp,
-  BiStore
+  BiStore,
+  BiUser
 } from 'react-icons/bi'
 
 export default function ManagerOverviewPage() {

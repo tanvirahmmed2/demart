@@ -22,7 +22,7 @@ const TopSales = () => {
         const sortedProducts = activeProducts.sort(
           (a, b) => (parseInt(b.total_stock || b.stock, 10) - parseInt(a.total_stock || a.stock, 10))
         )
-        setProducts(sortedProducts.slice(0, 4))
+        setProducts(sortedProducts.slice(0, 8))
       } catch (err) {
         console.error('Failed to load top sales products:', err)
       } finally {
@@ -43,18 +43,15 @@ const TopSales = () => {
   if (products.length === 0) return null
 
   return (
-    <div className="w-full py-16 px-4 md:px-8 bg-white border-b border-slate-100">
+    <div className="w-full py-16 px-4 md:px-8 bg-white max-w-7xl mx-auto border-b border-slate-100">
       <div className="w-full flex flex-col gap-8">
         
         {/* Header */}
         <div className="flex justify-between items-end">
           <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-black uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>
-              Bestsellers
+            <span className="text-2xl md:text-3xl font-black uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>
+              Bestsells
             </span>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-              Popular Items In High Demand
-            </h2>
           </div>
           <Link 
             href="/products" 

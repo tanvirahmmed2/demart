@@ -14,6 +14,7 @@ import {
   BiSolidTruck, 
   BiRevision 
 } from 'react-icons/bi'
+import Image from 'next/image'
 
 export default function ProductDetailPage() {
   const params = useParams()
@@ -151,11 +152,11 @@ export default function ProductDetailPage() {
           
           {/* Image Gallery Column */}
           <div className="md:col-span-6 flex flex-col gap-4">
-            <div className="aspect-square w-full rounded-2xl overflow-hidden bg-slate-50 border border-slate-100 flex items-center justify-center shadow-sm">
-              <img
+            <div className="aspect-square w-full rounded-2xl overflow-hidden  flex items-center justify-center ">
+              <Image width={1000} height={1000}
                 src={displayImage}
                 alt={product.name}
-                className="object-cover w-full h-full transition duration-300 ease-in-out"
+                className="object-contain w-full h-full transition duration-300 ease-in-out"
               />
             </div>
 
@@ -179,7 +180,7 @@ export default function ProductDetailPage() {
                       }`}
                       style={isCurrent ? { borderColor: themeColor } : {}}
                     >
-                      <img src={item.url} alt="product thumbnail" className="object-cover w-full h-full" />
+                      <Image width={100} height={100} src={item.url} alt="product thumbnail" className="object-cover w-full h-full" />
                     </button>
                   );
                 })}
@@ -229,7 +230,7 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Variants Selector */}
-            {product.variants && product.variants.length > 0 && (
+            {product.variants && product.variants.filter(v => v.is_active !== false).length > 1 && (
               <div className="flex flex-col gap-2.5">
                 <span className="text-xs font-bold text-slate-550">Select Options</span>
                 <div className="flex flex-wrap gap-2">

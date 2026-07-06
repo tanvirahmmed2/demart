@@ -2,7 +2,6 @@ import Brands from '@/component/pages/Brands'
 import Categories from '@/component/pages/Categories'
 import Contact from '@/component/pages/Contact'
 import Hero from '@/component/pages/Hero'
-import LatetsProducts from '@/component/pages/LatetsProducts'
 import Reviews from '@/component/pages/Reviews'
 import StoreLocation from '@/component/pages/StoreLocation'
 import TopDiscountedProducts from '@/component/pages/TopDiscountedProducts'
@@ -11,15 +10,14 @@ import React from 'react'
 
 const Homepage = () => {
   return (
-    <div>
+    <div className=''>
       
       <Hero/>
-      <TopSales/>
-      <TopDiscountedProducts/>
-      <LatetsProducts/>
-      <Reviews/>
       <Categories/>
+      <TopSales/>
       <Brands/>
+      <TopDiscountedProducts/>
+      <Reviews/>
       <Contact/>
       <StoreLocation/>
     </div>

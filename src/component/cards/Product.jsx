@@ -44,9 +44,12 @@ export default function ProductCard({ product }) {
       try {
         const res = await axios.get(`/api/product/${slug}`)
         const fetchedVariants = res.data.variants || []
-        setVariants(fetchedVariants)
-        if (fetchedVariants.length > 0) {
+        const activeVariants = fetchedVariants.filter(v => v.is_active !== false)
+        setVariants(activeVariants)
+        if (activeVariants.length > 1) {
           setShowVariants(true)
+        } else if (activeVariants.length === 1) {
+          addToCart(product, activeVariants[0], 1)
         } else {
           addToCart(product)
         }
@@ -57,8 +60,10 @@ export default function ProductCard({ product }) {
       } finally {
         setLoadingVariants(false)
       }
-    } else if (variants.length > 0) {
+    } else if (variants.length > 1) {
       setShowVariants(true)
+    } else if (variants.length === 1) {
+      addToCart(product, variants[0], 1)
     } else {
       addToCart(product)
     }
