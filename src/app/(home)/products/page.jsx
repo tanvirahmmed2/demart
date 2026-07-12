@@ -118,7 +118,7 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <div className="w-full min-h-[80vh] flex flex-col items-center justify-center gap-3 bg-slate-50">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center gap-3 bg-slate-50">
         <BiLoaderAlt className="text-4xl text-emerald-600 animate-spin" />
         <span className="text-sm font-semibold text-slate-500">Loading products catalog...</span>
       </div>
@@ -126,17 +126,15 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 py-12 px-4 md:px-8 relative overflow-hidden">
+    <div className="w-full min-h-screen bg-slate-50 p-4 md:px-8 relative overflow-hidden">
       
-      {/* Visual Ambient Glows */}
       <div 
         className="absolute top-[-10%] left-[-10%] w-[35%] h-[35%] rounded-full blur-[100px] opacity-10 pointer-events-none"
         style={{ backgroundColor: themeColor }}
       />
 
-      <div className="w-full mx-auto flex flex-col gap-8 relative z-10">
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 relative z-10">
         
-        {/* Breadcrumb Trail */}
         <div className="flex items-center flex-wrap gap-1.5 text-xs font-semibold text-slate-400">
           <Link href="/" className="hover:text-slate-600 transition">Home</Link>
           <BiChevronRight />
@@ -162,36 +160,16 @@ export default function ProductsPage() {
           )}
         </div>
 
-        {/* Hero Section */}
-        <div 
-          className="relative rounded-3xl p-8 md:p-10 shadow-sm border border-slate-100 flex flex-col gap-2 min-h-[120px] justify-center"
-          style={{
-            background: `linear-gradient(135deg, ${themeColor}1a, ${themeColor}05)`,
-            borderLeft: `5px solid ${themeColor}`
-          }}
-        >
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-            {activeParentCat?.category || activeSubCat?.name || 'All Products Catalog'}
-          </h1>
-          <p className="text-slate-500 text-xs max-w-xl">
-            Explore our curated collections of high-quality premium products at unmatched value prices.
-          </p>
-        </div>
-
-        {/* Filters and Product Catalog Container */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
-          {/* Sidebar Filters */}
           <div className="flex flex-col gap-6 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm self-start lg:sticky lg:top-24">
             
-            {/* Header */}
             <h3 className="font-bold text-slate-800 text-sm flex items-center gap-2 border-b border-slate-100 pb-3">
               <BiFilterAlt className="text-emerald-600 text-base" /> Filters
             </h3>
 
 
 
-            {/* Price Range */}
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-slate-500">Price Range</label>
               <div className="flex items-center gap-2">
@@ -219,7 +197,6 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* Sort Order */}
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-slate-500">Sort By</label>
               <div className="relative">
@@ -237,7 +214,6 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* In Stock Only Checkbox */}
             <div className="flex items-center gap-2.5 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
               <input
                 type="checkbox"
@@ -251,7 +227,6 @@ export default function ProductsPage() {
               </label>
             </div>
 
-            {/* Category Filter Dropdown */}
             <div className="flex flex-col gap-2 border-t border-slate-100 pt-4">
               <label className="text-xs font-bold text-slate-500">Category</label>
               <div className="relative">
@@ -276,7 +251,6 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* Clear All Filters */}
             {(minPrice || maxPrice || inStockOnly || selectedCategoryId) && (
               <button
                 onClick={() => {
@@ -293,10 +267,8 @@ export default function ProductsPage() {
 
           </div>
 
-          {/* Products Grid & Pagination */}
           <div className="lg:col-span-3 flex flex-col gap-6">
             
-            {/* Header info */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <span className="text-xs font-bold text-slate-500">
                 Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'Product' : 'Products'}
@@ -323,7 +295,6 @@ export default function ProductsPage() {
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
                 {totalPages > 1 && (
                   <div className="flex items-center justify-center gap-1.5 mt-8 border-t border-slate-100 pt-6">
                     <button

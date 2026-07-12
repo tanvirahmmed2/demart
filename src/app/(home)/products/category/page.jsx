@@ -75,7 +75,6 @@ export default function ProductsCategoryPage() {
                   </div>
                 </div>
 
-                {/* Subcategories & Actions */}
                 <div className="p-6 flex flex-col flex-1 gap-6">
                   {c.subcategory && c.subcategory.length > 0 ? (
                     <div className="flex flex-wrap gap-2">

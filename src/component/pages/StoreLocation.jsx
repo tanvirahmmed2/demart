@@ -12,10 +12,9 @@ const StoreLocation = () => {
   const storeEmail = website?.email || 'support@vanguard.com'
 
   return (
-    <div className="w-full py-16 px-4 md:px-8 bg-white border-b border-slate-100 animate-fade-in">
+    <div className="w-full py-16 px-4 animate-fade-in">
       <div className="w-full flex flex-col lg:flex-row gap-10 items-stretch">
 
-        {/* Info Card */}
         <div className="flex-1 flex flex-col gap-6 justify-center">
           <div className="flex flex-col gap-1.5">
             <span className="text-xs font-black uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>

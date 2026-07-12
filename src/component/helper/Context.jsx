@@ -1,6 +1,7 @@
 'use client'
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { usePathname } from "next/navigation";
 
 
 import toast from 'react-hot-toast'
@@ -8,6 +9,7 @@ import toast from 'react-hot-toast'
 export const Context = createContext()
 
 const ContextProvider = ({ children }) => {
+    const pathname = usePathname()
 
     const [categories, setCategories] = useState([])
     const [user, setUser] = useState(null)
@@ -176,6 +178,25 @@ const ContextProvider = ({ children }) => {
         fetchWebsite();
         fetchCategories();
     }, []);
+
+    useEffect(() => {
+        if (website?.name) {
+            const segments = pathname.split('/').filter(Boolean)
+            let pageTitle = ''
+
+            if (segments.length === 0) {
+                pageTitle = website.name
+            } else {
+                const lastSegment = segments[segments.length - 1]
+                const formatted = lastSegment
+                    .replace(/-/g, ' ')
+                    .replace(/\b\w/g, (char) => char.toUpperCase())
+                pageTitle = `${formatted} | ${website.name}`
+            }
+
+            document.title = pageTitle
+        }
+    }, [pathname, website])
 
     const logout = async () => {
         try {

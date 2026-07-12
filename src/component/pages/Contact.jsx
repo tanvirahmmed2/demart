@@ -48,7 +48,7 @@ const Contact = () => {
   }
 
   return (
-    <div className="w-full py-16 px-4 md:px-8 bg-slate-50 border-b border-slate-100">
+    <div className="w-full py-16 px-4">
       <div className="w-full mx-auto flex flex-col md:flex-row gap-12 bg-white rounded-3xl p-6 md:p-10 border border-slate-100 shadow-sm animate-fade-in">
 
         {/* Left Column Description */}

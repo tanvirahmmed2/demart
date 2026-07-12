@@ -23,8 +23,8 @@ const Menubar = () => {
     }
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden bg-slate-950/90 backdrop-blur-xl py-2 px-5 rounded-full flex flex-row items-center justify-center gap-4 shadow-[0_15px_30px_-5px_rgba(0,0,0,0.6)] border border-white/10">
-            {/* Home */}
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden bg-slate-950/90 backdrop-blur-xl p-2 rounded-full flex flex-row items-center justify-between gap-4 shadow-[0_15px_30px_-5px_rgba(0,0,0,0.6)] w-auto min-w-96 border border-white/10">
+            
             <Link href="/" className={getLinkClass(pathname === '/')} title="Home">
                 <BiHome className="text-2xl" />
                 {pathname === '/' && (

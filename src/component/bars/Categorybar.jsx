@@ -10,8 +10,9 @@ const Categorybar = () => {
     if (!categories || categories.length === 0) return null
 
     return (
-        <div className='w-full bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm h-14 hidden md:flex flex-row items-center justify-around gap-2 relative z-40'>
-            <div className='w-auto flex flex-row items-center justify-center gap-2 h-full'>
+        <div className='w-full  bg-white backdrop-blur-md border-b border-slate-100 shadow-sm h-14 hidden md:block  relative z-40'>
+            <div className='w-full max-w-7xl mx-auto px-4 flex flex-row items-center justify-between h-14'>
+              <div className='w-auto flex flex-row items-center justify-center gap-2 h-full'>
                 {
                     categories.map((c) => (
                         <div key={c.id} className='relative px-4 h-full group flex items-center'>
@@ -46,7 +47,9 @@ const Categorybar = () => {
                 className="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer"
             >
                 Filter Products
-            </Link>
+            </Link>  
+            </div>
+            
         </div>
     )
 }

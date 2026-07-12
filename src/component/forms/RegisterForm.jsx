@@ -61,10 +61,7 @@ const RegisterForm = () => {
 
     return (
         <div className='w-full flex flex-col items-center justify-center min-h-screen p-4 py-8 relative overflow-hidden'>
-            {/* Ambient Background Glows */}
-            <div className="absolute top-[-10%] left-[-10%] w-[45%] h-[45%] rounded-full blur-[120px] opacity-10 pointer-events-none bg-emerald-500" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] rounded-full blur-[120px] opacity-10 pointer-events-none bg-emerald-500" />
-
+           
             <form onSubmit={handleSubmit} className='w-full max-w-md flex flex-col gap-4 shadow-xl shadow-slate-100/40 border border-slate-100 p-8 md:p-10 rounded-3xl bg-white relative z-10 animate-fade-in'>
                 <div className='flex flex-col items-center text-center mb-2'>
                     <div className='p-3 bg-emerald-50 rounded-2xl text-emerald-600 mb-3 shadow-sm'>

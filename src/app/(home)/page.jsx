@@ -10,7 +10,7 @@ import React from 'react'
 
 const Homepage = () => {
   return (
-    <div className="w-full overflow-x-hidden ">
+    <div className="w-full overflow-x-hidden max-w-7xl mx-auto">
       
       <Hero/>
       <Categories/>

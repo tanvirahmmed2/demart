@@ -45,8 +45,8 @@ function SearchResultsContent() {
     }, [queryStr])
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8 md:py-16 min-h-[60vh]">
-            <div className="mb-8 border-b border-slate-100 pb-5">
+        <div className="max-w-7xl mx-auto p-4 min-h-screen">
+            <div className="mb-8 border-b border-slate-100 ">
                 <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                     <BiSearch style={{ color: themeColor }} />
                     Search Results

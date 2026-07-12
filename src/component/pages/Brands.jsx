@@ -36,11 +36,10 @@ const Brands = () => {
 
   if (brands.length === 0) return null
 
-  // Duplicate items for infinite marquee loop
   const marqueeItems = [...brands, ...brands, ...brands]
 
   return (
-    <div className="w-full py-12 bg-white border-b border-slate-100 overflow-hidden relative">
+    <div className="w-full py-12 px-4 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-brands {
@@ -57,33 +56,28 @@ const Brands = () => {
         }
       `}} />
 
-      <div className="w-full px-4 md:px-8 mb-6">
-        <span className="text-xs font-black uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>
-          Partners
-        </span>
-        <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mt-1">
+      <div className="w-full mb-6">
+
+        <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight mt-1">
           Authorized Brands
         </h2>
       </div>
 
-      {/* Marquee Ticker */}
-      <div className="w-full overflow-hidden relative py-4 bg-slate-50 border-y border-slate-200/60">
+      <div className="w-full overflow-hidden relative py-4 ">
         <div className="marquee-inner-brands flex gap-8 px-4 items-center">
           {marqueeItems.map((brand, idx) => (
             <div
               key={`${brand.brand_id}-${idx}`}
-              className="flex  items-center aspect-5/6 flex-col gap-3.5 bg-white border border-slate-100 hover:border-slate-300 rounded-2xl p-2 max-w-50  justify-start transition-all hover:scale-[1.02] hover:shadow-md select-none shrink-0 cursor-pointer"
+              className="w-auto flex flex-row items-center justify-center gap-4 p-2 px-6 bg-white rounded-lg"
             >
-              <div className="w-full overflow-hidden bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center shrink-0 p-1">
-                <Image width={500} height={500}
-                  src={brand.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100'}
-                  alt={brand.name}
-                  className="w-full h-full scale-110 object-cover aspect-square"
-                />
-              </div>
-              <div className="flex flex-col min-w-0">
-                <span className="text-xs font-black text-slate-800 truncate">{brand.name}</span>
-              </div>
+
+              <span className="text-sm font-bold text-slate-800 truncate">{brand.name}</span>
+              <Image width={500} height={500}
+                src={brand.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100'}
+                alt={brand.name}
+                className="w-10 h-10 scale-110 object-cover aspect-square rounded-full"
+              />
+
             </div>
           ))}
         </div>

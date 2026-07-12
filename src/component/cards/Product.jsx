@@ -5,6 +5,7 @@ import { BiCart, BiShow, BiLoaderAlt } from 'react-icons/bi'
 import { Context } from '../helper/Context'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
 
 export default function ProductCard({ product }) {
   if (!product) return null
@@ -80,13 +81,12 @@ export default function ProductCard({ product }) {
           </div>
         )}
 
-        <img
-          src={image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=60'}
+        <Image width={500} height={500}
+          src={image}
           alt={name}
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
         />
 
-        {/* Hover Quick Action Overlay */}
         <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2.5 z-10">
           <Link
             href={`/products/${slug}`}
@@ -98,17 +98,8 @@ export default function ProductCard({ product }) {
         </div>
       </div>
 
-      {/* Info Content Section */}
       <div className="p-3 sm:p-4 flex flex-col flex-1 gap-1.5">
-        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-          <span>{category_name || 'General'}</span>
-          {brand_name && (
-            <>
-              <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-              <span>{brand_name}</span>
-            </>
-          )}
-        </div>
+        
 
         <Link href={`/products/${slug}`} className="block">
           <h3 className="text-sm font-bold text-slate-850 hover:text-emerald-605 transition line-clamp-1">
@@ -116,7 +107,6 @@ export default function ProductCard({ product }) {
           </h3>
         </Link>
 
-        {/* Pricing & Add to Cart button */}
         <div className="mt-auto pt-2.5 flex items-center justify-between gap-1.5 sm:gap-2 border-t border-slate-50">
           <div className="flex flex-col">
             {hasDiscount ? (

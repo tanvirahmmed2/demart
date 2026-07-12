@@ -73,7 +73,7 @@ export default function AboutPage() {
 
   return (
     <div className="w-full min-h-screen bg-slate-50 flex flex-col items-center">
-      {/* 1. Hero Section */}
+      
       <section className="w-full bg-slate-900 text-white py-24 px-8 text-center flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-radial-gradient from-white to-transparent pointer-events-none"></div>
         <span className="text-xs uppercase tracking-widest bg-red-600 text-white font-bold px-4 py-1 rounded-full mb-4 shadow-sm">
@@ -87,8 +87,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* 2. Stats Grid */}
-      <section className="w-full max-w-6xl -mt-12 px-8 z-10">
+      <section className="w-full max-w-7xl -mt-12 px-8 z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white p-6 rounded-2xl shadow-md border border-slate-100">
           {stats.map(stat => (
             <div key={stat.id} className="flex flex-col items-center text-center p-4 border-r last:border-r-0 border-slate-100 last:border-none">
@@ -100,8 +99,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Detailed Story & History */}
-      <section className="w-full max-w-4xl px-8 py-16 flex flex-col gap-8">
+      <section className="w-full max-w-7xl px-8 py-16 flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <h2 className="text-3xl font-bold text-slate-800">Our Decade-Long Journey</h2>
           <p className="text-slate-600 leading-relaxed text-base">
@@ -191,7 +189,7 @@ export default function AboutPage() {
       </section>
 
       {/* 6. Call to Action */}
-      <section className="w-full max-w-4xl px-8 py-16 text-center">
+      <section className="w-full max-w-7xl px-8 py-16 text-center">
         <div className="bg-slate-950 text-white rounded-3xl p-8 md:p-12 flex flex-col items-center gap-6 shadow-lg">
           <h2 className="text-2xl md:text-4xl font-bold">Ready to Experience Ecom?</h2>
           <p className="text-slate-300 text-sm md:text-base max-w-md">

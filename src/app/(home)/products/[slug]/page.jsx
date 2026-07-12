@@ -127,17 +127,15 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 py-12 px-4 md:px-8 relative overflow-hidden">
+    <div className="w-full min-h-screen bg-slate-50 p-4 md:px-8 relative overflow-hidden">
       
-      {/* Ambient Glows */}
       <div 
         className="absolute top-[-10%] right-[-10%] w-[35%] h-[35%] rounded-full blur-[100px] opacity-10 pointer-events-none"
         style={{ backgroundColor: themeColor }}
       />
 
-      <div className="max-w-5xl mx-auto flex flex-col gap-8 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8 relative z-10">
         
-        {/* Navigation Breadcrumb */}
         <div className="flex items-center gap-2">
           <Link 
             href="/products" 
@@ -147,10 +145,8 @@ export default function ProductDetailPage() {
           </Link>
         </div>
 
-        {/* Detail Container Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm">
           
-          {/* Image Gallery Column */}
           <div className="md:col-span-6 flex flex-col gap-4">
             <div className="aspect-square w-full rounded-2xl overflow-hidden  flex items-center justify-center ">
               <Image width={1000} height={1000}
@@ -160,7 +156,6 @@ export default function ProductDetailPage() {
               />
             </div>
 
-            {/* Unique Thumbnail Row */}
             {uniqueThumbnails.length > 1 && (
               <div className="flex flex-wrap gap-2 py-1">
                 {uniqueThumbnails.map((item, index) => {
@@ -188,10 +183,8 @@ export default function ProductDetailPage() {
             )}
           </div>
 
-          {/* Details & Config Column */}
           <div className="md:col-span-6 flex flex-col gap-6">
             
-            {/* Title / Badges */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-full">

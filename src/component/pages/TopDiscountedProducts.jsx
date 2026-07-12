@@ -42,13 +42,12 @@ const TopDiscountedProducts = () => {
   if (products.length === 0) return null
 
   return (
-    <div className="w-full max-w-7xl mx-auto py-16 px-4 md:px-8 ">
+    <div className="w-full  py-16 px-4 ">
       <div className="w-full flex flex-col gap-8">
         
-        {/* Header */}
         <div className="flex justify-between items-end">
           <div className="flex flex-col gap-1.5">
-            <span className="text-2xl md:text-3xl font-black uppercase tracking-widest text-red-500">
+            <span className="text-2xl md:text-3xl font-semibold uppercase tracking-widest text-red-500">
               Special Offers
             </span>
           </div>
