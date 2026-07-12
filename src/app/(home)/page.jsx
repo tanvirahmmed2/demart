@@ -13,10 +13,10 @@ const Homepage = () => {
     <div className="w-full overflow-x-hidden max-w-7xl mx-auto">
       
       <Hero/>
-      <Categories/>
       <TopSales/>
-      <Brands/>
+      <Categories/>
       <TopDiscountedProducts/>
+      <Brands/>
       <Reviews/>
       <Contact/>
       <StoreLocation/>
