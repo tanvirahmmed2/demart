@@ -171,23 +171,7 @@ export default function OffersPage() {
           )}
         </div>
 
-        {/* Hero Section */}
-        <div 
-          className="relative rounded-3xl p-8 md:p-10 shadow-sm border border-slate-100 flex flex-col gap-2 min-h-[120px] justify-center"
-          style={{
-            background: `linear-gradient(135deg, ${themeColor}1a, ${themeColor}05)`,
-            borderLeft: `5px solid ${themeColor}`
-          }}
-        >
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-            {activeParentCat?.category || activeSubCat?.name || 'Exclusive Special Offers'}
-          </h1>
-          <p className="text-slate-500 text-xs max-w-xl">
-            Grab items from our collection featuring active markdowns, discounts, and value bundle deals.
-          </p>
-        </div>
-
-        {/* Filters and Product Catalog Container */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* Sidebar Filters */}
