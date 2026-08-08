@@ -92,7 +92,7 @@ const Navbar = () => {
     }, [lastScroll])
 
     return (
-        <nav className={` w-full h-14 bg-slate-900  transition-transform duration-300 ${showNavbar ? 'block' : 'hidden'}  text-white`}  >
+        <nav className={` w-full h-14 bg-primary  transition-transform duration-300 ${showNavbar ? 'block' : 'hidden'}  text-white`}  >
 
             <div className='w-full max-w-7xl mx-auto flex flex-row items-center justify-between h-14 px-4'>
                 <Link href={'/'} className='flex items-center gap-2 text-xl font-bold hover:opacity-90 transition'>

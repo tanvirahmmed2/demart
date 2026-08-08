@@ -10,21 +10,21 @@ const Categorybar = () => {
     if (!categories || categories.length === 0) return null
 
     return (
-        <div className='w-full  bg-white backdrop-blur-md border-b border-slate-100 shadow-sm h-14 hidden md:block  relative z-40'>
+        <div className='w-full  bg-primary-light backdrop-blur-md text-tertiary-light shadow-sm h-14 hidden md:block  relative z-40'>
             <div className='w-full max-w-7xl mx-auto px-4 flex flex-row items-center justify-between h-14'>
               <div className='w-auto flex flex-row items-center justify-center gap-2 h-full'>
                 {
                     categories.map((c) => (
-                        <div key={c.id} className='relative px-4 h-full group flex items-center'>
+                        <div key={c.id} className='relative px-4 h-full group flex items-center bg-primary-light'>
                             <Link 
                                 href={`/products/category/${c.slug}`}
-                                className='text-sm font-semibold text-slate-700 hover:text-emerald-600 transition-colors duration-200 h-full flex items-center cursor-pointer border-b-2 border-transparent group-hover:border-emerald-500'
+                                className='text-sm font-semibold   transition-colors duration-200 h-full flex items-center cursor-pointer border-b-2 border-transparent group-hover:border-emerald-500'
                             >
                                 {c.category}
                             </Link>
                             {
                                 c.subcategory && c.subcategory.length > 0 && (
-                                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-white border border-slate-100 rounded-xl shadow-xl p-2 flex flex-col gap-0.5 opacity-0 invisible scale-95 group-hover:opacity-100 group-hover:visible group-hover:scale-100 transition-all duration-200 z-50">
+                                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-primary-light border border-slate-100 shadow-xl p-2 flex flex-col gap-0.5 opacity-0 invisible scale-95 group-hover:opacity-100 group-hover:visible group-hover:scale-100 transition-all duration-200 z-50">
                                         {c.subcategory.map((sc) => (
                                             <Link 
                                                 href={`/products/category/${sc.slug}`} 
