@@ -53,7 +53,7 @@ const Footer = () => {
           <Link href={'/offers'} className="hover:text-white transition">Offers</Link>
           <Link href={'/track-order'} className="hover:text-white transition">Track Order</Link>
           <Link href={'/products/category'} className="hover:text-white transition">Category</Link>
-          <Link href={'/'} className="hover:text-white transition">Reviews</Link>
+          <Link href={'/reviews'} className="hover:text-white transition">Reviews</Link>
         </div>
 
         <div className='flex flex-col gap-2 text-sm'>

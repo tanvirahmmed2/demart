@@ -29,7 +29,6 @@ export default function ReviewsPage() {
     fetchReviews()
   }, [])
 
-  // Calculate average rating
   const reviewCount = reviews.length
   const averageRating = reviewCount > 0
     ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount).toFixed(1)
@@ -53,12 +52,11 @@ export default function ReviewsPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 pt-24 pb-16 px-4 md:px-8">
-      <div className="max-w-6xl mx-auto flex flex-col gap-8">
+    <div className="w-full min-h-screen bg-slate-50 pt-24 pb-16 p-4 md:p-20">
+      <div className="w-full flex flex-col gap-8">
         
-        {/* Banner Block */}
         <div className="text-center flex flex-col items-center gap-2 max-w-2xl mx-auto">
-          <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-secondary tracking-tight sm:text-4xl">
             Customer Testimonials
           </h1>
           <p className="text-slate-500 text-sm leading-relaxed mt-1.5">

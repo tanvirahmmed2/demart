@@ -5,10 +5,9 @@ import { BiShieldQuarter, BiLockAlt, BiUserCheck, BiCookie, BiEnvelope } from 'r
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="w-full min-h-screen bg-slate-50 pt-28 pb-16 px-4 md:px-8">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-sm border border-slate-100 p-8 md:p-12 flex flex-col gap-8">
+    <div className="w-full min-h-screen  pt-28 pb-16 p-4 md:p-20">
+      <div className="w-full flex flex-col gap-8">
         
-        {/* Header Section */}
         <div className="border-b border-slate-100 pb-6 text-center md:text-left">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-900 text-white text-xl mb-4">
             <BiShieldQuarter />
@@ -17,12 +16,10 @@ export default function PrivacyPolicyPage() {
           <p className="text-slate-500 text-sm mt-2">Last Updated: June 24, 2026</p>
         </div>
 
-        {/* Intro */}
         <p className="text-slate-600 text-sm leading-relaxed">
           Welcome to our E-Commerce platform. We are committed to protecting your privacy and ensuring your personal information is handled safely and responsibly. This Privacy Policy details how we collect, use, and protect your data when you visit our store or make a purchase.
         </p>
 
-        {/* Policy Sections */}
         <div className="flex flex-col gap-8">
           
           {/* Section 1 */}

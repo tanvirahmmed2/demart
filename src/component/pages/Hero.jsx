@@ -59,7 +59,7 @@ const Hero = () => {
             {website?.name || 'Our Store'}
           </h1>
           {website?.tagline && (
-            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-slate-300 font-medium tracking-wide max-w-xl drop-shadow-sm">
+            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-tertiary font-medium tracking-wide max-w-xl drop-shadow-sm">
               {website.tagline}
             </p>
           )}

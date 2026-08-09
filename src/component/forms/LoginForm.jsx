@@ -51,10 +51,8 @@ const LoginForm = () => {
           
             <form onSubmit={handleSubmit} className='w-full max-w-md flex flex-col gap-4 shadow-xl shadow-slate-100/40 border border-slate-100 p-8 md:p-10 rounded-3xl bg-white relative z-10 animate-fade-in'>
                 <div className='flex flex-col items-center text-center mb-4'>
-                    <div className='p-3 bg-emerald-50 rounded-2xl text-emerald-600 mb-3 shadow-sm'>
-                        <FiLock className="w-6 h-6" />
-                    </div>
-                    <h2 className='text-2xl font-black text-slate-800 tracking-tight'>Welcome Back</h2>
+                   
+                    <h2 className='text-2xl  text-secondary font-semibold tracking-tight'>Welcome Back</h2>
                     <p className='text-xs text-slate-500 mt-1 font-semibold'>Access your secure Ecom dashboard</p>
                 </div>
                 
@@ -87,14 +85,14 @@ const LoginForm = () => {
                 </div>
                 
                 <div className='w-full flex flex-row items-center justify-between text-xs font-bold mt-2'>
-                    <Link href={'/register'} className='text-emerald-600 hover:text-emerald-500 hover:underline transition'>Register Account</Link>
+                    <Link href={'/register'} className='text-primary hover:text-primary-light hover:underline transition'>Register Account</Link>
                     <Link href={'/recover-account'} className='text-slate-450 hover:text-slate-600 hover:underline transition'>Recover password?</Link>
                 </div>
                 
                 <button 
                     type='submit' 
                     disabled={submitting}
-                    className={`w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-emerald-600/15 hover:scale-[1.01] active:scale-[0.99] ${submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full mt-4 bg-primary hover:bg-primary-light text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-primary/15 hover:scale-[1.01] active:scale-[0.99] ${submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     {submitting ? 'Authenticating...' : 'Sign In'}
                 </button>

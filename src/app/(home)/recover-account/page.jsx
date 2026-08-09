@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { FiMail, FiLock, FiKey } from 'react-icons/fi'
 
 const RecoverAccountForm = () => {
     const searchParams = useSearchParams()
@@ -75,27 +76,30 @@ const RecoverAccountForm = () => {
     }
 
     return (
-        <div className='w-full max-w-md flex flex-col gap-4 shadow-xl shadow-slate-100/40 border border-slate-100 p-8 md:p-10 rounded-3xl bg-white relative z-10 animate-fade-in'>
-            <h2 className='text-2xl font-black text-slate-800 text-center tracking-tight'>
-                {token ? 'Reset Password' : 'Recover Account'}
-            </h2>
+        <div suppressHydrationWarning className='w-full max-w-md flex flex-col gap-4 shadow-xl shadow-slate-100/40 border border-slate-100 p-8 md:p-10 rounded-2xl bg-white relative z-10 animate-fade-in'>
+            <div className='flex flex-col items-center text-center mb-2'>
+                <h2 className='text-2xl font-black text-secondary tracking-tight'>
+                    {token ? 'Reset Password' : 'Recover Account'}
+                </h2>
+                <p className='text-xs text-slate-500 mt-1 font-semibold'>
+                    {token ? 'Enter and confirm your new password below' : 'Enter your email to receive a password recovery link'}
+                </p>
+            </div>
 
             {status === 'success' && (
                 <div className='p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl text-center text-sm font-medium'>
                     {message}
-                    {token && <div className='mt-2 text-xs text-emerald-600'>Redirecting to login page in 3 seconds...</div>}
+                    {token && <div className='mt-2 text-xs text-emerald-600 font-bold'>Redirecting to login page in 3 seconds...</div>}
                 </div>
             )}
 
             {token ? (
                 /* Stage 2: Password Reset Form */
-                <form onSubmit={handleResetPassword} className='flex flex-col gap-4'>
-                    <p className='text-xs text-slate-550 text-center leading-relaxed font-semibold'>
-                        Enter and confirm your new password below.
-                    </p>
-                    
+                <form onSubmit={handleResetPassword} suppressHydrationWarning className='flex flex-col gap-4'>
                     <div className='w-full flex flex-col gap-1.5'>
-                        <label htmlFor="password" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>New Password</label>
+                        <label htmlFor="password" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
+                            <FiLock className="w-3.5 h-3.5" /> New Password
+                        </label>
                         <input className="input-style" 
                             type="password" 
                             required 
@@ -106,7 +110,9 @@ const RecoverAccountForm = () => {
                     </div>
 
                     <div className='w-full flex flex-col gap-1.5'>
-                        <label htmlFor="confirmPassword" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>Confirm New Password</label>
+                        <label htmlFor="confirmPassword" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
+                            <FiKey className="w-3.5 h-3.5" /> Confirm New Password
+                        </label>
                         <input className="input-style" 
                             type="password" 
                             required 
@@ -119,20 +125,18 @@ const RecoverAccountForm = () => {
                     <button 
                         type='submit' 
                         disabled={submitting || !password || !confirmPassword}
-                        className={`w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-emerald-600/15 hover:scale-[1.01] active:scale-[0.99] ${submitting || !password || !confirmPassword ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`w-full mt-4 bg-primary hover:bg-primary-light text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-primary/15 hover:scale-[1.01] active:scale-[0.99] ${submitting || !password || !confirmPassword ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         {submitting ? 'Resetting...' : 'Reset Password'}
                     </button>
                 </form>
             ) : (
                 /* Stage 1: Request Link Form */
-                <form onSubmit={handleRequestLink} className='flex flex-col gap-4'>
-                    <p className='text-xs text-slate-550 text-center leading-relaxed font-semibold'>
-                        Enter your registered email address and we'll send you a password reset link.
-                    </p>
-                    
+                <form onSubmit={handleRequestLink} suppressHydrationWarning className='flex flex-col gap-4'>
                     <div className='w-full flex flex-col gap-1.5'>
-                        <label htmlFor="email" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>Email Address</label>
+                        <label htmlFor="email" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
+                            <FiMail className="w-3.5 h-3.5" /> Email Address
+                        </label>
                         <input className="input-style" 
                             type="email" 
                             required 
@@ -145,7 +149,7 @@ const RecoverAccountForm = () => {
                     <button 
                         type='submit' 
                         disabled={submitting || !email}
-                        className={`w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-emerald-600/15 hover:scale-[1.01] active:scale-[0.99] ${submitting || !email ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`w-full mt-4 bg-primary hover:bg-primary-light text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-primary/15 hover:scale-[1.01] active:scale-[0.99] ${submitting || !email ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         {submitting ? 'Sending...' : 'Send Recovery Link'}
                     </button>
@@ -153,7 +157,7 @@ const RecoverAccountForm = () => {
             )}
 
             <div className='text-center text-xs mt-3 flex justify-between items-center px-1 font-bold'>
-                <Link href={'/login'} className='text-emerald-600 hover:text-emerald-500 hover:underline transition'>Back to Login</Link>
+                <Link href={'/login'} className='text-primary hover:text-primary-light hover:underline transition'>Back to Login</Link>
                 <Link href={'/register'} className='text-slate-450 hover:text-slate-600 hover:underline transition'>Create account</Link>
             </div>
         </div>
@@ -163,11 +167,7 @@ const RecoverAccountForm = () => {
 const RecoverAccountPage = () => {
   return (
     <div className='w-full min-h-screen flex items-center justify-center bg-slate-50 p-4 relative overflow-hidden'>
-      {/* Ambient Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[45%] h-[45%] rounded-full blur-[120px] opacity-10 pointer-events-none bg-emerald-500" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] rounded-full blur-[120px] opacity-10 pointer-events-none bg-emerald-500" />
-
-      <Suspense fallback={<div className="text-slate-600 font-medium">Loading parameters...</div>}>
+      <Suspense fallback={<div className="text-slate-600 font-medium">Loading recovery form...</div>}>
         <RecoverAccountForm />
       </Suspense>
     </div>
