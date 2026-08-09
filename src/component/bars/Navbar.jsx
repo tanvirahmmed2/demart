@@ -94,7 +94,7 @@ const Navbar = () => {
     return (
         <nav className={` w-full h-14 bg-primary  transition-transform duration-300 ${showNavbar ? 'block' : 'hidden'}  text-white`}  >
 
-            <div className='w-full max-w-7xl mx-auto flex flex-row items-center justify-between h-14 px-4'>
+            <div className='w-full px-4 md:px-20 flex flex-row items-center justify-between h-14 '>
                 <Link href={'/'} className='flex items-center gap-2 text-xl font-bold hover:opacity-90 transition'>
                     {website?.name || 'Ecom'}
                 </Link>
@@ -112,8 +112,7 @@ const Navbar = () => {
                         />
                         <button
                             onClick={handleSearchSubmit}
-                            style={{ backgroundColor: website?.theme_color || '#dc2626' }}
-                            className='w-12 text-white flex items-center justify-center h-10 transition hover:brightness-95 cursor-pointer flex-shrink-0'
+                            className='w-12 text-primary flex items-center justify-center h-10 transition hover:brightness-95 cursor-pointer flex-shrink-0'
                         >
                             <FiSearch />
                         </button>
@@ -172,7 +171,7 @@ const Navbar = () => {
                 <div className='w-auto hidden md:flex flex-row items-center justify-center gap-4 h-14'>
                     <Link href={'/offers'}>Offers</Link>
                     <Link href={'/about'}>About</Link>
-                    <button onClick={() => setCartbar(!cartbar)} className='text-xl text-red-600'><BiCart /></button>
+                    <button onClick={() => setCartbar(!cartbar)} className='text-xl text-secondary'><BiCart /></button>
                     {loading ? (
                         <span className="text-xs text-slate-400">Loading...</span>
                     ) : user ? (

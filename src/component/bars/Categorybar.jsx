@@ -11,7 +11,7 @@ const Categorybar = () => {
 
     return (
         <div className='w-full  bg-primary-light backdrop-blur-md text-tertiary-light shadow-sm h-14 hidden md:block  relative z-40'>
-            <div className='w-full max-w-7xl mx-auto px-4 flex flex-row items-center justify-between h-14'>
+            <div className='w-full px-4 md:px-20 flex flex-row items-center justify-between h-14'>
               <div className='w-auto flex flex-row items-center justify-center gap-2 h-full'>
                 {
                     categories.map((c) => (
@@ -44,7 +44,7 @@ const Categorybar = () => {
 
             <Link 
                 href='/products'
-                className="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer"
+                className="px-4 py-1.5 bg-secondary hover:bg-secondary-dark text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer"
             >
                 Filter Products
             </Link>  

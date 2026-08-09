@@ -46,7 +46,7 @@ const TopDiscountedProducts = () => {
         
         <div className="flex justify-between items-end">
           <div className="flex flex-col gap-1.5">
-            <span className="text-2xl md:text-3xl font-semibold uppercase tracking-widest text-secondary">
+            <span className="text-2xl font-semibold uppercase tracking-widest text-secondary">
               Special Offers
             </span>
           </div>

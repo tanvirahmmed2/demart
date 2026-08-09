@@ -71,7 +71,7 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <div className="group bg-white cursor-pointer rounded-lg border border-slate-100 shadow-sm hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden relative">
+    <div className="group bg-tertiary-light cursor-pointer rounded-lg border border-slate-100 shadow-sm hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden relative">
 
       <div className="relative aspect-square w-full overflow-hidden bg-slate-50 border-b border-slate-100">
         
@@ -85,7 +85,7 @@ export default function ProductCard({ product }) {
         <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2.5 z-10">
           <Link
             href={`/products/${slug}`}
-            className="p-2.5 bg-white/95 backdrop-blur-sm text-tertiary rounded-full hover:bg-emerald-600 hover:text-white transition-all duration-200 transform translate-y-4 group-hover:translate-y-0 shadow-md"
+            className="p-2.5 bg-white/95 backdrop-blur-sm text-secondary rounded-full hover:bg-emerald-600 hover:text-white transition-all duration-200 transform translate-y-4 group-hover:translate-y-0 shadow-md"
             title="View Details"
           >
             <BiShow className="text-lg" />
@@ -117,11 +117,10 @@ export default function ProductCard({ product }) {
           {((total_stock !== undefined ? parseInt(total_stock, 10) : parseInt(stock, 10)) <= 0) ? (
             <button
               disabled
-              className="p-2 bg-slate-100 text-slate-400 rounded-xl cursor-not-allowed border border-slate-150 flex items-center justify-center gap-1"
+              className="p-2  rounded-xl cursor-not-allowed border border-slate-150 flex items-center justify-center gap-1"
               title="Out of Stock"
             >
-              <span className="hidden sm:inline text-[10px] font-semibold px-0.5">Out of Stock</span>
-              <span className="inline sm:hidden text-[9px] font-semibold px-0.5">Stock Out</span>
+              <span className="hidden sm:inline text-[8px] font-semibold px-0.5">Out of Stock</span>
             </button>
           ) : (
             <button

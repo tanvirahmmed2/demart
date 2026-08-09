@@ -32,7 +32,7 @@ const Categories = () => {
 
       <div className="w-full  mb-6">
 
-        <h2 className="text-2xl md:text-3xl font-semibold text-primary tracking-tight mt-1">
+        <h2 className="text-2xl font-semibold text-primary tracking-tight mt-1">
           Browse Categories
         </h2>
       </div>
@@ -42,7 +42,7 @@ const Categories = () => {
           {marqueeItems.map((cat, idx) => (
             <Link
               key={`${cat.id}-${idx}`}
-              href={`/products/category=${cat.slug}`}
+              href={`/products/category/${cat.slug}`}
               className="w-auto flex flex-col items-center justify-center gap-4 shrink-0 bg-white p-4 rounded-lg group cursor-pointer"
             >
               <div className='w-full max-w-36 overflow-hidden aspect-square'>

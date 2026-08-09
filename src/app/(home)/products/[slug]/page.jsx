@@ -54,7 +54,7 @@ export default function ProductDetailPage() {
   if (loading) {
     return (
       <div className="w-full min-h-[80vh] flex flex-col items-center justify-center gap-3 bg-slate-50">
-        <BiLoaderAlt className="text-4xl text-emerald-600 animate-spin" />
+        <BiLoaderAlt className="text-4xl text-primary animate-spin" />
         <span className="text-sm font-semibold text-slate-500">Loading product details...</span>
       </div>
     )
@@ -188,10 +188,10 @@ export default function ProductDetailPage() {
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-full">
-                  {product.category_name || 'General'}
+                  {product.category_name }
                 </span>
                 {product.brand_name && (
-                  <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider rounded-full">
+                  <span className="px-2.5 py-0.5  text-primary-dark text-[10px] font-bold uppercase tracking-wider rounded-full">
                     {product.brand_name}
                   </span>
                 )}
@@ -201,7 +201,6 @@ export default function ProductDetailPage() {
               </h1>
             </div>
 
-            {/* Pricing Section */}
             <div className="p-4 bg-slate-50 rounded-2xl flex flex-col gap-1 border border-slate-100">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Price</span>
               <div className="flex items-baseline gap-2">
@@ -216,7 +215,7 @@ export default function ProductDetailPage() {
               {/* Stock Indicator */}
               <div className="text-xs font-bold text-slate-500 flex items-center gap-1.5 mt-2 border-t border-slate-200/60 pt-2">
                 <span>Availability:</span>
-                <span className={currentStock > 0 ? 'text-emerald-600' : 'text-rose-600'}>
+                <span className={currentStock > 0 ? 'text-primary' : 'text-secondary'}>
                   {currentStock > 0 ? `${currentStock} items left in stock` : 'Out of Stock'}
                 </span>
               </div>
@@ -235,10 +234,10 @@ export default function ProductDetailPage() {
                         onClick={() => setSelectedVariant(v)}
                         className={`px-4 py-2 border rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                           isSelected 
-                            ? 'border-emerald-600 bg-emerald-50 text-emerald-700 shadow-sm'
+                            ? '  text-primary-dark shadow-sm'
                             : 'border-slate-200 bg-white text-slate-655 hover:bg-slate-50 hover:border-slate-350'
                         }`}
-                        style={isSelected ? { borderColor: themeColor, color: themeColor } : {}}
+                        
                       >
                         {v.variant_name}
                       </button>
@@ -273,25 +272,24 @@ export default function ProductDetailPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={currentStock <= 0}
-                className="flex-1 py-4 px-6 bg-slate-900 text-white font-bold text-sm rounded-2xl shadow-lg transition flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-400"
-                style={currentStock > 0 ? { backgroundColor: themeColor } : {}}
+                className="flex-1 py-4 px-6 bg-primary text-tertiary-light font-bold text-sm rounded-2xl shadow-lg transition flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-400"
+                
               >
                 <BiCart className="text-xl" /> {currentStock > 0 ? 'Add to Cart' : 'Out of Stock'}
               </button>
             </div>
 
-            {/* Trust Assurances */}
             <div className="grid grid-cols-3 gap-2.5 pt-2 text-[10px] text-slate-500 text-center font-bold">
               <div className="flex flex-col items-center gap-1 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-                <BiCheckShield className="text-lg text-emerald-600" />
+                <BiCheckShield className="text-lg text-primary" />
                 <span>Secure Checkout</span>
               </div>
               <div className="flex flex-col items-center gap-1 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-                <BiSolidTruck className="text-lg text-emerald-600" />
+                <BiSolidTruck className="text-lg text-primary" />
                 <span>Express Delivery</span>
               </div>
               <div className="flex flex-col items-center gap-1 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-                <BiRevision className="text-lg text-emerald-600" />
+                <BiRevision className="text-lg text-primary" />
                 <span>Easy Returns</span>
               </div>
             </div>
