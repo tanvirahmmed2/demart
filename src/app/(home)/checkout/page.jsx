@@ -16,6 +16,7 @@ import {
   BiCreditCard,
   BiNote
 } from 'react-icons/bi'
+import Image from 'next/image'
 
 export default function CheckoutPage() {
   const { cart, clearCart, user, website } = useContext(Context)
@@ -109,42 +110,42 @@ export default function CheckoutPage() {
   if (orderSuccess) {
     return (
       <div className="w-full min-h-[85vh] bg-slate-50 py-16 px-4 flex items-center justify-center">
-        <div className="w-full max-w-lg bg-white rounded-3xl border border-slate-100 shadow-xl p-8 text-center flex flex-col items-center gap-6">
-          <BiCheckCircle className="text-7xl text-emerald-500 animate-bounce" />
+        <div className="w-full max-w-lg bg-white rounded-2xl border border-slate-100 shadow-xl p-8 text-center flex flex-col items-center gap-6">
+          <BiCheckCircle className="text-7xl text-primary animate-bounce" />
           <div>
-            <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Order Placed Successfully!</h1>
-            <p className="text-slate-500 text-sm mt-1.5">Thank you for your purchase. Your order details are logged below.</p>
+            <h1 className="text-2xl md:text-3xl font-semibold text-secondary tracking-tight">Order Placed Successfully!</h1>
+            <p className="text-slate-500 text-sm mt-1.5 font-medium">Thank you for your purchase. Your order details are logged below.</p>
           </div>
 
-          <div className="w-full bg-slate-50 rounded-2xl p-5 border border-slate-100/80 text-left flex flex-col gap-3 text-xs md:text-sm">
+          <div className="w-full bg-slate-50 rounded-xl p-5 border border-slate-200/80 text-left flex flex-col gap-3 text-xs md:text-sm">
             <div className="flex justify-between items-center border-b border-slate-200/60 pb-2">
-              <span className="font-bold text-slate-500">Order ID:</span>
-              <span className="font-black text-slate-800">#ORD-{orderSuccess.order_id}</span>
+              <span className="font-semibold text-slate-500">Order ID:</span>
+              <span className="font-semibold text-slate-800">#ORD-{orderSuccess.order_id}</span>
             </div>
             <div className="flex justify-between items-center border-b border-slate-200/60 pb-2">
-              <span className="font-bold text-slate-500">Total Paid/Due:</span>
-              <span className="font-black text-slate-900 text-base">৳{parseFloat(orderSuccess.total_amount).toFixed(2)}</span>
+              <span className="font-semibold text-slate-500">Total Paid/Due:</span>
+              <span className="font-semibold text-primary text-base">৳{parseFloat(orderSuccess.total_amount).toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-center border-b border-slate-200/60 pb-2">
-              <span className="font-bold text-slate-500">Payment Type:</span>
-              <span className="font-bold text-emerald-600 uppercase">Cash on Delivery (COD)</span>
+              <span className="font-semibold text-slate-500">Payment Type:</span>
+              <span className="font-semibold text-primary uppercase">Cash on Delivery (COD)</span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="font-bold text-slate-500">Delivery Address:</span>
-              <span className="text-slate-650 text-xs leading-relaxed">{address}, {city}</span>
+              <span className="font-semibold text-slate-500">Delivery Address:</span>
+              <span className="text-slate-700 text-xs leading-relaxed">{address}, {city}</span>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 w-full mt-2">
             <Link 
               href="/products" 
-              className="flex-1 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-sm transition cursor-pointer shadow-md text-center block"
+              className="flex-1 py-3 bg-primary hover:bg-primary-light text-white rounded-xl font-semibold text-sm transition cursor-pointer shadow-md text-center block"
             >
               Continue Shopping
             </Link>
             <Link 
               href="/" 
-              className="flex-1 py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-xl font-bold text-sm transition cursor-pointer text-center block"
+              className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-sm transition cursor-pointer text-center block"
             >
               Go to Homepage
             </Link>
@@ -154,7 +155,6 @@ export default function CheckoutPage() {
     )
   }
 
-  // If cart is empty and no order success yet, redirect/show warning
   if (!cart?.items || cart.items.length === 0) {
     return (
       <div className="w-full min-h-[80vh] flex flex-col items-center justify-center p-8 bg-slate-50 text-center gap-4">
@@ -162,10 +162,10 @@ export default function CheckoutPage() {
           <BiShoppingBag />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Your Cart is Empty</h2>
-          <p className="text-sm text-slate-500 mt-1">Add some items from our collection to check out.</p>
+          <h2 className="text-xl font-semibold text-slate-800">Your Cart is Empty</h2>
+          <p className="text-sm text-slate-500 mt-1 font-medium">Add some items from our collection to check out.</p>
         </div>
-        <Link href="/products" className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-sm font-semibold transition cursor-pointer shadow-sm">
+        <Link href="/products" className="px-6 py-2.5 bg-primary hover:bg-primary-light text-white rounded-xl text-sm font-semibold transition cursor-pointer shadow-md">
           Browse Products
         </Link>
       </div>
@@ -173,36 +173,28 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 py-12 px-4 md:px-8 relative overflow-hidden">
+    <div className="w-full min-h-screen bg-slate-50 py-12 p-4 md:p-20 relative overflow-hidden">
       
-      {/* Glow effect */}
-      <div 
-        className="absolute top-[-10%] right-[-10%] w-[35%] h-[35%] rounded-full blur-[100px] opacity-10 pointer-events-none"
-        style={{ backgroundColor: themeColor }}
-      />
-
-      <div className="max-w-6xl mx-auto flex flex-col gap-6 relative z-10">
+      <div className="w-full flex flex-col gap-6 relative z-10">
         
-        {/* Navigation Breadcrumb */}
         <div>
-          <Link href="/products" className="flex items-center gap-1.5 text-xs font-bold text-slate-550 hover:text-slate-900 transition">
+          <Link href="/products" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition">
             <BiArrowBack className="text-base" /> Back to Catalog
           </Link>
-          <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mt-2">Checkout Order</h1>
+          <h1 className="text-2xl md:text-3xl font-semibold text-secondary tracking-tight mt-2">Checkout Order</h1>
         </div>
 
-        <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <form onSubmit={handlePlaceOrder} suppressHydrationWarning className="w-full flex flex-col lg:flex-row items-start justify-center gap-6">
           
-          {/* Form Side - Shipping Details */}
-          <div className="lg:col-span-7 flex flex-col gap-6 bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm">
-            <h2 className="text-lg font-black text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <BiMap className="text-xl text-emerald-500" style={{ color: themeColor }} /> Shipping Information
+          <div className="w-full flex flex-col gap-6 bg-white border border-slate-100 rounded-2xl p-6 md:p-8 shadow-sm">
+            <h2 className="text-lg font-semibold text-secondary flex items-center gap-2 border-b border-slate-100 pb-3">
+              <BiMap className="text-xl text-primary" /> Shipping Information
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
-                  <BiUser className="text-sm" /> Full Name *
+                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                  <BiUser className="text-sm text-slate-400" /> Full Name *
                 </label>
                 <input className="input-style" 
                   type="text" 
@@ -214,8 +206,8 @@ export default function CheckoutPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
-                  <BiPhone className="text-sm" /> Phone Number *
+                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                  <BiPhone className="text-sm text-slate-400" /> Phone Number *
                 </label>
                 <input className="input-style" 
                   type="tel" 
@@ -228,8 +220,8 @@ export default function CheckoutPage() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
-                <BiEnvelope className="text-sm" /> Email Address (Optional)
+              <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                <BiEnvelope className="text-sm text-slate-400" /> Email Address (Optional)
               </label>
               <input className="input-style" 
                 type="email" 
@@ -240,8 +232,8 @@ export default function CheckoutPage() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
-                <BiMap className="text-sm" /> Delivery Street Address *
+              <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                <BiMap className="text-sm text-slate-400" /> Delivery Street Address *
               </label>
               <textarea 
                 required
@@ -249,17 +241,17 @@ export default function CheckoutPage() {
                 placeholder="Write full address details: House No, Flat, Road, Area..."
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition resize-none"
+                className="input-style outline-none transition resize-none"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600">City / District *</label>
+                <label className="text-xs font-semibold text-slate-600">City / District *</label>
                 <select 
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition cursor-pointer"
                 >
                   <option value="Dhaka">Dhaka</option>
                   <option value="Chittagong">Chittagong</option>
@@ -273,7 +265,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600">Area / Thana</label>
+                <label className="text-xs font-semibold text-slate-600">Area / Thana</label>
                 <input className="input-style" 
                   type="text" 
                   placeholder="e.g. Dhanmondi, Gulshan..."
@@ -284,32 +276,30 @@ export default function CheckoutPage() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
-                <BiNote className="text-sm" /> Order Instructions / Notes (Optional)
+              <label className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                <BiNote className="text-sm text-slate-400" /> Order Instructions / Notes (Optional)
               </label>
               <textarea 
                 rows="2"
                 placeholder="Notes about your delivery, e.g. deliver after 4 PM, call when near..."
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition resize-none"
+                className="input-style outline-none transition resize-none"
               />
             </div>
           </div>
 
-          {/* Cart Details & Pricing Side */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="w-full flex flex-col gap-6">
             
-            {/* Items Summary */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-4">
-              <h2 className="text-base font-black text-slate-800 border-b border-slate-50 pb-2">Order Items Summary</h2>
+            <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+              <h2 className="text-base font-semibold text-secondary border-b border-slate-100 pb-3">Order Items Summary</h2>
               
               <div className="flex flex-col gap-3 max-h-64 overflow-y-auto pr-1">
                 {cart.items.map((item) => {
                   const finalPrice = parseFloat(item.sale_price) - parseFloat(item.discount_price || 0)
                   return (
                     <div key={`${item.product_id}-${item.variant || 'base'}`} className="flex items-center gap-3 py-1 text-xs">
-                      <img 
+                      <Image width={100} height={100} 
                         src={item.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150'} 
                         alt={item.name} 
                         className="w-10 h-10 object-cover rounded-lg border border-slate-100 shrink-0"
@@ -318,16 +308,16 @@ export default function CheckoutPage() {
                         <Link 
                           href={`/products/${item.slug}`} 
                           target="_blank"
-                          className="font-bold text-slate-750 hover:text-emerald-600 transition truncate block"
+                          className="font-semibold text-slate-800 hover:text-primary transition truncate block"
                         >
                           {item.name}
                         </Link>
-                        <div className="flex items-center gap-1.5 text-[10px] text-slate-455">
-                          {item.variant && <span className="font-bold bg-slate-100 px-1 rounded text-slate-500">{item.variant}</span>}
+                        <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                          {item.variant && <span className="font-semibold bg-slate-100 px-1 rounded text-slate-600">{item.variant}</span>}
                           <span>Qty: {item.quantity}</span>
                         </div>
                       </div>
-                      <span className="font-bold text-slate-850 shrink-0">
+                      <span className="font-semibold text-slate-900 shrink-0">
                         ৳{(finalPrice * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -337,17 +327,17 @@ export default function CheckoutPage() {
 
               {/* Pricing Math Details */}
               <div className="border-t border-slate-100 pt-4 flex flex-col gap-2 text-xs md:text-sm">
-                <div className="flex justify-between items-center text-slate-500">
+                <div className="flex justify-between items-center text-slate-500 font-medium">
                   <span>Cart Items Subtotal</span>
-                  <span className="font-bold text-slate-800">৳{subtotal.toFixed(2)}</span>
+                  <span className="font-semibold text-slate-800">৳{subtotal.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between items-center text-slate-500">
+                <div className="flex justify-between items-center text-slate-500 font-medium">
                   <span>Delivery Charge</span>
-                  <span className="font-bold text-slate-800">৳{deliveryCharge.toFixed(2)}</span>
+                  <span className="font-semibold text-slate-800">৳{deliveryCharge.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between items-center text-slate-800 border-t border-slate-100 pt-2 text-sm font-black">
+                <div className="flex justify-between items-center text-slate-800 border-t border-slate-100 pt-3 text-sm font-semibold">
                   <span>Total Amount</span>
-                  <span className="text-base font-black text-slate-900" style={{ color: themeColor }}>
+                  <span className="text-base font-semibold text-primary">
                     ৳{totalAmount.toFixed(2)}
                   </span>
                 </div>
@@ -355,28 +345,29 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method Option */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-4">
-              <h2 className="text-base font-black text-slate-800 flex items-center gap-1.5">
-                <BiCreditCard className="text-lg text-emerald-500" style={{ color: themeColor }} /> Payment Method
+            <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+              <h2 className="text-base font-semibold text-secondary flex items-center gap-1.5">
+                <BiCreditCard className="text-lg text-primary" /> Payment Method
               </h2>
               
-              <div className="border-2 border-emerald-500 bg-emerald-50/20 rounded-2xl p-4 flex items-center gap-3 relative cursor-pointer" style={{ borderColor: themeColor }}>
-                <input className="input-style" 
+              <div className="border-2 border-primary bg-emerald-50/30 rounded-xl p-4 flex items-center gap-3 cursor-pointer">
+                <input 
                   type="radio" 
+                  id="cod"
+                  name="payment"
                   defaultChecked 
-                  style={{ accentColor: themeColor }}
+                  className="w-4 h-4 cursor-pointer accent-emerald-600"
                 />
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold text-slate-850">Cash on Delivery (COD)</span>
-                  <span className="text-[10px] text-slate-500 mt-0.5">Pay in cash when products are delivered to your doorstep.</span>
-                </div>
+                <label htmlFor="cod" className="flex flex-col cursor-pointer select-none">
+                  <span className="text-xs font-semibold text-secondary">Cash on Delivery (COD)</span>
+                  <span className="text-[10px] text-slate-500 mt-0.5 font-medium">Pay in cash when products are delivered to your doorstep.</span>
+                </label>
               </div>
 
               <button 
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 text-white rounded-2xl font-bold text-sm shadow-md transition hover:scale-[1.01] hover:brightness-105 active:scale-100 flex items-center justify-center gap-1.5 cursor-pointer"
-                style={{ backgroundColor: themeColor }}
+                className="w-full py-3.5 bg-primary hover:bg-primary-light text-white rounded-xl font-semibold text-sm shadow-md shadow-primary/15 transition hover:scale-[1.01] active:scale-100 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
