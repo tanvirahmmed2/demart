@@ -8,7 +8,6 @@ export function proxy(request) {
   const isUserPath = path.startsWith('/user');
   const isAuthPath = path === '/login' || path === '/register';
 
-  // 1. Trying to access protected route without token -> Redirect to login
   if ((isDashboardPath || isUserPath) && !token) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
@@ -16,7 +15,6 @@ export function proxy(request) {
     return NextResponse.redirect(url);
   }
 
-  // 2. Trying to access auth route while logged in -> Redirect to homepage
   if (isAuthPath && token) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
