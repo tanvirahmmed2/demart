@@ -7,7 +7,6 @@ import { BiLoaderAlt, BiEnvelope, BiUser, BiEdit, BiMessageDetail } from 'react-
 
 const Contact = () => {
   const { website } = useContext(Context)
-  const themeColor = website?.theme_color || '#10b981'
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -48,68 +47,63 @@ const Contact = () => {
   }
 
   return (
-    <div className="w-full py-16 px-4">
+    <div className="w-full py-16 p-4 md:p-20">
       <div className="w-full mx-auto flex flex-col md:flex-row gap-12 bg-white rounded-3xl p-6 md:p-10 border border-slate-100 shadow-sm animate-fade-in">
 
-        {/* Left Column Description */}
         <div className="flex-1 flex flex-col gap-5 justify-center">
-          <span className="text-xs font-black uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>
+          <span className="text-xs font-black uppercase tracking-widest text-primary " >
             Get In Touch
           </span>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-3xl text-slate-900 tracking-tight leading-tight">
             Have Questions? Write Us A Message
           </h2>
-          <p className="text-slate-500 text-xs leading-relaxed font-medium">
+          <p className="text-tertiary-dark text-xs leading-relaxed font-medium">
             We value your inquiries, concerns, and general feedback. Drop your details into the active channels, and our support team will get back to you shortly.
           </p>
         </div>
 
-        {/* Right Column Form */}
         <form onSubmit={handleSendMessage} className="flex-1 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-slate-500 flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiUser /> Name
             </label>
-            <input
+            <input className="input-style"
               type="text"
               required
               placeholder="e.g. Tanvir Ahmed"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-slate-500 flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiEnvelope /> Email
             </label>
-            <input
+            <input className="input-style"
               type="email"
               required
               placeholder="e.g. tanvir@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-slate-500 flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiEdit /> Subject
             </label>
-            <input
+            <input className="input-style"
               type="text"
               required
               placeholder="e.g. Delivery Inquiry"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-slate-500 flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiMessageDetail /> Message
             </label>
             <textarea
@@ -118,15 +112,15 @@ const Contact = () => {
               placeholder="Write details of your message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition resize-none"
-            />
+              className='input-style'
+              />
           </div>
 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 mt-2 text-white font-bold text-xs rounded-xl shadow-md transition hover:scale-[1.01] hover:brightness-105 active:scale-100 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-            style={{ backgroundColor: themeColor }}
+            className="w-full py-3 mt-2 bg-primary text-white font-bold text-xs rounded-xl shadow-md transition hover:scale-[1.01] hover:brightness-105 active:scale-100 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+            
           >
             {submitting ? (
               <>

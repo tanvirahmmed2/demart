@@ -90,13 +90,12 @@ export default function TrackOrderPage() {
         <form onSubmit={handleTrackOrder} className="w-full max-w-xl mx-auto flex gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm">
           <div className="flex-1 flex items-center gap-2 px-3">
             <BiSearch className="text-slate-400 text-xl" />
-            <input
+            <input className="input-style"
               type="text"
               required
               placeholder="e.g. #ORD-12 or simply 12"
               value={orderIdInput}
               onChange={(e) => setOrderIdInput(e.target.value)}
-              className="w-full bg-transparent border-none text-slate-800 text-sm outline-none placeholder:text-slate-400"
             />
           </div>
           <button

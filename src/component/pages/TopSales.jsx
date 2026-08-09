@@ -43,12 +43,12 @@ const TopSales = () => {
   if (products.length === 0) return null
 
   return (
-    <div className="w-full py-16 px-4">
+    <div className="w-full py-16 p-4 md:p-20">
       <div className="w-full flex flex-col gap-8">
         
         <div className="flex justify-between items-end">
           <div className="flex flex-col gap-1.5">
-            <span className="text-2xl md:text-3xl font-semibold uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>
+            <span className="text-2xl md:text-3xl font-semibold uppercase tracking-widest text-secondary" >
               Bestsells
             </span>
           </div>
@@ -60,8 +60,7 @@ const TopSales = () => {
           </Link>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
           {products.map((p) => (
             <ProductCard key={p.product_id} product={p} />
           ))}

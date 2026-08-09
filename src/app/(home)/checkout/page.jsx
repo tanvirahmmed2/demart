@@ -204,13 +204,12 @@ export default function CheckoutPage() {
                 <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
                   <BiUser className="text-sm" /> Full Name *
                 </label>
-                <input 
+                <input className="input-style" 
                   type="text" 
                   required
                   placeholder="e.g. Tanvir Ahmed"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -218,13 +217,12 @@ export default function CheckoutPage() {
                 <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
                   <BiPhone className="text-sm" /> Phone Number *
                 </label>
-                <input 
+                <input className="input-style" 
                   type="tel" 
                   required
                   placeholder="e.g. +88017XXXXXXXX"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
             </div>
@@ -233,12 +231,11 @@ export default function CheckoutPage() {
               <label className="text-xs font-bold text-slate-600 flex items-center gap-1">
                 <BiEnvelope className="text-sm" /> Email Address (Optional)
               </label>
-              <input 
+              <input className="input-style" 
                 type="email" 
                 placeholder="e.g. tanvir@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
               />
             </div>
 
@@ -277,12 +274,11 @@ export default function CheckoutPage() {
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-600">Area / Thana</label>
-                <input 
+                <input className="input-style" 
                   type="text" 
                   placeholder="e.g. Dhanmondi, Gulshan..."
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
-                  className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
             </div>
@@ -365,10 +361,9 @@ export default function CheckoutPage() {
               </h2>
               
               <div className="border-2 border-emerald-500 bg-emerald-50/20 rounded-2xl p-4 flex items-center gap-3 relative cursor-pointer" style={{ borderColor: themeColor }}>
-                <input 
+                <input className="input-style" 
                   type="radio" 
                   defaultChecked 
-                  className="accent-emerald-600 w-4 h-4 cursor-pointer" 
                   style={{ accentColor: themeColor }}
                 />
                 <div className="flex flex-col">

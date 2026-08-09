@@ -13,7 +13,7 @@ const Categories = () => {
   const marqueeItems = [...categories, ...categories, ...categories]
 
   return (
-    <div className="w-full py-12 px-4 overflow-hidden relative">
+    <div className="w-full py-12 p-4 md:p-20 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-categories {
@@ -32,7 +32,7 @@ const Categories = () => {
 
       <div className="w-full  mb-6">
 
-        <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight mt-1">
+        <h2 className="text-2xl md:text-3xl font-semibold text-primary tracking-tight mt-1">
           Browse Categories
         </h2>
       </div>
@@ -43,14 +43,17 @@ const Categories = () => {
             <Link
               key={`${cat.id}-${idx}`}
               href={`/products/category=${cat.slug}`}
-              className="w-auto flex flex-row items-center justify-center gap-4 shrink-0 bg-white p-2 px-6 rounded-lg"
+              className="w-auto flex flex-col items-center justify-center gap-4 shrink-0 bg-white p-4 rounded-lg group cursor-pointer"
             >
-              <Image width={500} height={500}
+              <div className='w-full max-w-36 overflow-hidden aspect-square'>
+                <Image width={500} height={500}
                   src={cat.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100'}
                   alt={cat.category}
-                  className="w-10 h-10 rounded-full object-cover  aspect-square"
+                  className="w-full rounded-full object-cover  aspect-square grayscale-100 group-hover:grayscale-0"
                 />
-              <span className=" font-semibold text-sm text-slate-800 truncate">{cat.category}</span>
+              </div>
+              
+              <span className=" font-semibold text-sm text-secondary-dark truncate">{cat.category}</span>
 
             </Link>
           ))}

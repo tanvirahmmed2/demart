@@ -75,14 +75,13 @@ const RegisterForm = () => {
                     <label htmlFor="name" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiUser className="w-3.5 h-3.5" /> Full Name
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="text" 
                         required 
                         onChange={handleChange} 
                         value={formData.name} 
                         name='name' 
-                        id='name'  
-                        className='w-full px-4 py-3 bg-slate-55/40 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                        id='name' 
                     />
                 </div>
 
@@ -90,14 +89,13 @@ const RegisterForm = () => {
                     <label htmlFor="email" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiMail className="w-3.5 h-3.5" /> Email Address
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="email" 
                         required 
                         onChange={handleChange} 
                         value={formData.email} 
                         name='email' 
-                        id='email'  
-                        className='w-full px-4 py-3 bg-slate-55/40 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                        id='email' 
                     />
                 </div>
 
@@ -105,13 +103,12 @@ const RegisterForm = () => {
                     <label htmlFor="phone" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiPhone className="w-3.5 h-3.5" /> Phone Number (Optional)
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="tel" 
                         onChange={handleChange} 
                         value={formData.phone} 
                         name='phone' 
-                        id='phone'  
-                        className='w-full px-4 py-3 bg-slate-55/40 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                        id='phone' 
                     />
                 </div>
                 
@@ -119,14 +116,13 @@ const RegisterForm = () => {
                     <label htmlFor="password" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiLock className="w-3.5 h-3.5" /> Password
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="password" 
                         onChange={handleChange} 
                         value={formData.password} 
                         name='password' 
                         id='password' 
-                        required  
-                        className='w-full px-4 py-3 bg-slate-55/40 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200'
+                        required
                     />
                 </div>
 
@@ -134,26 +130,25 @@ const RegisterForm = () => {
                     <label htmlFor="confirmPassword" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiLock className="w-3.5 h-3.5" /> Confirm Password
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="password" 
                         onChange={handleChange} 
                         value={formData.confirmPassword} 
                         name='confirmPassword' 
                         id='confirmPassword' 
-                        required  
-                        className='w-full px-4 py-3 bg-slate-55/40 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200'
+                        required
                     />
                 </div>
                 
                 <div className='w-full flex flex-row items-center justify-between text-xs font-bold mt-2'>
                     <span className='text-slate-500'>Already have an account?</span>
-                    <Link href={'/login'} className='text-emerald-600 hover:text-emerald-500 hover:underline transition'>Login here</Link>
+                    <Link href={'/login'} className='text-primary hover:underline transition'>Login here</Link>
                 </div>
                 
                 <button 
                     type='submit' 
                     disabled={submitting}
-                    className={`w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-emerald-600/15 hover:scale-[1.01] active:scale-[0.99] ${submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full mt-4 bg-primary hover:bg-primary-light text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-emerald-600/15 hover:scale-[1.01] active:scale-[0.99] ${submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     {submitting ? 'Creating Account...' : 'Register'}
                 </button>

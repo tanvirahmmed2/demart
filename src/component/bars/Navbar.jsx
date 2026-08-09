@@ -101,7 +101,7 @@ const Navbar = () => {
 
                 <div className='relative w-48 sm:w-64 md:w-80 flex flex-col z-50'>
                     <div className='w-full flex flex-row items-center justify-between h-10 rounded-xl bg-white overflow-hidden border border-slate-200 shadow-sm focus-within:border-slate-400 transition-colors'>
-                        <input
+                        <input className="input-style"
                             type="text"
                             placeholder="Search products..."
                             value={searchValue}
@@ -109,7 +109,6 @@ const Navbar = () => {
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                             onKeyDown={handleKeyDown}
-                            className='outline-none w-full px-3 py-2 text-black text-sm bg-transparent placeholder-slate-400'
                         />
                         <button
                             onClick={handleSearchSubmit}

@@ -300,12 +300,11 @@ export default function DashboardManagerSupportPage() {
               {/* Search Bar */}
               <div className="relative">
                 <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Search by ID, customer, subject..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-4 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
             </div>

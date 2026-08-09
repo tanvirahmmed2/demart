@@ -286,12 +286,11 @@ export default function PurchaseCreatePage() {
                 {/* Bill Reference # */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-slate-700 uppercase">Invoice/Bill No</label>
-                  <input
+                  <input className="input-style"
                     type="text"
                     placeholder="e.g. BILL-99382"
                     value={invoiceNo}
                     onChange={(e) => setInvoiceNo(e.target.value)}
-                    className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
               </div>
@@ -386,26 +385,24 @@ export default function PurchaseCreatePage() {
 
                         {/* Quantity */}
                         <td className="py-3 pr-4">
-                          <input
+                          <input className="input-style"
                             type="number"
                             min="1"
                             required
                             value={row.quantity}
                             onChange={(e) => updateRow(index, { quantity: parseInt(e.target.value, 10) || 0 })}
-                            className="w-full px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs text-center focus:bg-white outline-none"
                           />
                         </td>
 
                         {/* Purchase Price */}
                         <td className="py-3 pr-4">
-                          <input
+                          <input className="input-style"
                             type="number"
                             step="0.01"
                             min="0"
                             required
                             value={row.purchase_price}
                             onChange={(e) => updateRow(index, { purchase_price: parseFloat(e.target.value) || 0 })}
-                            className="w-full px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs text-center focus:bg-white outline-none"
                           />
                         </td>
 
@@ -445,13 +442,12 @@ export default function PurchaseCreatePage() {
                 {/* Extra Discount */}
                 <div className="flex items-center justify-between gap-4">
                   <span>Extra Discount:</span>
-                  <input
+                  <input className="input-style"
                     type="number"
                     step="0.01"
                     min="0"
                     value={extraDiscount}
                     onChange={(e) => setExtraDiscount(parseFloat(e.target.value) || 0)}
-                    className="w-24 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-right text-xs focus:bg-white outline-none"
                   />
                 </div>
 
@@ -472,14 +468,13 @@ export default function PurchaseCreatePage() {
                   <label className="text-xs font-semibold text-slate-600">Amount Paid Now</label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">$</span>
-                    <input
+                    <input className="input-style"
                       type="number"
                       step="0.01"
                       min="0"
                       max={total}
                       value={amountPaid}
                       onChange={(e) => setAmountPaid(parseFloat(e.target.value) || 0)}
-                      className="w-full pl-6 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                     />
                   </div>
                 </div>
@@ -503,12 +498,11 @@ export default function PurchaseCreatePage() {
                     {/* Transaction ID */}
                     <div className="flex flex-col gap-1.5">
                       <label className="text-xs font-semibold text-slate-600">Transaction ID</label>
-                      <input
+                      <input className="input-style"
                         type="text"
                         placeholder="e.g. TXN-38294822"
                         value={transactionId}
                         onChange={(e) => setTransactionId(e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                       />
                     </div>
                   </>

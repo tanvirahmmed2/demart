@@ -154,19 +154,17 @@ export default function ConfirmedSalesPage() {
                       <td className="px-4 py-3.5 text-right text-rose-600 font-bold">৳{parseFloat(order.due_amount).toFixed(2)}</td>
                       <td className="px-4 py-3.5">
                         <div className="flex flex-col gap-1 w-44">
-                          <input
+                          <input className="input-style"
                             type="text"
                             placeholder="Courier (Pathao, RedX)"
                             value={courierNames[order.order_id] || order.courier_name || ''}
                             onChange={(e) => handleCourierChange(order.order_id, 'name', e.target.value)}
-                            className="bg-white border border-slate-200 rounded px-2 py-0.5 text-[10px] outline-none font-medium text-slate-800 focus:border-slate-400 w-full"
                           />
-                          <input
+                          <input className="input-style"
                             type="text"
                             placeholder="Tracking / Ref ID"
                             value={courierTrackingIds[order.order_id] || order.courier_tracking_id || ''}
                             onChange={(e) => handleCourierChange(order.order_id, 'tracking', e.target.value)}
-                            className="bg-white border border-slate-200 rounded px-2 py-0.5 text-[10px] outline-none font-medium text-slate-800 focus:border-slate-400 w-full"
                           />
                         </div>
                       </td>

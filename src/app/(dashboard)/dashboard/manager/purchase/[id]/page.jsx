@@ -354,7 +354,7 @@ export default function PurchaseDetailPage() {
                 <label className="text-xs font-bold text-slate-700 uppercase">Payment Amount *</label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-450 text-xs">$</span>
-                  <input
+                  <input className="input-style"
                     type="number"
                     step="0.01"
                     min="0.01"
@@ -362,7 +362,6 @@ export default function PurchaseDetailPage() {
                     required
                     value={amountPaid}
                     onChange={(e) => setAmountPaid(e.target.value)}
-                    className="w-full pl-6 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
               </div>
@@ -384,12 +383,11 @@ export default function PurchaseDetailPage() {
               {/* Transaction ID */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700 uppercase">Transaction ID</label>
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Optional reference ID"
                   value={transactionId}
                   onChange={(e) => setTransactionId(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
             </div>

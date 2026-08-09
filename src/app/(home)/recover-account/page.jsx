@@ -96,25 +96,23 @@ const RecoverAccountForm = () => {
                     
                     <div className='w-full flex flex-col gap-1.5'>
                         <label htmlFor="password" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>New Password</label>
-                        <input 
+                        <input className="input-style" 
                             type="password" 
                             required 
                             onChange={(e) => setPassword(e.target.value)} 
                             value={password} 
-                            id="password"
-                            className='w-full px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                            id="password" 
                         />
                     </div>
 
                     <div className='w-full flex flex-col gap-1.5'>
                         <label htmlFor="confirmPassword" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>Confirm New Password</label>
-                        <input 
+                        <input className="input-style" 
                             type="password" 
                             required 
                             onChange={(e) => setConfirmPassword(e.target.value)} 
                             value={confirmPassword} 
-                            id="confirmPassword"
-                            className='w-full px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                            id="confirmPassword" 
                         />
                     </div>
 
@@ -135,13 +133,12 @@ const RecoverAccountForm = () => {
                     
                     <div className='w-full flex flex-col gap-1.5'>
                         <label htmlFor="email" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>Email Address</label>
-                        <input 
+                        <input className="input-style" 
                             type="email" 
                             required 
                             onChange={(e) => setEmail(e.target.value)} 
                             value={email} 
-                            id="email"
-                            className='w-full px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                            id="email" 
                         />
                     </div>
 

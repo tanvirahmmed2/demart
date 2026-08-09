@@ -62,14 +62,13 @@ const LoginForm = () => {
                     <label htmlFor="email" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiMail className="w-3.5 h-3.5" /> Email Address
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="email" 
                         required 
                         onChange={handleChange} 
                         value={formData.email} 
                         name='email' 
-                        id='email'  
-                        className='w-full px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200' 
+                        id='email' 
                     />
                 </div>
                 
@@ -77,14 +76,13 @@ const LoginForm = () => {
                     <label htmlFor="password" className='text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5'>
                         <FiLock className="w-3.5 h-3.5" /> Password
                     </label>
-                    <input 
+                    <input className="input-style" 
                         type="password" 
                         onChange={handleChange} 
                         value={formData.password} 
                         name='password' 
                         id='password' 
-                        required  
-                        className='w-full px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium transition duration-200'
+                        required
                     />
                 </div>
                 

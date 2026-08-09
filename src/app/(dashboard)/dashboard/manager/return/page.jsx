@@ -135,12 +135,11 @@ export default function ManagerReturnDeskPage() {
             <div className="bg-white border border-slate-150 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
               <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">Lookup Order for Return</h3>
               <form onSubmit={handleSearchOrder} className="flex gap-2">
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Enter Order ID (e.g. 5)"
                   value={searchOrderId}
                   onChange={(e) => setSearchOrderId(e.target.value)}
-                  className="px-3 py-2 bg-slate-50 border border-slate-200 text-slate-850 rounded-xl text-xs font-medium outline-none flex-1 placeholder:text-slate-400 focus:border-slate-350"
                 />
                 <button
                   type="submit"

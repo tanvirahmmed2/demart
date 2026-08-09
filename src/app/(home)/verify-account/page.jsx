@@ -96,13 +96,12 @@ const VerifyForm = () => {
                     </p>
                     <div className='w-full flex flex-col gap-1.5'>
                         <label htmlFor="token" className='text-[10px] font-bold uppercase tracking-wider text-slate-400'>Verification Token</label>
-                        <input 
+                        <input className="input-style" 
                             type="text" 
                             required 
                             onChange={(e) => setToken(e.target.value)} 
                             value={token} 
-                            id="token"
-                            className='w-full px-4 py-3 bg-slate-50 border border-slate-200/80 rounded-xl outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 text-slate-800 text-sm font-medium text-center font-mono transition duration-200' 
+                            id="token" 
                         />
                     </div>
                     <button 

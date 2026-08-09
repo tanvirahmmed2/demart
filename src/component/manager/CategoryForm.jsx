@@ -82,13 +82,12 @@ export default function CategoryForm({ initialData, onSubmit, loading }) {
         {/* Name */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-semibold text-slate-700">Category Name</label>
-          <input
+          <input className="input-style"
             type="text"
             required
             placeholder="e.g. Smart Electronics"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
           />
         </div>
 
@@ -129,12 +128,11 @@ export default function CategoryForm({ initialData, onSubmit, loading }) {
               <BiUpload className="text-2xl mb-1.5" />
               <span className="text-sm font-medium">Click to upload file</span>
               <span className="text-xs text-slate-400 mt-0.5">PNG, JPG, JPEG up to 5MB</span>
-              <input
+              <input className="input-style hidden"
                 type="file"
                 accept="image/*"
                 required={!initialData}
                 onChange={handleImageChange}
-                className="hidden"
               />
             </label>
           </div>

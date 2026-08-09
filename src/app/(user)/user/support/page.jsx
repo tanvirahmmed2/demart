@@ -497,13 +497,12 @@ export default function UserSupportPage() {
             <form onSubmit={handleCreateTicketSubmit} className="p-5 flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700 uppercase">Subject <span className="text-red-500">*</span></label>
-                <input
+                <input className="input-style"
                   required
                   type="text"
                   placeholder="e.g. Issue with payment verification, Order delay, etc."
                   value={newSubject}
                   onChange={(e) => setNewSubject(e.target.value)}
-                  className="px-3.5 py-2 bg-slate-50 border border-slate-205 rounded-xl text-slate-805 text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition"
                 />
               </div>
 

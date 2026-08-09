@@ -7,7 +7,6 @@ import Image from 'next/image'
 
 const Brands = () => {
   const { website } = useContext(Context)
-  const themeColor = website?.theme_color || '#10b981'
 
   const [brands, setBrands] = useState([])
   const [loading, setLoading] = useState(true)
@@ -29,7 +28,7 @@ const Brands = () => {
   if (loading) {
     return (
       <div className="w-full py-12 flex justify-center items-center">
-        <BiLoaderAlt className="text-3xl animate-spin" style={{ color: themeColor }} />
+        <BiLoaderAlt className="text-3xl animate-spin"  />
       </div>
     )
   }
@@ -39,7 +38,7 @@ const Brands = () => {
   const marqueeItems = [...brands, ...brands, ...brands]
 
   return (
-    <div className="w-full py-12 px-4 overflow-hidden relative">
+    <div className="w-full py-12 p-4 md:p-20 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-brands {
@@ -58,25 +57,27 @@ const Brands = () => {
 
       <div className="w-full mb-6">
 
-        <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight mt-1">
+        <h2 className="text-2xl  font-semibold text-secondary tracking-tight mt-1">
           Authorized Brands
         </h2>
       </div>
 
       <div className="w-full overflow-hidden relative py-4 ">
-        <div className="marquee-inner-brands flex gap-8 px-4 items-center">
+        <div className="marquee-inner-brands flex gap-4 px-4 items-center">
           {marqueeItems.map((brand, idx) => (
             <div
               key={`${brand.brand_id}-${idx}`}
-              className="w-auto flex flex-row items-center justify-center gap-4 p-2 px-6 bg-white rounded-lg"
+              className="w-auto flex flex-col items-center justify-center gap-4 p-4 cursor-pointer bg-white rounded-sm group"
             >
+              <div className='w-full max-w-36 aspect-square overflow-hidden'>
+                <Image width={500} height={500}
+                  src={brand.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100'}
+                  alt={brand.name}
+                  className="w-full object-cover aspect-square rounded-full group-hover:grayscale-0 grayscale-100"
+                />
+              </div>
+              <span className="text-sm font-semibold text-slate-800 truncate">{brand.name}</span>
 
-              <span className="text-sm font-bold text-slate-800 truncate">{brand.name}</span>
-              <Image width={500} height={500}
-                src={brand.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100'}
-                alt={brand.name}
-                className="w-10 h-10 scale-110 object-cover aspect-square rounded-full"
-              />
 
             </div>
           ))}

@@ -150,26 +150,24 @@ export default function ContactPage() {
                 {/* Full Name */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-slate-700 uppercase">Your Name <span className="text-red-500">*</span></label>
-                  <input
+                  <input className="input-style"
                     type="text"
                     required
                     placeholder="e.g. John Doe"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
                 {/* Email Address */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-slate-700 uppercase">Email Address <span className="text-red-500">*</span></label>
-                  <input
+                  <input className="input-style"
                     type="email"
                     required
                     placeholder="e.g. john@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
@@ -178,13 +176,12 @@ export default function ContactPage() {
               {/* Subject */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700 uppercase">Subject <span className="text-red-500">*</span></label>
-                <input
+                <input className="input-style"
                   type="text"
                   required
                   placeholder="e.g. Questions regarding wholesale pricing"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 

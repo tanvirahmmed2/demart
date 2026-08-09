@@ -88,12 +88,11 @@ export default function ManagerCustomersDirectoryPage() {
         {/* Search Panel */}
         <form onSubmit={handleSearchSubmit} className="flex gap-2 items-center bg-white px-3 py-2 border border-slate-200 rounded-xl w-full md:w-80 shadow-sm">
           <BiSearch className="text-slate-400 text-lg" />
-          <input
+          <input className="input-style"
             type="text"
             placeholder="Search by name, email, or phone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-transparent border-none outline-none text-slate-850 text-xs w-full placeholder:text-slate-400"
           />
           <button type="submit" className="hidden">Search</button>
         </form>

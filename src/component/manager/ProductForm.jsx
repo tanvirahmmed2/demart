@@ -478,13 +478,12 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-bold text-slate-650 uppercase">Product Name *</label>
-              <input
+              <input className="input-style"
                 type="text"
                 required
                 placeholder="e.g. Premium Wireless Headphones v2"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 focus:border-emerald-500 focus:bg-white rounded-xl text-sm focus:ring-2 focus:ring-emerald-500/15 outline-none transition duration-200"
               />
             </div>
 
@@ -593,13 +592,12 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="text-[10px] font-bold text-slate-500 uppercase">Cost Price *</label>
                     <div className="relative">
                       <span className="absolute left-2.5 top-2 text-slate-400 text-xs font-semibold">৳</span>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         required
                         value={purchasePrice}
                         onChange={(e) => setPurchasePrice(parseFloat(e.target.value) || 0)}
-                        className="w-full pl-6 pr-2.5 py-1.5 bg-white border border-slate-200 focus:border-emerald-500 rounded-lg text-xs outline-none transition"
                       />
                     </div>
                   </div>
@@ -607,13 +605,12 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="text-[10px] font-bold text-slate-500 uppercase">Sale Price *</label>
                     <div className="relative">
                       <span className="absolute left-2.5 top-2 text-slate-400 text-xs font-semibold">৳</span>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         required
                         value={salePrice}
                         onChange={(e) => setSalePrice(parseFloat(e.target.value) || 0)}
-                        className="w-full pl-6 pr-2.5 py-1.5 bg-white border border-slate-200 focus:border-emerald-500 rounded-lg text-xs outline-none transition font-bold text-emerald-700"
                       />
                     </div>
                   </div>
@@ -621,12 +618,11 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="text-[10px] font-bold text-slate-500 uppercase">Discount Price</label>
                     <div className="relative">
                       <span className="absolute left-2.5 top-2 text-slate-400 text-xs font-semibold">৳</span>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={discountPrice}
                         onChange={(e) => setDiscountPrice(parseFloat(e.target.value) || 0)}
-                        className="w-full pl-6 pr-2.5 py-1.5 bg-white border border-slate-200 focus:border-emerald-500 rounded-lg text-xs outline-none transition"
                       />
                     </div>
                   </div>
@@ -634,12 +630,11 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="text-[10px] font-bold text-slate-500 uppercase">Wholesale Price</label>
                     <div className="relative">
                       <span className="absolute left-2.5 top-2 text-slate-400 text-xs font-semibold">৳</span>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={wholesalePrice}
                         onChange={(e) => setWholesalePrice(parseFloat(e.target.value) || 0)}
-                        className="w-full pl-6 pr-2.5 py-1.5 bg-white border border-slate-200 focus:border-emerald-500 rounded-lg text-xs outline-none transition"
                       />
                     </div>
                   </div>
@@ -647,12 +642,11 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="text-[10px] font-bold text-slate-500 uppercase">Dealer Price</label>
                     <div className="relative">
                       <span className="absolute left-2.5 top-2 text-slate-400 text-xs font-semibold">৳</span>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={dealerPrice}
                         onChange={(e) => setDealerPrice(parseFloat(e.target.value) || 0)}
-                        className="w-full pl-6 pr-2.5 py-1.5 bg-white border border-slate-200 focus:border-emerald-500 rounded-lg text-xs outline-none transition"
                       />
                     </div>
                   </div>
@@ -660,12 +654,11 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="text-[10px] font-bold text-slate-500 uppercase">Retail Price</label>
                     <div className="relative">
                       <span className="absolute left-2.5 top-2 text-slate-400 text-xs font-semibold">৳</span>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={retailPrice}
                         onChange={(e) => setRetailPrice(parseFloat(e.target.value) || 0)}
-                        className="w-full pl-6 pr-2.5 py-1.5 bg-white border border-slate-200 focus:border-emerald-500 rounded-lg text-xs outline-none transition"
                       />
                     </div>
                   </div>
@@ -701,38 +694,35 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
 
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-bold text-slate-655 uppercase">Stock Quantity *</label>
-                    <input
+                    <input className="input-style"
                       type="number"
                       required
                       placeholder="0"
                       value={stock}
                       onChange={(e) => setStock(parseInt(e.target.value, 10) || 0)}
-                      className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500 font-bold"
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-bold text-slate-655 uppercase">Weight (Kg)</label>
-                    <input
+                    <input className="input-style"
                       type="number"
                       step="0.01"
                       placeholder="0"
                       value={weight}
                       onChange={(e) => setWeight(parseFloat(e.target.value) || 0)}
-                      className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500"
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-bold text-slate-655 uppercase">Barcode</label>
                     <div className="relative flex items-center">
-                      <input
+                      <input className="input-style"
                         type="text"
                         placeholder="Scan or type..."
                         value={barcode}
                         onChange={(e) => setBarcode(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
-                        className="w-full pl-3 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500 font-mono"
                       />
                       <button
                         type="button"
@@ -782,23 +772,21 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                     <div className="flex flex-col gap-1.5 col-span-2">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Option Name (e.g. Red / M) *</label>
-                      <input
+                      <input className="input-style"
                         type="text"
                         placeholder="Red - XL"
                         value={newVarName}
                         onChange={(e) => setNewVarName(e.target.value)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
                     
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Barcode</label>
-                      <input
+                      <input className="input-style"
                         type="text"
                         placeholder="Barcode"
                         value={newVarBarcode}
                         onChange={(e) => setNewVarBarcode(e.target.value)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition font-mono"
                       />
                     </div>
 
@@ -822,7 +810,7 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                         ) : (
                           <label className="w-8 h-8 rounded-lg border border-dashed border-slate-300 hover:border-emerald-500 flex items-center justify-center cursor-pointer text-slate-400 hover:text-emerald-500 transition shrink-0 bg-white">
                             <BiUpload className="text-sm" />
-                            <input
+                            <input className="input-style hidden"
                               type="file"
                               accept="image/*"
                               onChange={(e) => {
@@ -832,7 +820,6 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                                   setNewVarImagePreview(URL.createObjectURL(file))
                                 }
                               }}
-                              className="hidden"
                             />
                           </label>
                         )}
@@ -844,89 +831,81 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Cost Price *</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarPurchasePrice}
                         onChange={(e) => setNewVarPurchasePrice(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Sale Price *</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarPrice}
                         onChange={(e) => setNewVarPrice(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition font-bold text-emerald-700"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Discount Price</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarDiscountPrice}
                         onChange={(e) => setNewVarDiscountPrice(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Wholesale Price</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarWholesalePrice}
                         onChange={(e) => setNewVarWholesalePrice(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Dealer Price</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarDealerPrice}
                         onChange={(e) => setNewVarDealerPrice(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Retail Price</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarRetailPrice}
                         onChange={(e) => setNewVarRetailPrice(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[10px] font-bold text-slate-500 uppercase">Weight (Kg)</label>
-                      <input
+                      <input className="input-style"
                         type="number"
                         step="0.01"
                         value={newVarWeight}
                         onChange={(e) => setNewVarWeight(parseFloat(e.target.value) || 0)}
-                        className="px-3 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition"
                       />
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
                       <div className="flex flex-col gap-1">
                         <label className="text-[9px] font-bold text-slate-550 uppercase">Stock *</label>
-                        <input
+                        <input className="input-style"
                           type="number"
                           value={newVarStock}
                           onChange={(e) => setNewVarStock(parseInt(e.target.value, 10) || 0)}
-                          className="w-full px-2 py-2 bg-white border border-slate-200 focus:border-emerald-500 rounded-xl text-xs outline-none transition font-bold"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
@@ -994,7 +973,7 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                                   />
                                   <label className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white cursor-pointer transition duration-200">
                                     <BiUpload className="text-base" />
-                                    <input
+                                    <input className="input-style hidden"
                                       type="file"
                                       accept="image/*"
                                       onChange={(e) => {
@@ -1004,42 +983,38 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                                           handleVariantChange(index, 'imagePreview', URL.createObjectURL(file))
                                         }
                                       }}
-                                      className="hidden"
                                     />
                                   </label>
                                 </div>
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="text"
                                   required
                                   placeholder="Red - XL"
                                   value={v.variant_name || ''}
                                   onChange={(e) => handleVariantChange(index, 'variant_name', e.target.value)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="text"
                                   placeholder="Barcode"
                                   value={v.barcode || ''}
                                   onChange={(e) => handleVariantChange(index, 'barcode', e.target.value)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   required
                                   value={v.purchase_price !== undefined ? v.purchase_price : 0}
                                   onChange={(e) => handleVariantChange(index, 'purchase_price', parseFloat(e.target.value) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   required
@@ -1048,61 +1023,54 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                                     handleVariantChange(index, 'sale_price', parseFloat(e.target.value) || 0)
                                     handleVariantChange(index, 'price', parseFloat(e.target.value) || 0)
                                   }}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500 font-bold text-emerald-700"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   value={v.discount_price !== undefined ? v.discount_price : 0}
                                   onChange={(e) => handleVariantChange(index, 'discount_price', parseFloat(e.target.value) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   value={v.wholesale_price !== undefined ? v.wholesale_price : 0}
                                   onChange={(e) => handleVariantChange(index, 'wholesale_price', parseFloat(e.target.value) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   value={v.dealer_price !== undefined ? v.dealer_price : 0}
                                   onChange={(e) => handleVariantChange(index, 'dealer_price', parseFloat(e.target.value) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   value={v.retail_price !== undefined ? v.retail_price : 0}
                                   onChange={(e) => handleVariantChange(index, 'retail_price', parseFloat(e.target.value) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   step="0.01"
                                   value={v.weight !== undefined ? v.weight : 0}
                                   onChange={(e) => handleVariantChange(index, 'weight', parseFloat(e.target.value) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
-                                <input
+                                <input className="input-style"
                                   type="number"
                                   required
                                   value={v.stock !== undefined ? v.stock : 0}
                                   onChange={(e) => handleVariantChange(index, 'stock', parseInt(e.target.value, 10) || 0)}
-                                  className="w-full px-2 py-1 bg-slate-50 border border-slate-200 focus:bg-white rounded-lg text-[11px] outline-none focus:ring-1 focus:ring-emerald-500 font-bold"
                                 />
                               </td>
                               <td className="px-2 py-1.5">
@@ -1177,11 +1145,10 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition duration-200">
                       <label className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/35 rounded-xl text-xs font-semibold cursor-pointer transition">
                         Change Image
-                        <input
+                        <input className="input-style hidden"
                           type="file"
                           accept="image/*"
                           onChange={handleImageChange}
-                          className="hidden"
                         />
                       </label>
                     </div>
@@ -1191,11 +1158,10 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <BiUpload className="text-3xl mb-2 text-slate-400" />
                     <span className="text-xs font-bold uppercase tracking-wide">Upload Product Image</span>
                     <span className="text-[10px] text-slate-450 mt-1">Accepts PNG, JPG, JPEG up to 5MB</span>
-                    <input
+                    <input className="input-style hidden"
                       type="file"
                       accept="image/*"
                       onChange={handleImageChange}
-                      className="hidden"
                     />
                   </label>
                 )}
@@ -1270,13 +1236,12 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
             <form onSubmit={handleCreateCategory} className="p-5 flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700 uppercase">Category Name *</label>
-                <input
+                <input className="input-style"
                   required
                   type="text"
                   placeholder="e.g. Smart Electronics"
                   value={newCatName}
                   onChange={(e) => setNewCatName(e.target.value)}
-                  className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -1317,7 +1282,7 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="w-16 h-16 rounded-xl border border-dashed border-slate-300 hover:border-emerald-500 flex flex-col items-center justify-center cursor-pointer text-slate-400 hover:text-emerald-500 transition shrink-0 bg-slate-50">
                       <BiUpload className="text-lg" />
                       <span className="text-[9px] font-bold mt-1">Upload</span>
-                      <input
+                      <input className="input-style hidden"
                         type="file"
                         accept="image/*"
                         onChange={(e) => {
@@ -1327,7 +1292,6 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                             setNewCatImagePreview(URL.createObjectURL(file))
                           }
                         }}
-                        className="hidden"
                       />
                     </label>
                   )}
@@ -1402,13 +1366,12 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
             <form onSubmit={handleCreateBrand} className="p-5 flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700 uppercase">Brand Name *</label>
-                <input
+                <input className="input-style"
                   required
                   type="text"
                   placeholder="e.g. Sony, Apple, Nike"
                   value={newBrandName}
                   onChange={(e) => setNewBrandName(e.target.value)}
-                  className="px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -1444,7 +1407,7 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                     <label className="w-16 h-16 rounded-xl border border-dashed border-slate-300 hover:border-emerald-500 flex flex-col items-center justify-center cursor-pointer text-slate-400 hover:text-emerald-500 transition shrink-0 bg-slate-50">
                       <BiUpload className="text-lg" />
                       <span className="text-[9px] font-bold mt-1">Upload</span>
-                      <input
+                      <input className="input-style hidden"
                         type="file"
                         accept="image/*"
                         onChange={(e) => {
@@ -1454,7 +1417,6 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                             setNewBrandImagePreview(URL.createObjectURL(file))
                           }
                         }}
-                        className="hidden"
                       />
                     </label>
                   )}

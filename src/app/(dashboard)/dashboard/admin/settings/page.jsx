@@ -154,24 +154,22 @@ export default function DashboardAdminSettingsPage() {
                 {/* Website Name */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold text-slate-700">Website/Store Name</label>
-                  <input
+                  <input className="input-style"
                     type="text"
                     placeholder="e.g. My Ecom Store"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
                 {/* Tagline */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold text-slate-700">Brand Tagline</label>
-                  <input
+                  <input className="input-style"
                     type="text"
                     placeholder="e.g. New Era of Shopping"
                     value={tagline}
                     onChange={(e) => setTagline(e.target.value)}
-                    className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
               </div>
@@ -180,24 +178,22 @@ export default function DashboardAdminSettingsPage() {
                 {/* Contact Email */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold text-slate-700">Store Support Email</label>
-                  <input
+                  <input className="input-style"
                     type="email"
                     placeholder="e.g. support@mystore.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
                 {/* Contact Phone */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold text-slate-700">Store Customer Phone</label>
-                  <input
+                  <input className="input-style"
                     type="text"
                     placeholder="e.g. +880 1234-567890"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                   />
                 </div>
               </div>
@@ -219,12 +215,11 @@ export default function DashboardAdminSettingsPage() {
                 <label className="text-xs font-semibold text-slate-700 flex items-center gap-1">
                   <BiLink className="text-slate-450 text-sm" /> Social Profile Link (e.g. Facebook/Instagram)
                 </label>
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="e.g. https://facebook.com/mystore"
                   value={sociallink}
                   onChange={(e) => setSociallink(e.target.value)}
-                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -239,12 +234,11 @@ export default function DashboardAdminSettingsPage() {
               {/* Hero Banner Title */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-slate-700">Hero Main Title Banner</label>
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="e.g. Find Your Next Favorite Style"
                   value={heroTitle}
                   onChange={(e) => setHeroTitle(e.target.value)}
-                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -276,11 +270,10 @@ export default function DashboardAdminSettingsPage() {
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-slate-700">Primary Theme Color</label>
                 <div className="flex gap-3 items-center bg-slate-50 p-2 border border-slate-200 rounded-xl">
-                  <input
+                  <input className="input-style"
                     type="color"
                     value={themeColor}
                     onChange={(e) => setThemeColor(e.target.value)}
-                    className="w-10 h-10 border border-slate-300 rounded-lg cursor-pointer bg-transparent outline-none"
                   />
                   <div>
                     <span className="text-xs font-mono font-semibold text-slate-850 uppercase">{themeColor}</span>
@@ -311,11 +304,10 @@ export default function DashboardAdminSettingsPage() {
 
                   <label className="w-full flex items-center justify-center py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-700 text-xs font-bold transition cursor-pointer select-none gap-1.5 border border-slate-200">
                     <BiUpload className="text-base" /> Click to upload
-                    <input
+                    <input className="input-style hidden"
                       type="file"
                       accept="image/*"
                       onChange={handleLogoChange}
-                      className="hidden"
                     />
                   </label>
                 </div>

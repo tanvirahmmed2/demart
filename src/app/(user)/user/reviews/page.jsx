@@ -199,13 +199,12 @@ export default function UserReviewsPage() {
 
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-bold text-slate-705 uppercase">Subject Title <span className="text-red-500">*</span></label>
-                    <input
+                    <input className="input-style"
                       required
                       type="text"
                       placeholder="e.g. Excellent service, Great product quality, etc."
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      className="px-3.5 py-2.5 bg-slate-50 border border-slate-205 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-slate-500/20 focus:border-slate-500 outline-none transition"
                     />
                   </div>
 

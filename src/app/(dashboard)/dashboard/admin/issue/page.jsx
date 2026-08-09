@@ -178,13 +178,12 @@ export default function AdminIssueLogPage() {
               {/* Title */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-slate-700">Subject / Title <span className="text-red-500">*</span></label>
-                <input
+                <input className="input-style"
                   type="text"
                   required
                   placeholder="e.g. Critical database optimization complete"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -269,12 +268,11 @@ export default function AdminIssueLogPage() {
                 {/* Keyword Search */}
                 <div className="relative max-w-[180px] w-full">
                   <BiSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs" />
-                  <input
+                  <input className="input-style"
                     type="text"
                     placeholder="Search logs..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs focus:bg-white outline-none transition"
                   />
                 </div>
               </div>

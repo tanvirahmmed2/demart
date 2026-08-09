@@ -7,8 +7,6 @@ import { BiLoaderAlt, BiSolidChevronRight } from 'react-icons/bi'
 import Link from 'next/link'
 
 const LatetsProducts = () => {
-  const { website } = useContext(Context)
-  const themeColor = website?.theme_color || '#10b981'
 
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -31,7 +29,7 @@ const LatetsProducts = () => {
   if (loading) {
     return (
       <div className="w-full py-12 flex justify-center items-center">
-        <BiLoaderAlt className="text-3xl animate-spin" style={{ color: themeColor }} />
+        <BiLoaderAlt className="text-3xl animate-spin"  />
       </div>
     )
   }
@@ -39,29 +37,25 @@ const LatetsProducts = () => {
   if (products.length === 0) return null
 
   return (
-    <div className="w-full py-16 px-4 md:px-8 bg-white border-b border-slate-100">
+    <div className="w-full py-16 p-4 md:p-20">
       <div className="w-full flex flex-col gap-8">
         
-        {/* Header */}
         <div className="flex justify-between items-end">
           <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-black uppercase tracking-widest text-emerald-600" style={{ color: themeColor }}>
+            <span className="text-2xl font-semibold uppercase tracking-widest text-emerald-600" >
               New Arrivals
             </span>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-              Latest Additions To Our Catalog
-            </h2>
+            
           </div>
           <Link 
             href="/products" 
-            className="flex items-center gap-1 text-xs font-bold hover:gap-1.5 transition-all text-slate-550 hover:text-slate-900"
+            className="flex items-center gap-1 text-xs font-bold hover:gap-1.5 transition-all text-secondary"
           >
             See Catalog <BiSolidChevronRight className="text-base" />
           </Link>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {products.map((p) => (
             <ProductCard key={p.product_id} product={p} />
           ))}

@@ -289,13 +289,12 @@ export default function POSPageClean() {
             {/* Minimal Barcode scan input */}
             <form onSubmit={handleBarcodeSubmit} className="flex items-center border border-slate-200 bg-white rounded-lg px-2.5 py-1">
               <BiBarcode className="text-slate-400 mr-2 text-base" />
-              <input
+              <input className="input-style"
                 ref={barcodeInputRef}
                 type="text"
                 placeholder="Scan Barcode..."
                 value={barcodeSearch}
                 onChange={(e) => setBarcodeSearch(e.target.value)}
-                className="text-xs bg-transparent focus:outline-none w-32 font-medium"
               />
               <button type="submit" className="hidden">Submit</button>
             </form>
@@ -323,12 +322,11 @@ export default function POSPageClean() {
               {/* Phone search input */}
               <div className="relative">
                 <BiPhone className="absolute left-2.5 top-2.5 text-slate-400 text-sm" />
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Enter Customer Phone Number..."
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
-                  className="w-full pl-7 pr-3 py-1.5 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-slate-350 bg-slate-50/50 text-slate-800"
                 />
               </div>
 
@@ -395,11 +393,10 @@ export default function POSPageClean() {
                         >
                           <BiMinus className="text-[10px]" />
                         </button>
-                        <input
+                        <input className="input-style"
                           type="number"
                           value={item.quantity}
                           onChange={(e) => updateQty(item.cartKey, parseInt(e.target.value, 10) || 1)}
-                          className="w-6 text-center text-[10px] font-bold focus:outline-none bg-transparent text-slate-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                         <button
                           onClick={() => updateQty(item.cartKey, item.quantity + 1)}
@@ -443,22 +440,20 @@ export default function POSPageClean() {
                 <div className="grid grid-cols-2 gap-3.5">
                   <div>
                     <label className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Discount (৳)</label>
-                    <input
+                    <input className="input-style"
                       type="number"
                       min="0"
                       value={discount}
                       onChange={(e) => setDiscount(Math.max(0, parseFloat(e.target.value) || 0))}
-                      className="w-full px-2 py-1 border border-slate-200 rounded text-xs font-semibold focus:outline-none font-mono bg-white text-slate-800"
                     />
                   </div>
                   <div>
                     <label className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Delivery (৳)</label>
-                    <input
+                    <input className="input-style"
                       type="number"
                       min="0"
                       value={deliveryCharge}
                       onChange={(e) => setDeliveryCharge(Math.max(0, parseFloat(e.target.value) || 0))}
-                      className="w-full px-2 py-1 border border-slate-200 rounded text-xs font-semibold focus:outline-none font-mono bg-white text-slate-800"
                     />
                   </div>
                 </div>
@@ -500,12 +495,11 @@ export default function POSPageClean() {
                 <div className="grid grid-cols-2 gap-3.5 bg-slate-50 rounded-lg p-2.5 border border-slate-100">
                   <div>
                     <label className="text-[9px] font-bold text-slate-450 block mb-1">Cash Received (৳)</label>
-                    <input
+                    <input className="input-style"
                       type="number"
                       placeholder="0.00"
                       value={amountReceived}
                       onChange={(e) => setAmountReceived(e.target.value)}
-                      className="w-full px-2.5 py-1 border border-slate-200 rounded text-xs font-semibold focus:outline-none focus:bg-white bg-white text-slate-900 font-mono"
                     />
                   </div>
                   <div className="flex flex-col justify-center">
@@ -519,12 +513,11 @@ export default function POSPageClean() {
 
               <div>
                 <label className="text-[9px] font-bold text-slate-450 block mb-1">Note (Optional)</label>
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Sales order reference or note..."
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  className="w-full px-3 py-1.5 border border-slate-200 rounded text-xs font-medium focus:outline-none bg-white text-slate-800"
                 />
               </div>
 
@@ -555,12 +548,11 @@ export default function POSPageClean() {
             <div className="flex flex-col gap-3">
               <div className="relative">
                 <BiSearch className="absolute left-3 top-2.5 text-slate-400 text-base" />
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Search catalog by title, brand, or barcode..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 border border-slate-200 bg-white rounded-lg text-xs focus:outline-none focus:border-slate-350 transition text-slate-800"
                 />
               </div>
 

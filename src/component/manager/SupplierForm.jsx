@@ -58,50 +58,46 @@ export default function SupplierForm({ initialData, onSubmit, loading }) {
         {/* Name */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-semibold text-slate-700">Supplier Name <span className="text-red-500">*</span></label>
-          <input
+          <input className="input-style"
             type="text"
             required
             placeholder="e.g. John Doe"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
           />
         </div>
 
         {/* Company Name */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-semibold text-slate-700">Company Name</label>
-          <input
+          <input className="input-style"
             type="text"
             placeholder="e.g. Acme Corporation"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
           />
         </div>
 
         {/* Phone */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-semibold text-slate-700">Phone Number <span className="text-red-500">*</span></label>
-          <input
+          <input className="input-style"
             type="text"
             required
             placeholder="e.g. +1234567890"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
           />
         </div>
 
         {/* Email */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-semibold text-slate-700">Email Address</label>
-          <input
+          <input className="input-style"
             type="email"
             placeholder="e.g. supplier@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
           />
         </div>
 

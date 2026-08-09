@@ -131,13 +131,12 @@ export default function UserSettingsPage() {
               <label className="text-xs font-bold text-slate-700 uppercase">Full Name <span className="text-red-500">*</span></label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base" />
-                <input
+                <input className="input-style"
                   required
                   type="text"
                   placeholder="Your display name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-205 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-slate-500/20 focus:border-slate-500 outline-none transition"
                 />
               </div>
             </div>
@@ -147,13 +146,12 @@ export default function UserSettingsPage() {
               <label className="text-xs font-bold text-slate-705 uppercase">Email Address <span className="text-red-500">*</span></label>
               <div className="relative">
                 <BiEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base" />
-                <input
+                <input className="input-style"
                   required
                   type="email"
                   placeholder="example@mail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-205 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-slate-500/20 focus:border-slate-500 outline-none transition"
                 />
               </div>
             </div>
@@ -163,12 +161,11 @@ export default function UserSettingsPage() {
               <label className="text-xs font-bold text-slate-705 uppercase">Phone Number</label>
               <div className="relative">
                 <BiPhone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base" />
-                <input
+                <input className="input-style"
                   type="tel"
                   placeholder="e.g. +8801700000000"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-205 rounded-xl text-slate-800 text-xs focus:bg-white focus:ring-2 focus:ring-slate-500/20 focus:border-slate-500 outline-none transition"
                 />
               </div>
             </div>

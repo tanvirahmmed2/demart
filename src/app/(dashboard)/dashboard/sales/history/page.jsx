@@ -121,12 +121,11 @@ export default function SalesHistoryPage() {
 
           <div className="flex items-center gap-2 bg-white px-3 py-2 border border-slate-200 rounded-xl w-full md:w-80 shadow-sm">
             <BiSearch className="text-slate-400 text-lg" />
-            <input
+            <input className="input-style"
               type="text"
               placeholder="Search by ID, name, phone..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-transparent border-none outline-none text-slate-805 text-xs w-full placeholder:text-slate-400"
             />
           </div>
         </div>

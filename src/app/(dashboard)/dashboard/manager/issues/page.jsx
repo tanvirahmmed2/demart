@@ -173,13 +173,12 @@ export default function ManagerIssuesPage() {
               {/* Title */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-slate-700">Subject / Title <span className="text-red-500">*</span></label>
-                <input
+                <input className="input-style"
                   type="text"
                   required
                   placeholder="e.g. System maintenance alert"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -249,12 +248,11 @@ export default function ManagerIssuesPage() {
               {/* Search bar inside Tabs */}
               <div className="relative max-w-[200px] sm:max-w-xs w-full">
                 <BiSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Search messages..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs focus:bg-white outline-none transition"
                 />
               </div>
             </div>

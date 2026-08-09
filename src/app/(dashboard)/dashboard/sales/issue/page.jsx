@@ -155,13 +155,12 @@ export default function SalesReportIssuePage() {
               {/* Title */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-slate-700">Subject / Title <span className="text-red-500">*</span></label>
-                <input
+                <input className="input-style"
                   type="text"
                   required
                   placeholder="e.g. Printer offline in warehouse"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -204,12 +203,11 @@ export default function SalesReportIssuePage() {
                 {/* Search */}
                 <div className="w-full sm:w-64 relative">
                   <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base" />
-                  <input
+                  <input className="input-style"
                     type="text"
                     placeholder="Search sent messages..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-xs focus:bg-white outline-none transition"
                   />
                 </div>
               </div>

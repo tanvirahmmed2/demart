@@ -187,12 +187,11 @@ export default function OffersPage() {
               <label className="text-xs font-bold text-slate-500">Search Offers</label>
               <div className="relative">
                 <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base" />
-                <input
+                <input className="input-style"
                   type="text"
                   placeholder="Type to search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition"
                 />
               </div>
             </div>
@@ -203,23 +202,21 @@ export default function OffersPage() {
               <div className="flex items-center gap-2">
                 <div className="relative flex-1">
                   <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">৳</span>
-                  <input
+                  <input className="input-style"
                     type="number"
                     placeholder="Min"
                     value={minPrice}
                     onChange={(e) => setMinPrice(e.target.value)}
-                    className="w-full pl-6 pr-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500"
                   />
                 </div>
                 <span className="text-slate-400 text-xs">-</span>
                 <div className="relative flex-1">
                   <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">৳</span>
-                  <input
+                  <input className="input-style"
                     type="number"
                     placeholder="Max"
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
-                    className="w-full pl-6 pr-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500"
                   />
                 </div>
               </div>
@@ -245,12 +242,11 @@ export default function OffersPage() {
 
             {/* In Stock Only Checkbox */}
             <div className="flex items-center gap-2.5 bg-slate-50 p-3 rounded-xl border border-slate-200/60">
-              <input
+              <input className="input-style"
                 type="checkbox"
                 id="inStockOnly"
                 checked={inStockOnly}
                 onChange={(e) => setInStockOnly(e.target.checked)}
-                className="w-4 h-4 text-emerald-600 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer"
               />
               <label htmlFor="inStockOnly" className="text-xs font-bold text-slate-700 cursor-pointer select-none">
                 In Stock Only
