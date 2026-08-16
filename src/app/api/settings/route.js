@@ -24,12 +24,10 @@ export async function POST(req) {
     }
 
     const formData = await req.formData();
-    const name = formData.get('name') || '';
-    const theme_color = formData.get('theme_color') || '#10b981'; // default emerald
+    const theme_color = formData.get('theme_color') || '#73976A';
     const hero_title = formData.get('hero_title') || '';
     const hero_subtitle = formData.get('hero_subtitle') || '';
     const address = formData.get('address') || '';
-    const tagline = formData.get('tagline') || '';
     const sociallink = formData.get('sociallink') || '';
     const email = formData.get('email') || '';
     const phone = formData.get('phone') || '';
@@ -55,19 +53,19 @@ export async function POST(req) {
       result = await query(
         `UPDATE websites 
          SET logo_url = $1, theme_color = $2, hero_title = $3, hero_subtitle = $4,
-             name = $5, address = $6, tagline = $7, sociallink = $8, email = $9, phone = $10,
+             address = $5, sociallink = $6, email = $7, phone = $8,
              updated_at = now()
-         WHERE website_id = $11
+         WHERE website_id = $9
          RETURNING *`,
-        [logoUrl, theme_color, hero_title, hero_subtitle, name, address, tagline, sociallink, email, phone, websiteId]
+        [logoUrl, theme_color, hero_title, hero_subtitle, address, sociallink, email, phone, websiteId]
       );
     } else {
       // Insert new record
       result = await query(
-        `INSERT INTO websites (logo_url, theme_color, hero_title, hero_subtitle, name, address, tagline, sociallink, email, phone)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        `INSERT INTO websites (logo_url, theme_color, hero_title, hero_subtitle, address, sociallink, email, phone)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
          RETURNING *`,
-        [logoUrl, theme_color, hero_title, hero_subtitle, name, address, tagline, sociallink, email, phone]
+        [logoUrl, theme_color, hero_title, hero_subtitle, address, sociallink, email, phone]
       );
     }
 
@@ -78,3 +76,4 @@ export async function POST(req) {
     return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+

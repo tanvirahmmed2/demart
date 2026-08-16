@@ -1,10 +1,11 @@
 import { isAdmin } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Dashboard - Admin | Ecom - New Era of Shopping",
-  description: "Explore Dashboard - Admin page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Admin Dashboard | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Admin Control Panel on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default async function DashboardAdminLayout({ children }) {

@@ -217,7 +217,6 @@ export default function ProductsCategorySlugPage() {
               <span className="text-xs font-bold text-slate-400 px-1">৳</span>
               <input
                 type="number"
-                placeholder="Min"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
                 className="w-16 md:w-20 px-2 py-1 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-emerald-500 text-slate-700"
@@ -225,7 +224,6 @@ export default function ProductsCategorySlugPage() {
               <span className="text-slate-400 text-xs">-</span>
               <input
                 type="number"
-                placeholder="Max"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
                 className="w-16 md:w-20 px-2 py-1 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-emerald-500 text-slate-700"

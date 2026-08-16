@@ -130,10 +130,9 @@ export default function ReviewsPage() {
                       
                       <h3 className="font-bold text-slate-800 text-sm leading-snug">{rev.title}</h3>
                       {rev.comment && (
-                        <div 
-                          className="text-slate-600 text-xs leading-relaxed italic ProseMirror"
-                          dangerouslySetInnerHTML={{ __html: rev.comment }}
-                        />
+                        <p className="text-slate-600 text-xs leading-relaxed italic">
+                          "{rev.comment.replace(/<[^>]*>/g, '').trim()}"
+                        </p>
                       )}
                     </div>
 

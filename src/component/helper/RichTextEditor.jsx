@@ -16,7 +16,7 @@ import {
   BiHeading 
 } from 'react-icons/bi'
 
-export default function RichTextEditor({ value, onChange, placeholder = 'Write description or content here...' }) {
+export default function RichTextEditor({ value, onChange, placeholder = '' }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {

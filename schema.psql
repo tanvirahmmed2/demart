@@ -316,9 +316,7 @@ CREATE TABLE websites (
   hero_title TEXT,
   hero_subtitle TEXT,
 
-  name TEXT,
   address TEXT,
-  tagline TEXT,
   sociallink TEXT,
   email TEXT,
   phone TEXT,

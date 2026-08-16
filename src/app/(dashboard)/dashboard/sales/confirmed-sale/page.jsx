@@ -177,7 +177,7 @@ export default function ConfirmedSalesPage() {
                         <div className="flex flex-col gap-1.5 justify-center items-center">
                           <button
                             onClick={() => handleUpdateStatus(order.order_id, 'out_for_delivery')}
-                            className="w-28 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[10px] font-bold transition flex items-center justify-center gap-0.5 cursor-pointer"
+                            className="w-28 py-1 bg-[#73976A] hover:bg-[#607E59] text-white rounded text-[10px] font-bold transition flex items-center justify-center gap-0.5 cursor-pointer"
                           >
                             <BiSolidTruck /> Dispatch
                           </button>

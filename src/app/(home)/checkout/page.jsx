@@ -199,7 +199,6 @@ export default function CheckoutPage() {
                 <input className="input-style" 
                   type="text" 
                   required
-                  placeholder="e.g. Tanvir Ahmed"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -212,7 +211,6 @@ export default function CheckoutPage() {
                 <input className="input-style" 
                   type="tel" 
                   required
-                  placeholder="e.g. +88017XXXXXXXX"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -225,7 +223,6 @@ export default function CheckoutPage() {
               </label>
               <input className="input-style" 
                 type="email" 
-                placeholder="e.g. tanvir@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -238,7 +235,6 @@ export default function CheckoutPage() {
               <textarea 
                 required
                 rows="3"
-                placeholder="Write full address details: House No, Flat, Road, Area..."
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="input-style outline-none transition resize-none"
@@ -268,7 +264,6 @@ export default function CheckoutPage() {
                 <label className="text-xs font-semibold text-slate-600">Area / Thana</label>
                 <input className="input-style" 
                   type="text" 
-                  placeholder="e.g. Dhanmondi, Gulshan..."
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                 />
@@ -281,7 +276,6 @@ export default function CheckoutPage() {
               </label>
               <textarea 
                 rows="2"
-                placeholder="Notes about your delivery, e.g. deliver after 4 PM, call when near..."
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 className="input-style outline-none transition resize-none"
@@ -294,7 +288,7 @@ export default function CheckoutPage() {
             <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
               <h2 className="text-base font-semibold text-secondary border-b border-slate-100 pb-3">Order Items Summary</h2>
               
-              <div className="flex flex-col gap-3 max-h-64 overflow-y-auto pr-1">
+              <div className="flex flex-col gap-3 pr-1">
                 {cart.items.map((item) => {
                   const finalPrice = parseFloat(item.sale_price) - parseFloat(item.discount_price || 0)
                   return (

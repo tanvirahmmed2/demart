@@ -1,10 +1,11 @@
 import { isManager } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Dashboard - Manager | Ecom - New Era of Shopping",
-  description: "Explore Dashboard - Manager page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Manager Dashboard | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Manager Control Panel on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default async function DashboardManagerLayout({ children }) {

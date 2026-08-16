@@ -178,7 +178,6 @@ export default function OffersPage() {
               <BiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base" />
               <input
                 type="text"
-                placeholder="Search offers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
@@ -225,7 +224,6 @@ export default function OffersPage() {
               <span className="text-xs font-bold text-slate-400 px-1">৳</span>
               <input
                 type="number"
-                placeholder="Min"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
                 className="w-16 md:w-20 px-2 py-1 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-emerald-500 text-slate-700"
@@ -233,7 +231,6 @@ export default function OffersPage() {
               <span className="text-slate-400 text-xs">-</span>
               <input
                 type="number"
-                placeholder="Max"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
                 className="w-16 md:w-20 px-2 py-1 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-emerald-500 text-slate-700"

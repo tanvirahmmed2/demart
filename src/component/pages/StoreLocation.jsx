@@ -2,10 +2,11 @@
 import React, { useContext } from 'react'
 import { Context } from '../helper/Context'
 import { BiMap, BiPhone, BiEnvelope, BiTimeFive } from 'react-icons/bi'
+import { STORE_NAME } from '@/lib/secret'
 
 const StoreLocation = () => {
   const { website } = useContext(Context)
-  const storeName = website?.name
+  const storeName = STORE_NAME
   const storeAddress = website?.address || 'House 24, Road 12, Dhanmondi, Dhaka, Bangladesh'
   const storePhone = website?.phone || '+880 1712-345678'
   const storeEmail = website?.email || 'support@vanguard.com'

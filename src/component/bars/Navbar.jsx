@@ -8,6 +8,7 @@ import { FiSearch, FiChevronDown, FiUser, FiSliders, FiLogOut } from "react-icon
 import { Context } from '../helper/Context';
 import axios from 'axios';
 import Image from 'next/image';
+import { STORE_NAME } from '@/lib/secret';
 
 const Navbar = () => {
     const router = useRouter()
@@ -96,14 +97,13 @@ const Navbar = () => {
 
             <div className='w-full px-4 md:px-20 flex flex-row items-center justify-between h-14 '>
                 <Link href={'/'} className='flex items-center gap-2 text-xl font-bold hover:opacity-90 transition'>
-                    {website?.name || 'Ecom'}
+                    {STORE_NAME}
                 </Link>
 
                 <div className='relative w-48 sm:w-64 md:w-80 flex flex-col z-50'>
                     <div className='w-full flex flex-row items-center justify-between h-10 rounded-xl bg-white overflow-hidden border border-slate-200 shadow-sm focus-within:border-slate-400 transition-colors'>
                         <input className="input-style"
                             type="text"
-                            placeholder="Search products..."
                             value={searchValue}
                             onChange={handleSearchChange}
                             onFocus={handleFocus}
@@ -171,7 +171,7 @@ const Navbar = () => {
                 <div className='w-auto hidden md:flex flex-row items-center justify-center gap-4 h-14'>
                     <Link href={'/offers'}>Offers</Link>
                     <Link href={'/about'}>About</Link>
-                    <button onClick={() => setCartbar(!cartbar)} className='text-xl text-secondary'><BiCart /></button>
+                    <button onClick={() => setCartbar(!cartbar)} className='text-xl text-secondary-light cursor-pointer'><BiCart /></button>
                     {loading ? (
                         <span className="text-xs text-slate-400">Loading...</span>
                     ) : user ? (

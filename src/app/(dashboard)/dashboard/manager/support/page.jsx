@@ -310,7 +310,7 @@ export default function DashboardManagerSupportPage() {
             </div>
 
             {/* Scrollable list */}
-            <div className="flex-1 overflow-y-auto p-3 flex flex-col gap-2 bg-slate-50/20">
+            <div className="flex-1 p-3 flex flex-col gap-2 bg-slate-50/20">
               {ticketsLoading && tickets.length === 0 ? (
                 <div className="h-full flex items-center justify-center text-slate-400 text-xs gap-1.5">
                   <BiLoaderAlt className="animate-spin text-base" /> Loading support tickets...
@@ -330,7 +330,7 @@ export default function DashboardManagerSupportPage() {
                       onClick={() => fetchTicketDetails(ticket.support_id)}
                       className={`p-3.5 rounded-xl border cursor-pointer transition select-none flex flex-col gap-1 ${
                         isActive
-                          ? 'bg-slate-900 border-slate-900 text-white shadow-md'
+                          ? 'bg-[#73976A] border-[#607E59] text-white shadow-xs'
                           : 'bg-white hover:bg-slate-50 border-slate-100 hover:border-slate-200 text-slate-800'
                       }`}
                     >
@@ -453,7 +453,7 @@ export default function DashboardManagerSupportPage() {
                 </div>
 
                 {/* Chat timelines */}
-                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3.5 bg-slate-50/40">
+                <div className="flex-1 p-4 flex flex-col gap-3.5 bg-slate-50/40">
                   
                   {/* Initial Description Card */}
                   <div className="bg-white p-4 rounded-xl border border-slate-205 shadow-sm max-w-3xl mx-auto w-full flex flex-col gap-2">

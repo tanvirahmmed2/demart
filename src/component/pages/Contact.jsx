@@ -70,7 +70,6 @@ const Contact = () => {
             <input className="input-style"
               type="text"
               required
-              placeholder="e.g. Tanvir Ahmed"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -83,7 +82,6 @@ const Contact = () => {
             <input className="input-style"
               type="email"
               required
-              placeholder="e.g. tanvir@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -96,7 +94,6 @@ const Contact = () => {
             <input className="input-style"
               type="text"
               required
-              placeholder="e.g. Delivery Inquiry"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
@@ -109,7 +106,6 @@ const Contact = () => {
             <textarea
               required
               rows="4"
-              placeholder="Write details of your message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               className='input-style'

@@ -265,7 +265,7 @@ export default function POSPageClean() {
           <BiShieldQuarter className="text-4xl text-rose-500 mx-auto" />
           <h1 className="text-xl font-bold text-slate-800">Access Denied</h1>
           <p className="text-slate-400 text-xs">Sales desk privileges required.</p>
-          <Link href="/login" className="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs font-semibold hover:bg-slate-850 transition">
+          <Link href="/login" className="px-5 py-2 bg-[#73976A] text-white rounded-lg text-xs font-semibold hover:bg-[#607E59] transition">
             Sign In
           </Link>
         </div>
@@ -355,7 +355,7 @@ export default function POSPageClean() {
               </div>
 
               {cart.length > 0 ? (
-                <div className="flex flex-col gap-2.5 overflow-y-auto max-h-72 pr-1 scrollbar-thin">
+                <div className="flex flex-col gap-2.5 pr-1">
                   {cart.map((item) => (
                     <div 
                       key={item.cartKey}
@@ -524,7 +524,7 @@ export default function POSPageClean() {
               <button
                 onClick={handleCheckout}
                 disabled={submitting || cart.length === 0}
-                className="w-full py-2.5 text-white bg-slate-900 hover:bg-slate-850 text-xs font-bold rounded-lg transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
+                className="w-full py-2.5 text-white bg-[#73976A] hover:bg-[#607E59] text-xs font-bold rounded-lg transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
               >
                 {submitting ? (
                   <>
@@ -676,7 +676,7 @@ export default function POSPageClean() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto">
+            <div className="flex flex-col gap-2">
               {productVariants.filter(v => v.is_active !== false).map((v) => {
                 const vPrice = parseFloat(v.sale_price)
                 const discountAmt = parseFloat(v.discount_price || 0)

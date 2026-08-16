@@ -94,11 +94,14 @@ export async function POST(req) {
       return Response.json({ error: 'Rating must be an integer between 1 and 5' }, { status: 400 });
     }
 
+    const cleanComment = comment ? comment.replace(/<[^>]*>/g, '').trim() : '';
+    const cleanTitle = title ? title.replace(/<[^>]*>/g, '').trim() : '';
+
     const result = await query(`
       INSERT INTO reviews (user_id, rating, title, comment, is_approved)
       VALUES ($1, $2, $3, $4, FALSE)
       RETURNING *
-    `, [auth.user.user_id, ratingVal, title?.trim() || '', comment?.trim() || '']);
+    `, [auth.user.user_id, ratingVal, cleanTitle, cleanComment]);
 
     const newReview = result.rows[0];
     newReview.user_name = auth.user.name;

@@ -2,6 +2,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { usePathname } from "next/navigation";
+import { STORE_NAME } from "@/lib/secret";
 
 
 import toast from 'react-hot-toast'
@@ -126,7 +127,7 @@ const ContextProvider = ({ children }) => {
     const fetchWebsite = async () => {
         try {
             const res = await axios.get('/api/settings');
-            if (res.data && res.data.website_id) {
+            if (res.data) {
                 setWebsite(res.data);
             }
         } catch (error) {
@@ -180,23 +181,21 @@ const ContextProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if (website?.name) {
-            const segments = pathname.split('/').filter(Boolean)
-            let pageTitle = ''
+        const segments = pathname.split('/').filter(Boolean)
+        let pageTitle = ''
 
-            if (segments.length === 0) {
-                pageTitle = website.name
-            } else {
-                const lastSegment = segments[segments.length - 1]
-                const formatted = lastSegment
-                    .replace(/-/g, ' ')
-                    .replace(/\b\w/g, (char) => char.toUpperCase())
-                pageTitle = `${formatted} | ${website.name}`
-            }
-
-            document.title = pageTitle
+        if (segments.length === 0) {
+            pageTitle = STORE_NAME
+        } else {
+            const lastSegment = segments[segments.length - 1]
+            const formatted = lastSegment
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, (char) => char.toUpperCase())
+            pageTitle = `${formatted} | ${STORE_NAME}`
         }
-    }, [pathname, website])
+
+        document.title = pageTitle
+    }, [pathname])
 
     const logout = async () => {
         try {

@@ -1,10 +1,11 @@
 import { isSales } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Dashboard - Sales | Ecom - New Era of Shopping",
-  description: "Explore Dashboard - Sales page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Sales Dashboard | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Sales Desk Panel on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default async function DashboardSalesLayout({ children }) {

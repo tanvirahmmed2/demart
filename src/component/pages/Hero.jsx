@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { Context } from '../helper/Context'
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 const Hero = () => {
   const { website } = useContext(Context)
@@ -56,13 +57,11 @@ const Hero = () => {
         {/* Shop Header Info */}
         <div className="flex flex-col items-center gap-1 sm:gap-2">
           <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase text-white drop-shadow-md">
-            {website?.name || 'Our Store'}
+            {STORE_NAME}
           </h1>
-          {website?.tagline && (
-            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-tertiary font-medium tracking-wide max-w-xl drop-shadow-sm">
-              {website.tagline}
-            </p>
-          )}
+          <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-tertiary font-medium tracking-wide max-w-xl drop-shadow-sm">
+            {STORE_TAGLINE}
+          </p>
         </div>
 
         {/* Divider line */}

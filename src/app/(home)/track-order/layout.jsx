@@ -1,8 +1,9 @@
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Track Order | Ecom - New Era of Shopping",
-  description: "Explore Track Order page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Track Order | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Track your shipment on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default function TrackOrderLayout({ children }) {

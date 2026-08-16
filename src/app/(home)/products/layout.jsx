@@ -1,8 +1,9 @@
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Products | Ecom - New Era of Shopping",
-  description: "Explore Products page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Products | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Explore Products page on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default function ProductsLayout({ children }) {

@@ -1,10 +1,9 @@
 import { cookies } from 'next/headers';
 import { query } from '@/lib/db';
-import { hashPassword, verifyToken, authenticateUser } from '@/lib/auth';
+import { hashPassword, comparePassword, verifyToken, authenticateUser } from '@/lib/auth';
 import { sendEmail } from '@/lib/mailer';
+import { getBaseUrl, STORE_NAME } from '@/lib/secret';
 import crypto from 'crypto';
-
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 export async function GET(req) {
   try {
@@ -94,7 +93,8 @@ export async function POST(req) {
     }
 
     // Send verification email via Brevo
-    const verificationLink = `${NEXT_PUBLIC_API_URL}/verify-account?token=${verificationToken}`;
+    const baseUrl = getBaseUrl(req);
+    const verificationLink = `${baseUrl}/verify-account?token=${verificationToken}`;
     const mailContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h2 style="color: #1e293b; text-align: center;">Welcome to Ecom!</h2>
@@ -114,7 +114,7 @@ export async function POST(req) {
     try {
       await sendEmail({
         to: email,
-        subject: 'Verify your Ecom Account',
+        subject: `Verify your ${STORE_NAME} Account`,
         htmlContent: mailContent,
       });
     } catch (mailError) {
@@ -139,7 +139,7 @@ export async function PUT(req) {
       return Response.json({ error: auth.message }, { status: 401 });
     }
 
-    const { name, email, phone } = await req.json();
+    const { name, email, phone, currentPassword, newPassword } = await req.json();
 
     if (!name || !name.trim()) {
       return Response.json({ error: 'Name is required' }, { status: 400 });
@@ -155,15 +155,47 @@ export async function PUT(req) {
     }
 
     const cleanPhone = phone ? phone.trim() : null;
+    let passwordHashToSave = null;
 
-    // Update user details
-    const result = await query(
-      `UPDATE users 
-       SET name = $1, email = $2, phone = $3, updated_at = NOW() 
-       WHERE user_id = $4 
-       RETURNING user_id, name, email, phone, role, is_active, is_varified, is_banned, created_at, updated_at`,
-      [name.trim(), email.trim(), cleanPhone, auth.user.user_id]
-    );
+    // Handle password change if requested
+    if (newPassword && newPassword.trim()) {
+      if (!currentPassword) {
+        return Response.json({ error: 'Current password is required to set a new password' }, { status: 400 });
+      }
+
+      // Fetch user's stored password hash
+      const userRes = await query('SELECT password FROM users WHERE user_id = $1', [auth.user.user_id]);
+      if (userRes.rows.length === 0) {
+        return Response.json({ error: 'User record not found' }, { status: 404 });
+      }
+
+      const match = await comparePassword(currentPassword, userRes.rows[0].password);
+      if (!match) {
+        return Response.json({ error: 'Current password is incorrect' }, { status: 400 });
+      }
+
+      passwordHashToSave = await hashPassword(newPassword.trim());
+    }
+
+    // Update user details in database
+    let result;
+    if (passwordHashToSave) {
+      result = await query(
+        `UPDATE users 
+         SET name = $1, email = $2, phone = $3, password = $4, updated_at = NOW() 
+         WHERE user_id = $5 
+         RETURNING user_id, name, email, phone, role, is_active, is_varified, is_banned, created_at, updated_at`,
+        [name.trim(), email.trim(), cleanPhone, passwordHashToSave, auth.user.user_id]
+      );
+    } else {
+      result = await query(
+        `UPDATE users 
+         SET name = $1, email = $2, phone = $3, updated_at = NOW() 
+         WHERE user_id = $4 
+         RETURNING user_id, name, email, phone, role, is_active, is_varified, is_banned, created_at, updated_at`,
+        [name.trim(), email.trim(), cleanPhone, auth.user.user_id]
+      );
+    }
 
     const updatedUser = result.rows[0];
 
@@ -186,10 +218,32 @@ export async function PUT(req) {
       }
     }
 
-    return Response.json({ message: 'Profile updated successfully', user: updatedUser }, { status: 200 });
+    return Response.json({ message: 'Profile settings updated successfully', user: updatedUser }, { status: 200 });
 
   } catch (error) {
     console.error('Settings update error:', error);
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req) {
+  try {
+    const auth = await authenticateUser();
+    if (!auth.success) {
+      return Response.json({ error: auth.message }, { status: 401 });
+    }
+
+    // Delete user from database (PostgreSQL handles cascading & nullifying foreign keys)
+    await query('DELETE FROM users WHERE user_id = $1', [auth.user.user_id]);
+
+    // Clear authentication cookie
+    const cookieStore = await cookies();
+    cookieStore.set('ecom_token', '', { expires: new Date(0), path: '/' });
+
+    return Response.json({ message: 'Your account has been deleted successfully' }, { status: 200 });
+
+  } catch (error) {
+    console.error('Account deletion error:', error);
     return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

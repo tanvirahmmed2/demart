@@ -1,12 +1,13 @@
 
 import ContextProvider from "@/component/helper/Context";
 import HotToast from "@/component/helper/HotToast";
+import { STORE_NAME, STORE_TAGLINE } from "@/lib/secret";
 import "./globals.css";
 
 
 export const metadata = {
-  title: "Ecom | New Era of Shopping",
-  description: "Ecom | New Era of Shopping",
+  title: `${STORE_NAME} | ${STORE_TAGLINE}`,
+  description: `${STORE_NAME} | ${STORE_TAGLINE}`,
 };
 
 export default function RootLayout({ children }) {

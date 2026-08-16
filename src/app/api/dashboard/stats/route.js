@@ -8,26 +8,49 @@ export async function GET(req) {
       return Response.json({ error: auth.message }, { status: 403 });
     }
 
-    const catResult = await query('SELECT COUNT(*)::int AS count FROM categories');
-    const brandResult = await query('SELECT COUNT(*)::int AS count FROM brands');
-    const prodResult = await query('SELECT COUNT(*)::int AS count FROM products');
-    const userResult = await query('SELECT COUNT(*)::int AS count FROM users');
-    const orderResult = await query('SELECT COUNT(*)::int AS count FROM orders');
-    const revenueResult = await query("SELECT COALESCE(SUM(total_amount), 0)::float AS total FROM orders WHERE status != 'cancelled'");
-    const pendingResult = await query("SELECT COUNT(*)::int AS count FROM orders WHERE status = 'pending'");
+    const [
+      staffRes,
+      customerRes,
+      prodRes,
+      stockRes,
+      stockValRes,
+      orderRes,
+      revenueRes,
+      pendingRes,
+      completedRes,
+      catRes,
+      brandRes
+    ] = await Promise.all([
+      query("SELECT COUNT(*)::int AS count FROM users WHERE role IN ('admin', 'manager', 'sales')"),
+      query("SELECT COUNT(*)::int AS count FROM users WHERE role = 'user'"),
+      query("SELECT COUNT(*)::int AS count FROM products"),
+      query("SELECT COALESCE(SUM(stock), 0)::int AS count FROM product_variants"),
+      query("SELECT COALESCE(SUM(stock * sale_price), 0)::float AS val, COALESCE(SUM(stock * purchase_price), 0)::float AS cost FROM product_variants"),
+      query("SELECT COUNT(*)::int AS count FROM orders"),
+      query("SELECT COALESCE(SUM(total_amount), 0)::float AS total FROM orders WHERE status != 'cancelled'"),
+      query("SELECT COUNT(*)::int AS count FROM orders WHERE status = 'pending'"),
+      query("SELECT COUNT(*)::int AS count FROM orders WHERE status = 'delivered'"),
+      query("SELECT COUNT(*)::int AS count FROM categories"),
+      query("SELECT COUNT(*)::int AS count FROM brands")
+    ]);
 
     return Response.json({
-      categories: catResult.rows[0].count,
-      brands: brandResult.rows[0].count,
-      products: prodResult.rows[0].count,
-      users: userResult.rows[0].count,
-      orders: orderResult.rows[0].count,
-      revenue: revenueResult.rows[0].total,
-      pendingOrders: pendingResult.rows[0].count,
+      staff: staffRes.rows[0].count,
+      customers: customerRes.rows[0].count,
+      products: prodRes.rows[0].count,
+      totalStock: stockRes.rows[0].count,
+      stockValue: stockValRes.rows[0].val,
+      stockCost: stockValRes.rows[0].cost,
+      orders: orderRes.rows[0].count,
+      revenue: revenueRes.rows[0].total,
+      pendingOrders: pendingRes.rows[0].count,
+      completedOrders: completedRes.rows[0].count,
+      categories: catRes.rows[0].count,
+      brands: brandRes.rows[0].count
     }, { status: 200 });
+
   } catch (error) {
     console.error('Error fetching dashboard stats:', error);
     return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-

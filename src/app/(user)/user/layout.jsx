@@ -3,10 +3,11 @@ import Usersidebar from '@/component/bars/Usersidebar'
 import { isUser } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "User | Ecom - New Era of Shopping",
-  description: "Explore User page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `User Portal | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `User account dashboard on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default async function UserLayout({ children }) {

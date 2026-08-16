@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast';
+import { STORE_NAME } from '@/lib/secret';
 
 export function printReceipt(order, website) {
   if (!order) return;
@@ -9,7 +10,7 @@ export function printReceipt(order, website) {
     return;
   }
 
-  const storeName = website?.name || 'E-Commerce Store';
+  const storeName = STORE_NAME;
   const storePhone = website?.phone || 'N/A';
   const storeEmail = website?.email || 'support@ecom.com';
   const storeAddress = website?.address || 'Dhaka, Bangladesh';

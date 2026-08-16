@@ -23,7 +23,7 @@ const CartBar = () => {
             />
 
             <div
-                className={`fixed top-0 right-0 h-screen w-full sm:max-w-md bg-primary-dark border-l border-slate-800 text-white z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${cartbar ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed top-0 right-0 h-screen w-full sm:max-w-md bg-primary-light border-l border-slate-800 text-white z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${cartbar ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 <div className="p-4 border-b border-slate-800 flex items-center justify-between">
@@ -34,7 +34,7 @@ const CartBar = () => {
                         {cart?.items.length > 0 && (
                             <button
                                 onClick={clearCart}
-                                className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-slate-800 hover:bg-secondary-dark/40 text-tertiary hover:text-secondary-light rounded transition cursor-pointer"
+                                className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-primary hover:bg-secondary text-tertiary  rounded transition cursor-pointer"
                             >
                                 Clear All
                             </button>
@@ -53,7 +53,7 @@ const CartBar = () => {
                         cart.items.map((item, index) => {
                             const finalPrice = parseFloat(item.sale_price) - parseFloat(item.discount_price || 0)
                             return (
-                                <div key={`${item.product_id}-${item.variant || 'base'}`} className="flex items-center gap-3 bg-slate-950/30 p-3 rounded-xl border border-slate-800/40">
+                                <div key={`${item.product_id}-${item.variant || 'base'}`} className="flex items-center gap-3 bg-primary p-3 rounded-xl ">
                                     <Image width={200} height={200}
                                         src={item.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150'} 
                                         alt={item.name} 

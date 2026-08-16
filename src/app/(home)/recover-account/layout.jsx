@@ -1,8 +1,9 @@
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Recover Account | Ecom - New Era of Shopping",
-  description: "Explore Recover Account page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Recover Account | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Explore Recover Account page on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default function RecoverAccountLayout({ children }) {

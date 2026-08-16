@@ -967,7 +967,7 @@ export default function ProductForm({ initialData, onSubmit, loading }) {
                               <td className="px-2 py-1.5 text-center">
                                 <div className="relative group w-10 h-10 rounded-lg overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center mx-auto shadow-sm">
                                   <img
-                                    src={v.imagePreview || v.image || imagePreview || '/placeholder.png'}
+                                    src={v.imagePreview || v.image || imagePreview || ''}
                                     alt={v.variant_name}
                                     className="object-cover w-full h-full"
                                   />

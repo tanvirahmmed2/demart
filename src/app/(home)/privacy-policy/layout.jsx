@@ -1,8 +1,9 @@
 import React from 'react'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 export const metadata = {
-  title: "Privacy Policy | Ecom - New Era of Shopping",
-  description: "Explore Privacy Policy page on Ecom, the fastest, secure, and trusted e-commerce platform.",
+  title: `Privacy Policy | ${STORE_NAME} - ${STORE_TAGLINE}`,
+  description: `Explore Privacy Policy page on ${STORE_NAME}, ${STORE_TAGLINE}.`,
 }
 
 export default function PrivacyPolicyLayout({ children }) {

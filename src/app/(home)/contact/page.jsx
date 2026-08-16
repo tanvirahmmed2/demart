@@ -4,6 +4,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Context } from '@/component/helper/Context'
 import RichTextEditor from '@/component/helper/RichTextEditor'
+import { STORE_TAGLINE } from '@/lib/secret'
 import { 
   BiEnvelope, 
   BiPhoneCall, 
@@ -59,7 +60,7 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-slate-500 text-base sm:text-lg">
-            {website?.tagline || 'Have questions about products, shipping, or need support? Drop us a line and our management team will reply directly to your inbox.'}
+            {STORE_TAGLINE}
           </p>
         </div>
 
@@ -141,7 +142,6 @@ export default function ContactPage() {
                   <input className="input-style"
                     type="text"
                     required
-                    placeholder="e.g. John Doe"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -152,7 +152,6 @@ export default function ContactPage() {
                   <input className="input-style"
                     type="email"
                     required
-                    placeholder="e.g. john@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -165,7 +164,6 @@ export default function ContactPage() {
                 <input className="input-style"
                   type="text"
                   required
-                  placeholder="e.g. Questions regarding wholesale pricing"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                 />

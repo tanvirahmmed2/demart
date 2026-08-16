@@ -84,7 +84,7 @@ const Reviews = () => {
                 </div>
               </div>
               <p className="text-slate-600 text-[11px] font-semibold leading-relaxed italic">
-                "{rev.comment}"
+                "{rev.comment ? rev.comment.replace(/<[^>]*>/g, '').trim() : ''}"
               </p>
             </div>
           ))}

@@ -161,7 +161,7 @@ export default function ProductCard({ product }) {
             </button>
           </div>
 
-          <div className="flex-1 w-full overflow-y-auto my-3 flex flex-col gap-2 pr-1">
+          <div className="flex-1 w-full my-3 flex flex-col gap-2 pr-1">
             {variants.map((v) => {
               const vHasDiscount = v.discount_price && parseFloat(v.discount_price) > 0
               const finalVPrice = vHasDiscount

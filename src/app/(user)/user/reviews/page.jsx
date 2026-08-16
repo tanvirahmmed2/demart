@@ -18,7 +18,7 @@ import {
 } from 'react-icons/bi'
 
 export default function UserReviewsPage() {
-  const { user, loading: userLoading } = useContext(Context)
+  const { user, loading: userLoading, userSidebar } = useContext(Context)
   const [reviews, setReviews] = useState([])
   const [reviewsLoading, setReviewsLoading] = useState(true)
 
@@ -37,7 +37,7 @@ export default function UserReviewsPage() {
     try {
       await axios.delete(`/api/review/${id}`)
       toast.success('Review deleted successfully!')
-      setReviews([]) // Clear reviews so form shows up immediately
+      setReviews([])
       fetchMyReviews(true)
     } catch (err) {
       toast.error('Failed to delete review')
@@ -85,7 +85,7 @@ export default function UserReviewsPage() {
       setTitle('')
       setComment('')
       setRating(5)
-      fetchMyReviews(true) // Refresh list
+      fetchMyReviews(true)
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to submit review')
       console.error(err)
@@ -102,19 +102,19 @@ export default function UserReviewsPage() {
             key={star}
             type="button"
             onClick={() => setRating(star)}
-            className="text-2xl transition cursor-pointer"
+            className="text-xl transition cursor-pointer hover:scale-110"
           >
             <BiStar className={star <= rating ? 'text-amber-500 fill-amber-500' : 'text-slate-300'} />
           </button>
         ))}
-        <span className="text-xs text-slate-505 font-bold ml-1.5 uppercase tracking-wider">{rating} / 5 Stars</span>
+        <span className="text-xs text-slate-600 font-bold ml-1.5 uppercase tracking-wider">{rating} / 5 Stars</span>
       </div>
     )
   }
 
   const renderStars = (count) => {
     return (
-      <div className="flex gap-0.5 text-amber-500 text-sm">
+      <div className="flex gap-0.5 text-amber-500 text-xs">
         {[1, 2, 3, 4, 5].map((star) => (
           <BiStar key={star} className={star <= count ? 'fill-amber-500' : 'text-slate-200'} />
         ))}
@@ -122,24 +122,23 @@ export default function UserReviewsPage() {
     )
   }
 
-  // Loading or access states
   if (userLoading) {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-slate-50">
-        <BiLoaderAlt className="animate-spin text-4xl text-slate-900" />
+      <div className="w-full min-h-screen flex items-center justify-center bg-[#F1F5F9]">
+        <BiLoaderAlt className="animate-spin text-4xl text-[#73976A]" />
       </div>
     )
   }
 
   if (!user) {
     return (
-      <div className="w-full min-h-screen flex flex-col items-center justify-center p-8 bg-slate-50">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-100 p-8 flex flex-col gap-4 text-center">
-          <BiCommentDetail className="text-5xl text-slate-450 mx-auto" />
-          <h1 className="text-2xl font-bold text-slate-800">Reviews Panel</h1>
-          <p className="text-slate-600 text-sm">Please log in to write product testimonials and review your feedback history.</p>
-          <div className="mt-4">
-            <Link href="/login" className="px-6 py-2.5 bg-slate-900 text-white rounded-xl text-sm font-medium hover:bg-slate-800 transition cursor-pointer shadow-sm">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 md:p-8 bg-[#F1F5F9]">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-xs border border-slate-200 p-6 md:p-8 flex flex-col gap-4 text-center">
+          <BiCommentDetail className="text-5xl text-slate-400 mx-auto" />
+          <h1 className="text-xl font-bold text-slate-800">Reviews Panel</h1>
+          <p className="text-slate-600 text-xs leading-relaxed">Please log in to write testimonials and review your submitted feedback.</p>
+          <div className="mt-2">
+            <Link href="/login" className="px-6 py-2.5 bg-[#73976A] text-white rounded-xl text-xs font-bold hover:bg-[#607E59] transition cursor-pointer shadow-xs">
               Log In
             </Link>
           </div>
@@ -149,44 +148,44 @@ export default function UserReviewsPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 pt-20 pb-12 px-4 md:px-8">
-      <div className="max-w-6xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-[#F1F5F9] pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${userSidebar ? 'lg:pl-60' : 'lg:pl-8'}`}>
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6">
         
-        {/* Header section */}
-        <div className="flex items-center justify-between flex-wrap gap-4">
+        {/* Header */}
+        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-              <BiCommentDetail className="text-slate-900" />
+            <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
+              <BiCommentDetail className="text-[#73976A] text-2xl" />
               Your Reviews & Feedback
             </h1>
-            <p className="text-slate-500 text-sm mt-0.5">Submit product reviews, share testimonials, and check approval states.</p>
+            <p className="text-xs text-slate-500 mt-0.5">Submit product reviews, share testimonials, and check moderation states.</p>
           </div>
-          <Link href="/user" className="px-4 py-2 border border-slate-205 text-slate-655 text-xs font-semibold rounded-xl hover:bg-slate-50 transition cursor-pointer flex items-center gap-1.5 bg-white shadow-xs">
+          <Link href="/user" className="px-4 py-2 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl hover:bg-slate-50 transition cursor-pointer flex items-center gap-1.5 bg-white shadow-2xs">
             <BiArrowBack /> Back to Profile
           </Link>
         </div>
 
         {/* Dashboard Split View */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* Left panel: Submit Review Form */}
-          <div className="lg:col-span-5 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col gap-6">
+          <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-xs flex flex-col gap-6">
             {reviews.length > 0 ? (
-              <div className="flex flex-col gap-4 text-center py-6">
-                <BiInfoCircle className="text-4xl text-amber-500 mx-auto" />
+              <div className="flex flex-col gap-3 text-center py-6">
+                <BiInfoCircle className="text-3xl text-amber-500 mx-auto" />
                 <h3 className="font-bold text-slate-800 text-sm">Review Limit Reached</h3>
                 <p className="text-slate-500 text-xs leading-relaxed">
-                  You have already submitted a product review. In order to prevent spam, we only allow one review per account.
+                  You have already submitted a review. To maintain authenticity, we limit feedback to one submission per account.
                 </p>
-                <p className="text-xxs text-slate-400 italic">
-                  If you want to write a new review, you can delete your existing review using the trash button in your feedback log.
+                <p className="text-[11px] text-slate-400 italic">
+                  To write a new review, delete your existing review using the trash action button in your feedback log.
                 </p>
               </div>
             ) : (
               <>
                 <div>
-                  <h2 className="font-bold text-slate-805 text-base flex items-center gap-1.5">
-                    <BiPlusCircle className="text-indigo-600" /> Write a Testimonial
+                  <h2 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                    <BiPlusCircle className="text-[#73976A]" /> Write a Testimonial
                   </h2>
                   <p className="text-slate-500 text-xs mt-1">Let us know how your experience with our store and catalog products was!</p>
                 </div>
@@ -198,25 +197,24 @@ export default function UserReviewsPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-slate-705 uppercase">Subject Title <span className="text-red-500">*</span></label>
-                    <input className="input-style"
+                    <label className="text-xs font-bold text-slate-700 uppercase">Subject Title <span className="text-[#BD4444]">*</span></label>
+                    <input className="input-style focus:border-[#73976A]"
                       required
                       type="text"
-                      placeholder="e.g. Excellent service, Great product quality, etc."
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-slate-755 uppercase">Detailed Review Comment</label>
+                    <label className="text-xs font-bold text-slate-700 uppercase">Detailed Review Comment</label>
                     <RichTextEditor value={comment} onChange={setComment} />
                   </div>
 
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="mt-2 w-full py-2.5 bg-slate-900 hover:bg-slate-850 text-white font-bold text-xs rounded-xl shadow-md hover:shadow-lg transition cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    className="mt-2 w-full py-2.5 bg-[#73976A] hover:bg-[#607E59] text-white font-bold text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
                   >
                     {submitting ? (
                       <>
@@ -232,41 +230,40 @@ export default function UserReviewsPage() {
           </div>
 
           {/* Right panel: Listing customer's reviews */}
-          <div className="lg:col-span-7 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col gap-5 min-h-[300px]">
-            <h2 className="font-bold text-slate-800 text-base">Your Feedback Log</h2>
+          <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-xs flex flex-col gap-4">
+            <h2 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Your Feedback Log</h2>
 
             {reviewsLoading ? (
-              <div className="flex-1 flex items-center justify-center text-slate-400 text-xs gap-1.5 py-12">
+              <div className="flex items-center justify-center text-slate-400 text-xs gap-1.5 py-12">
                 <BiLoaderAlt className="animate-spin text-base" /> Loading reviews...
               </div>
             ) : reviews.length === 0 ? (
-              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400 gap-2 py-12 border-2 border-dashed border-slate-100 rounded-xl">
+              <div className="flex flex-col items-center justify-center p-8 text-center text-slate-400 gap-2 py-12 border-2 border-dashed border-slate-200 rounded-xl">
                 <BiCommentDetail className="text-3xl text-slate-350" />
-                <p className="text-xs font-semibold text-slate-500">No reviews posted yet</p>
-                <p className="text-xxs text-slate-400 max-w-xs">You have not submitted any product feedback or store testimonials yet.</p>
+                <p className="text-xs font-bold text-slate-700">No reviews posted yet</p>
+                <p className="text-xs text-slate-400 max-w-xs">You have not submitted any product feedback or store testimonials yet.</p>
               </div>
             ) : (
-              <div className="flex flex-col gap-4 overflow-y-auto max-h-[500px] pr-1">
+              <div className="flex flex-col gap-3">
                 {reviews.map((rev) => {
                   return (
                     <div 
                       key={rev.review_id}
-                      className="border border-slate-100 rounded-xl p-4 bg-slate-50/20 flex flex-col gap-2 hover:border-slate-200 transition"
+                      className="border border-slate-200 rounded-xl p-4 bg-slate-50/50 flex flex-col gap-2 hover:border-slate-300 transition"
                     >
                       <div className="flex justify-between items-start gap-2 flex-wrap">
                         <div>
-                          <h3 className="text-xs font-bold text-slate-805 leading-normal">{rev.title}</h3>
+                          <h3 className="text-xs font-bold text-slate-800">{rev.title}</h3>
                           <div className="mt-1">{renderStars(rev.rating)}</div>
                         </div>
 
-                        {/* Approval Status Badge */}
                         <div>
                           {rev.is_approved ? (
-                            <span className="px-2 py-0.5 text-xxs font-bold rounded-md bg-emerald-50 text-emerald-705 border border-emerald-100 flex items-center gap-1">
+                            <span className="px-2.5 py-0.5 text-[10px] font-bold rounded bg-[#73976A]/10 text-[#73976A] border border-[#73976A]/20 flex items-center gap-1">
                               <BiCheckCircle /> Approved
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 text-xxs font-bold rounded-md bg-amber-50 text-amber-705 border border-amber-100 flex items-center gap-1">
+                            <span className="px-2.5 py-0.5 text-[10px] font-bold rounded bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
                               <BiTime /> Pending Approval
                             </span>
                           )}
@@ -274,22 +271,21 @@ export default function UserReviewsPage() {
                       </div>
 
                       {rev.comment && (
-                        <div 
-                          className="text-slate-655 text-xs leading-relaxed italic bg-white p-3 rounded-lg border border-slate-100/50 mt-1 ProseMirror"
-                          dangerouslySetInnerHTML={{ __html: rev.comment }}
-                        />
+                        <p className="text-slate-700 text-xs leading-relaxed italic bg-white p-3 rounded-lg border border-slate-200 mt-1">
+                          "{rev.comment.replace(/<[^>]*>/g, '').trim()}"
+                        </p>
                       )}
 
-                      <div className="flex justify-between items-center text-xxxs text-slate-400 font-mono mt-1 pt-1 border-t border-slate-100/40">
+                      <div className="flex justify-between items-center text-[11px] text-slate-400 font-mono mt-1 pt-2 border-t border-slate-200">
                         <div className="flex items-center gap-2">
-                          <span>Review ID: #{rev.review_id}</span>
+                          <span>ID: #{rev.review_id}</span>
                           <span>•</span>
                           <span>{new Date(rev.created_at).toLocaleDateString()}</span>
                         </div>
                         <button
                           onClick={() => handleDeleteReview(rev.review_id)}
                           disabled={deletingId === rev.review_id}
-                          className="text-rose-600 hover:text-rose-800 p-1 rounded-md transition cursor-pointer flex items-center gap-1 font-sans text-xxs font-bold"
+                          className="text-[#BD4444] hover:text-[#842f2f] p-1 rounded transition cursor-pointer flex items-center gap-1 font-sans text-xs font-bold"
                         >
                           {deletingId === rev.review_id ? (
                             <BiLoaderAlt className="animate-spin" />
@@ -313,3 +309,4 @@ export default function UserReviewsPage() {
     </div>
   )
 }
+

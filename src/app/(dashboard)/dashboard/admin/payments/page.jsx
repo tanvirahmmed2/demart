@@ -8,16 +8,11 @@ import {
   BiRefresh, 
   BiSearch, 
   BiLoaderAlt, 
-  BiDollarCircle, 
-  BiCalendar, 
-  BiUser, 
-  BiReceipt,
-  BiPackage
+  BiDollarCircle
 } from 'react-icons/bi'
 
 export default function AdminPaymentsPage() {
-  const { dashSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#10b981'
+  const { dashSidebar } = useContext(Context)
 
   const [payments, setPayments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -51,31 +46,31 @@ export default function AdminPaymentsPage() {
   })
 
   return (
-    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
-      <div className="max-w-6xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-[#F1F5F9] pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'}`}>
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200/60 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
           <div>
-            <h1 className="text-2xl font-black text-slate-800 tracking-tight">Admin Payments Desk</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Admin Payments Desk</h1>
             <p className="text-xs text-slate-500 mt-1">Global administrative desk for settled receipts, mobile/COD payments, and reference tracking.</p>
           </div>
           <button
             onClick={fetchPayments}
             disabled={loading}
-            className="p-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl border border-slate-200 transition cursor-pointer shadow-sm disabled:opacity-40"
+            className="p-2.5 bg-white hover:bg-slate-50 text-slate-700 rounded-xl border border-slate-200 transition cursor-pointer shadow-xs disabled:opacity-40"
           >
-            <BiRefresh className={`text-xl ${loading ? 'animate-spin' : ''}`} />
+            <BiRefresh className={`text-xl ${loading ? 'animate-spin text-[#73976A]' : ''}`} />
           </button>
         </div>
 
         {/* Search */}
         <div className="flex justify-end">
-          <div className="flex items-center gap-2 bg-white px-3 py-2 border border-slate-200 rounded-xl w-full md:w-80 shadow-sm">
-            <BiSearch className="text-slate-400 text-lg" />
-            <input className="input-style"
+          <div className="flex items-center gap-2 bg-white px-3 py-2 border border-slate-200 rounded-xl w-full sm:w-80 shadow-xs">
+            <BiSearch className="text-slate-400 text-lg shrink-0" />
+            <input className="input-style border-none focus:ring-0 shadow-none px-0 bg-transparent text-xs"
               type="text"
-              placeholder="Search by receipt, order ID, customer name, phone..."
+              placeholder="Search receipt, order, phone or method..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -85,58 +80,76 @@ export default function AdminPaymentsPage() {
         {/* Payments List */}
         {loading ? (
           <div className="w-full py-20 flex flex-col items-center justify-center gap-2">
-            <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
+            <BiLoaderAlt className="animate-spin text-4xl text-[#73976A]" />
             <p className="text-slate-500 text-sm font-semibold animate-pulse">Loading payments logs...</p>
           </div>
         ) : filteredPayments.length === 0 ? (
-          <div className="w-full bg-white border border-slate-100 rounded-3xl py-16 px-6 text-center flex flex-col items-center gap-3">
+          <div className="w-full bg-white border border-slate-200 rounded-2xl py-16 px-6 text-center flex flex-col items-center gap-3 shadow-xs">
             <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-2xl">
               <BiDollarCircle />
             </div>
             <div>
-              <h3 className="font-bold text-slate-850 text-base">No Payments Recorded</h3>
+              <h3 className="font-bold text-slate-800 text-base">No Payments Recorded</h3>
               <p className="text-slate-500 text-xs mt-1">There are no order payment transactions that match your search query.</p>
             </div>
           </div>
         ) : (
-          <div className="w-full overflow-x-auto bg-white border border-slate-150 rounded-2xl shadow-sm">
+          <div className="w-full overflow-x-auto bg-white border border-slate-200 rounded-2xl shadow-xs">
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="bg-slate-100/80 text-slate-655 font-bold border-b border-slate-200">
+              <thead className="bg-[#F1F5F9] text-slate-700 font-bold border-b border-slate-200">
                 <tr>
-                  <th className="px-4 py-3 text-center">Receipt ID</th>
-                  <th className="px-4 py-3">Date Logged</th>
-                  <th className="px-4 py-3 text-center">Order Ref</th>
-                  <th className="px-4 py-3">Customer Details</th>
-                  <th className="px-4 py-3">Sample Product</th>
-                  <th className="px-4 py-3 text-center">Method</th>
-                  <th className="px-4 py-3 text-right">Settled Amount</th>
-                  <th className="px-4 py-3 text-center">Status</th>
-                  <th className="px-4 py-3">Note</th>
+                  <th className="px-3 md:px-4 py-3">Receipt ID</th>
+                  <th className="px-3 md:px-4 py-3 hidden md:table-cell">Date Logged</th>
+                  <th className="px-3 md:px-4 py-3">Order Ref</th>
+                  <th className="px-3 md:px-4 py-3">Customer Details</th>
+                  <th className="px-3 md:px-4 py-3 hidden lg:table-cell">Sample Product</th>
+                  <th className="px-3 md:px-4 py-3 hidden sm:table-cell">Method</th>
+                  <th className="px-3 md:px-4 py-3 text-right">Settled Amount</th>
+                  <th className="px-3 md:px-4 py-3 text-center">Status</th>
+                  <th className="px-3 md:px-4 py-3 hidden xl:table-cell">Note</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700 bg-white">
-                {filteredPayments.map((pay) => (
-                  <tr key={pay.payment_id} className="hover:bg-slate-50/50 transition">
-                    <td className="px-4 py-3.5 text-center font-bold text-slate-500">#PAY-REC-{pay.payment_id}</td>
-                    <td className="px-4 py-3.5 whitespace-nowrap text-slate-500">{new Date(pay.paid_at).toLocaleString()}</td>
-                    <td className="px-4 py-3.5 text-center font-bold text-slate-850">
-                      <Link href={`/track-order?id=${pay.order_id}`} target="_blank" className="hover:underline text-slate-900 cursor-pointer">
-                        #ORD-{pay.order_id}
+                {filteredPayments.map((p) => (
+                  <tr key={p.payment_id} className="hover:bg-slate-50 transition">
+                    <td className="px-3 md:px-4 py-3.5">
+                      <div className="font-bold text-slate-800 font-mono text-[11px] md:text-xs">#PAY-{p.payment_id}</div>
+                    </td>
+                    <td className="px-3 md:px-4 py-3.5 font-mono text-slate-500 text-[11px] md:text-xs whitespace-nowrap hidden md:table-cell">
+                      {p.paid_at ? new Date(p.paid_at).toLocaleString() : 'N/A'}
+                    </td>
+                    <td className="px-3 md:px-4 py-3.5">
+                      <Link href={`/track-order?id=${p.order_id}`} target="_blank" className="inline-flex items-center text-[#73976A] hover:underline font-bold text-xs">
+                        #ORD-{p.order_id}
                       </Link>
                     </td>
-                    <td className="px-4 py-3.5">
-                      <div className="font-semibold text-slate-855">{pay.customer_name || 'Guest'}</div>
-                      <div className="text-[10px] text-slate-400 font-medium">{pay.order_phone || 'N/A'}</div>
+                    <td className="px-3 md:px-4 py-3.5">
+                      <div className="font-bold text-slate-800 text-xs max-w-[100px] sm:max-w-[140px] truncate">{p.customer_name || 'Guest'}</div>
+                      <div className="text-[10px] text-slate-400 truncate max-w-[120px]">{p.order_phone}</div>
                     </td>
-                    <td className="px-4 py-3.5 text-slate-500 max-w-[150px] truncate" title={pay.sample_product_name || 'In-store Items'}>{pay.sample_product_name || 'In-store Items'}</td>
-                    <td className="px-4 py-3.5 text-center"><span className="px-2 py-0.5 rounded bg-slate-50 text-slate-700 font-bold uppercase text-[9px] border border-slate-150">{pay.payment_method}</span></td>
-                    <td className="px-4 py-3.5 text-right font-black text-emerald-600">৳{parseFloat(pay.amount).toFixed(2)}</td>
-                    <td className="px-4 py-3.5 text-center">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700" style={{ color: themeColor, backgroundColor: themeColor + '10' }}>
-                        {pay.payment_status}
+                    <td className="px-3 md:px-4 py-3.5 max-w-[160px] truncate text-slate-500 text-xs hidden lg:table-cell" title={p.sample_product_name || 'N/A'}>
+                      {p.sample_product_name || 'General Order Billing'}
+                    </td>
+                    <td className="px-3 md:px-4 py-3.5 hidden sm:table-cell">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold uppercase text-[10px] tracking-wider">
+                        {p.payment_method || 'Cash'}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5 text-slate-500 italic max-w-[150px] truncate" title={pay.note}>{pay.note ? `"${pay.note}"` : '-'}</td>
+                    <td className="px-3 md:px-4 py-3.5 text-right font-bold text-[#73976A] text-xs md:text-sm">
+                      ৳{parseFloat(p.amount || 0).toFixed(2)}
+                    </td>
+                    <td className="px-3 md:px-4 py-3.5 text-center">
+                      <span className={`px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-wider ${
+                        p.payment_status === 'completed' ? 'bg-[#73976A]/10 text-[#73976A] border border-[#73976A]/20' :
+                        ['failed', 'refunded'].includes(p.payment_status) ? 'bg-[#BD4444]/10 text-[#BD4444] border border-[#BD4444]/20' :
+                        'bg-amber-50 text-amber-700 border border-amber-200'
+                      }`}>
+                        {p.payment_status}
+                      </span>
+                    </td>
+                    <td className="px-3 md:px-4 py-3.5 text-slate-400 text-xs italic max-w-[140px] truncate hidden xl:table-cell" title={p.note || ''}>
+                      {p.note || 'No notes'}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -147,3 +160,4 @@ export default function AdminPaymentsPage() {
     </div>
   )
 }
+

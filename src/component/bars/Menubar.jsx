@@ -9,39 +9,31 @@ import { AiFillProduct } from 'react-icons/ai'
 import { FiLogIn, FiUser } from 'react-icons/fi'
 
 const Menubar = () => {
-    const { user, cartbar, setCartbar, website } = useContext(Context)
+    const { user, cartbar, setCartbar } = useContext(Context)
     const pathname = usePathname()
 
-    const themeColor = website?.theme_color || '#ef4444'
-
     const getLinkClass = (isActive) => {
-        return `relative p-3.5 rounded-full transition-all duration-300 flex items-center justify-center active:scale-90 ${
+        return `relative p-3.5 rounded-full transition-all duration-300 flex items-center justify-center active:scale-95 ${
             isActive 
-                ? 'bg-white/10 text-white scale-110 shadow-inner' 
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-white/25 text-white scale-110 shadow-sm' 
+                : 'text-white/75 hover:text-white hover:bg-white/10'
         }`
     }
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden bg-slate-950/90 backdrop-blur-xl p-2 rounded-full flex flex-row items-center justify-between gap-4 shadow-[0_15px_30px_-5px_rgba(0,0,0,0.6)] w-auto min-w-96 border border-white/10">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden bg-primary-light backdrop-blur-xl p-2 rounded-full flex flex-row items-center justify-between gap-8 shadow-xl border border-primary-dark/30 text-white">
             
             <Link href="/" className={getLinkClass(pathname === '/')} title="Home">
                 <BiHome className="text-2xl" />
                 {pathname === '/' && (
-                    <span 
-                        className="absolute bottom-1 w-1.5 h-1.5 rounded-full animate-pulse" 
-                        style={{ backgroundColor: themeColor }}
-                    />
+                    <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
             </Link>
 
             <Link href="/products" className={getLinkClass(pathname === '/products')} title="Products">
                 <AiFillProduct className="text-2xl" />
                 {pathname === '/products' && (
-                    <span 
-                        className="absolute bottom-1 w-1.5 h-1.5 rounded-full animate-pulse" 
-                        style={{ backgroundColor: themeColor }}
-                    />
+                    <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
             </Link>
 
@@ -49,10 +41,7 @@ const Menubar = () => {
             <Link href="/offers" className={getLinkClass(pathname === '/offers')} title="Offers">
                 <MdLocalOffer className="text-2xl" />
                 {pathname === '/offers' && (
-                    <span 
-                        className="absolute bottom-1 w-1.5 h-1.5 rounded-full animate-pulse" 
-                        style={{ backgroundColor: themeColor }}
-                    />
+                    <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
             </Link>
 
@@ -64,10 +53,7 @@ const Menubar = () => {
             >
                 <BiCart className="text-2xl" />
                 {cartbar && (
-                    <span 
-                        className="absolute bottom-1 w-1.5 h-1.5 rounded-full animate-pulse" 
-                        style={{ backgroundColor: themeColor }}
-                    />
+                    <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
             </button>
 
@@ -76,20 +62,14 @@ const Menubar = () => {
                 <Link href="/user" className={getLinkClass(pathname?.startsWith('/user'))} title="Profile">
                     <FiUser className="text-2xl" />
                     {pathname?.startsWith('/user') && (
-                        <span 
-                            className="absolute bottom-1 w-1.5 h-1.5 rounded-full animate-pulse" 
-                            style={{ backgroundColor: themeColor }}
-                        />
+                        <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     )}
                 </Link>
             ) : (
                 <Link href="/login" className={getLinkClass(pathname === '/login')} title="Login">
                     <FiLogIn className="text-2xl" />
                     {pathname === '/login' && (
-                        <span 
-                            className="absolute bottom-1 w-1.5 h-1.5 rounded-full animate-pulse" 
-                            style={{ backgroundColor: themeColor }}
-                        />
+                        <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     )}
                 </Link>
             )}

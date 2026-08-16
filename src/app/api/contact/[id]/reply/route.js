@@ -1,6 +1,7 @@
 import { query } from '@/lib/db';
 import { isManagementRole } from '@/lib/auth';
 import { sendEmail } from '@/lib/mailer';
+import { STORE_NAME } from '@/lib/secret';
 
 export async function POST(req, { params }) {
   try {
@@ -54,7 +55,7 @@ export async function POST(req, { params }) {
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #334155; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);">
           <div style="background-color: #0f172a; padding: 24px; text-align: center; color: #ffffff;">
-            <h2 style="margin: 0; font-size: 20px; font-weight: bold; letter-spacing: 0.05em;">E-COMMERCE SYSTEM</h2>
+            <h2 style="margin: 0; font-size: 20px; font-weight: bold; letter-spacing: 0.05em;">${STORE_NAME.toUpperCase()} SYSTEM</h2>
             <p style="margin: 4px 0 0 0; font-size: 12px; color: #94a3b8;">Customer Support Division</p>
           </div>
           <div style="padding: 24px; background-color: #ffffff;">

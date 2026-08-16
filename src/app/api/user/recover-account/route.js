@@ -1,9 +1,8 @@
 import { query } from '@/lib/db';
 import { hashPassword } from '@/lib/auth';
 import { sendEmail } from '@/lib/mailer';
+import { getBaseUrl, STORE_NAME } from '@/lib/secret';
 import crypto from 'crypto';
-
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 // POST: Request password recovery link
 export async function POST(req) {
@@ -37,10 +36,11 @@ export async function POST(req) {
     );
 
     // Send recovery email via Brevo
-    const recoveryLink = `${NEXT_PUBLIC_API_URL}/recover-account?token=${recoverToken}`;
+    const baseUrl = getBaseUrl(req);
+    const recoveryLink = `${baseUrl}/recover-account?token=${recoverToken}`;
     const mailContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-        <h2 style="color: #1e293b; text-align: center;">Reset your Ecom Password</h2>
+        <h2 style="color: #1e293b; text-align: center;">Reset your ${STORE_NAME} Password</h2>
         <p>Hi ${user.name},</p>
         <p>We received a request to reset your password. Click the button below to set a new password:</p>
         <div style="text-align: center; margin: 30px 0;">
@@ -57,7 +57,7 @@ export async function POST(req) {
     try {
       await sendEmail({
         to: email,
-        subject: 'Reset your Ecom Password',
+        subject: `Reset your ${STORE_NAME} Password`,
         htmlContent: mailContent,
       });
     } catch (mailError) {

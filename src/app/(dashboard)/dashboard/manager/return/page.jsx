@@ -177,7 +177,7 @@ export default function ManagerReturnDeskPage() {
 
                 <div className="flex flex-col gap-1.5 border-t border-slate-100 pt-3">
                   <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Ordered Items</span>
-                  <div className="flex flex-col gap-1 max-h-40 overflow-y-auto">
+                  <div className="flex flex-col gap-1">
                     {searchedOrder.items?.map((item, index) => (
                       <div key={index} className="text-xxs text-slate-600 flex justify-between">
                         <span className="truncate max-w-[150px]">{item.product_name} {item.variant_name ? `(${item.variant_name})` : ''}</span>

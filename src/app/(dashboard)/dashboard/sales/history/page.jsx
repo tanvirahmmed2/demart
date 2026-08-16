@@ -110,7 +110,7 @@ export default function SalesHistoryPage() {
                 onClick={() => setStatusFilter(status)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer border uppercase tracking-wide ${
                   statusFilter === status 
-                    ? 'bg-slate-900 text-white border-slate-900' 
+                    ? 'bg-[#73976A] text-white border-[#607E59]' 
                     : 'bg-white text-slate-600 border-slate-200 hover:border-slate-350 hover:bg-slate-50'
                 }`}
               >
@@ -121,7 +121,7 @@ export default function SalesHistoryPage() {
 
           <div className="flex items-center gap-2 bg-white px-3 py-2 border border-slate-200 rounded-xl w-full md:w-80 shadow-sm">
             <BiSearch className="text-slate-400 text-lg" />
-            <input className="input-style"
+            <input className="input-style focus:border-[#73976A]"
               type="text"
               placeholder="Search by ID, name, phone..."
               value={search}
@@ -133,7 +133,7 @@ export default function SalesHistoryPage() {
         {/* Orders List Table */}
         {loading ? (
           <div className="w-full py-20 flex flex-col items-center justify-center gap-2">
-            <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
+            <BiLoaderAlt className="animate-spin text-4xl text-[#73976A]" />
             <p className="text-slate-500 text-sm font-semibold animate-pulse">Loading orders list...</p>
           </div>
         ) : filteredOrders.length === 0 ? (
@@ -142,15 +142,15 @@ export default function SalesHistoryPage() {
             <p className="text-slate-500 text-xs mt-1">There are no order records that match your filters or search terms.</p>
           </div>
         ) : (
-          <div className="w-full overflow-x-auto bg-white border border-slate-150 rounded-2xl shadow-sm">
+          <div className="w-full bg-white border border-slate-150 rounded-2xl shadow-sm">
             <table className="w-full text-left border-collapse text-xs">
               <thead className="bg-slate-100/80 text-slate-655 font-bold border-b border-slate-200">
                 <tr>
                   <th className="px-4 py-3 text-center">ID</th>
                   <th className="px-4 py-3">Date</th>
                   <th className="px-4 py-3">Customer</th>
-                  <th className="px-4 py-3">Phone</th>
-                  <th className="px-4 py-3">Items Summary</th>
+                  <th className="px-4 py-3 hidden sm:table-cell">Phone</th>
+                  <th className="px-4 py-3 hidden lg:table-cell">Items Summary</th>
                   <th className="px-4 py-3 text-right">Invoice Total</th>
                   <th className="px-4 py-3 text-center">Status</th>
                   <th className="px-4 py-3 text-center">Actions</th>
@@ -166,21 +166,21 @@ export default function SalesHistoryPage() {
                       <td className="px-4 py-3.5 text-center font-bold text-slate-850">#ORD-{order.order_id}</td>
                       <td className="px-4 py-3.5 whitespace-nowrap text-slate-500">{new Date(order.created_at).toLocaleDateString()}</td>
                       <td className="px-4 py-3.5 font-semibold text-slate-805 max-w-[130px] truncate" title={order.customer_name || 'Guest'}>{order.customer_name || 'Guest'}</td>
-                      <td className="px-4 py-3.5 font-medium text-slate-600">{order.phone}</td>
-                      <td className="px-4 py-3.5 text-slate-500 max-w-[180px] truncate" title={itemSummary}>{itemSummary}</td>
+                      <td className="px-4 py-3.5 font-medium text-slate-600 hidden sm:table-cell">{order.phone}</td>
+                      <td className="px-4 py-3.5 text-slate-500 max-w-[180px] truncate hidden lg:table-cell" title={itemSummary}>{itemSummary}</td>
                       <td className="px-4 py-3.5 text-right font-black text-slate-900">৳{parseFloat(order.total_amount).toFixed(2)}</td>
                       <td className="px-4 py-3.5 text-center">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                          order.status === 'delivered' ? 'bg-emerald-50 text-emerald-700' :
-                          ['cancelled', 'failed'].includes(order.status) ? 'bg-rose-50 text-rose-600' :
+                          order.status === 'delivered' ? 'bg-[#73976A]/10 text-[#73976A]' :
+                          ['cancelled', 'failed'].includes(order.status) ? 'bg-[#BD4444]/10 text-[#BD4444]' :
                           order.status === 'returned' ? 'bg-amber-50 text-amber-700' :
-                          'bg-blue-50 text-blue-600'
+                          'bg-sky-50 text-sky-700'
                         }`}>
                           {order.status}
                         </span>
                       </td>
                       <td className="px-4 py-3.5 text-center flex gap-1 justify-center items-center">
-                        <Link href={`/dashboard/sales/sale/${order.order_id}`} className="px-2.5 py-1 bg-slate-900 text-white rounded text-[10px] font-bold hover:bg-slate-800 transition cursor-pointer">
+                        <Link href={`/dashboard/sales/sale/${order.order_id}`} className="px-2.5 py-1 bg-[#73976A] text-white rounded text-[10px] font-bold hover:bg-[#607E59] transition cursor-pointer">
                           Details
                         </Link>
                         <button

@@ -96,9 +96,7 @@ async function migrate() {
         theme_color TEXT,
         hero_title TEXT,
         hero_subtitle TEXT,
-        name TEXT,
         address TEXT,
-        tagline TEXT,
         sociallink TEXT,
         email TEXT,
         phone TEXT,
@@ -107,6 +105,12 @@ async function migrate() {
       );
     `);
     console.log("Websites table created successfully!");
+
+    // Drop name and tagline columns from websites table if they exist
+    await pool.query(`
+      ALTER TABLE websites DROP COLUMN IF EXISTS name, DROP COLUMN IF EXISTS tagline;
+    `);
+    console.log("Websites table altered successfully to drop name and tagline columns!");
   } catch (err) {
     console.error("Migration failed:", err);
   } finally {
