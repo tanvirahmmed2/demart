@@ -20,6 +20,7 @@ import {
   BiShieldQuarter,
   BiRefresh
 } from 'react-icons/bi'
+import Image from 'next/image'
 
 export default function POSPageClean() {
   const router = useRouter()
@@ -108,11 +109,14 @@ export default function POSPageClean() {
     setLoadingVariants(true)
     try {
       const res = await axios.get(`/api/product/${product.slug}`)
-      const fetchedVariants = res.data.variants || []
+      const rawVariants = res.data.variants || []
+      const fetchedVariants = rawVariants.filter(v => v.is_active !== false)
       
-      if (fetchedVariants.length > 0) {
+      if (fetchedVariants.length > 1) {
         setProductVariants(fetchedVariants)
         setSelectedProduct(product)
+      } else if (fetchedVariants.length === 1) {
+        addToPOSCart(product, fetchedVariants[0])
       } else {
         addToPOSCart(product, null)
       }
@@ -155,6 +159,8 @@ export default function POSPageClean() {
           variant_id: variant ? variant.variant_id : null,
           name: product.name,
           variant_name: variant ? variant.variant_name : '',
+          originalPrice: itemSalePrice,
+          discount: itemDiscount,
           price: finalPrice,
           quantity: 1,
           maxStock: maxStock,
@@ -179,16 +185,18 @@ export default function POSPageClean() {
   }
 
   // Calculation details
+  const totalProductDiscount = cart.reduce((sum, item) => sum + ((item.discount || 0) * item.quantity), 0)
+  const extraDiscountVal = parseFloat(discount) || 0
+  const totalDiscount = totalProductDiscount + extraDiscountVal
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const discountVal = parseFloat(discount) || 0
   const deliveryChargeVal = parseFloat(deliveryCharge) || 0
-  const totalAmount = Math.max(0, subtotal + deliveryChargeVal - discountVal)
+  const totalAmount = Math.max(0, subtotal + deliveryChargeVal - extraDiscountVal)
   const receivedVal = parseFloat(amountReceived) || 0
   const changeAmount = paymentType === 'cash' && receivedVal > totalAmount ? receivedVal - totalAmount : 0
 
   // Filter products
   const filteredProducts = products.filter(p => {
-    const matchesCategory = activeCategory === 'all' || p.category_id === parseInt(activeCategory, 10) || p.category_slug === activeCategory
+    const matchesCategory = activeCategory === 'all' || p.category_id === parseInt(activeCategory, 10) || String(p.category_id) === String(activeCategory) || p.category_slug === activeCategory
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (p.barcode && p.barcode.includes(searchTerm))
     return matchesCategory && matchesSearch
@@ -276,17 +284,12 @@ export default function POSPageClean() {
   return (
     <div className={`w-full min-h-screen bg-slate-50/50 pt-20 pb-12 px-4 md:px-6 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
       
-      <div className="max-w-7xl mx-auto flex flex-col gap-6">
+      <div className="w-full flex flex-col gap-6">
         
-        {/* Simple Top Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-          <div>
-            <h1 className="text-lg font-bold text-slate-900 tracking-tight">Sales Desk Console</h1>
-            <p className="text-slate-450 text-xs">Logged in as {user.name}</p>
-          </div>
+          
 
           <div className="flex items-center gap-3">
-            {/* Minimal Barcode scan input */}
             <form onSubmit={handleBarcodeSubmit} className="flex items-center border border-slate-200 bg-white rounded-lg px-2.5 py-1">
               <BiBarcode className="text-slate-400 mr-2 text-base" />
               <input className="input-style"
@@ -309,19 +312,14 @@ export default function POSPageClean() {
           </div>
         </div>
 
-        {/* Workspace Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* LEFT COLUMN: POS checkout panel (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-6 sticky top-24">
             
-            {/* Customer assigning block */}
             <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-col gap-3 relative">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block border-b border-slate-100 pb-1.5">Assign Customer</span>
 
-              {/* Phone search input */}
-              <div className="relative">
-                <BiPhone className="absolute left-2.5 top-2.5 text-slate-400 text-sm" />
+              <div className="relative ">
                 <input className="input-style"
                   type="text"
                   placeholder="Enter Customer Phone Number..."
@@ -332,7 +330,6 @@ export default function POSPageClean() {
 
             </div>
 
-            {/* POS cart items block */}
             <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-col gap-4 min-h-[250px]">
               <div className="flex justify-between items-center border-b border-slate-100 pb-1.5">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Checkout Cart</span>
@@ -355,73 +352,110 @@ export default function POSPageClean() {
               </div>
 
               {cart.length > 0 ? (
-                <div className="flex flex-col gap-2.5 pr-1">
-                  {cart.map((item) => (
-                    <div 
-                      key={item.cartKey}
-                      className="group flex items-center gap-3 bg-white border border-slate-100 hover:border-slate-200/80 hover:shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05)] rounded-xl p-2 transition-all duration-200"
-                    >
-                      {/* Product Image Container */}
-                      <div className="w-11 h-11 rounded-lg border border-slate-100 bg-slate-50 flex items-center justify-center shrink-0 overflow-hidden relative">
-                        <img 
-                          src={item.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150'} 
-                          alt={item.name} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
+                <div className="overflow-x-auto border border-slate-100 rounded-lg">
+                  <table className="w-full text-left border-collapse min-w-[540px]">
+                    <thead>
+                      <tr className="bg-slate-50/80 border-b border-slate-100 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                        <th className="py-2 px-2 text-center w-10">Image</th>
+                        <th className="py-2 px-2.5 text-left">Title</th>
+                        <th className="py-2 px-2 text-center">Variant</th>
+                        <th className="py-2 px-2 text-center">Price</th>
+                        <th className="py-2 px-2 text-center">Discount</th>
+                        <th className="py-2 px-2 text-center">Quantity</th>
+                        <th className="py-2 px-2 text-right">Total Price</th>
+                        <th className="py-2 px-2 text-center w-8">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-xs">
+                      {cart.map((item) => (
+                        <tr key={item.cartKey} className="hover:bg-slate-50/50 transition-colors group">
+                          {/* 1. Image */}
+                          <td className="py-2 px-2 text-center">
+                            <div className="w-8 h-8 rounded-md border border-slate-100 bg-slate-50 flex items-center justify-center mx-auto overflow-hidden relative">
+                              <Image width={80} height={80}
+                                src={item.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150'} 
+                                alt={item.name} 
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                              />
+                            </div>
+                          </td>
 
-                      {/* Product Info */}
-                      <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                        <h4 className="font-semibold text-slate-805 text-xs truncate leading-tight hover:text-slate-900 transition-colors" title={item.name}>
-                          {item.name}
-                        </h4>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          {item.variant_name && (
-                            <span className="text-[9px] font-bold bg-slate-100 text-slate-500 px-1 py-0.5 rounded leading-none">
-                              {item.variant_name}
+                          {/* 2. Title */}
+                          <td className="py-2.5 px-2.5">
+                            <span className="font-semibold text-slate-800 text-xs truncate max-w-[120px] sm:max-w-[150px] block leading-tight" title={item.name}>
+                              {item.name}
                             </span>
-                          )}
-                          <span className="text-[10px] text-slate-400 font-mono">৳{item.price.toFixed(2)} each</span>
-                        </div>
-                      </div>
+                          </td>
 
-                      {/* Quantity select */}
-                      <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg p-0.5 shrink-0">
-                        <button
-                          onClick={() => updateQty(item.cartKey, item.quantity - 1)}
-                          className="w-5 h-5 flex items-center justify-center rounded-md hover:bg-white hover:shadow-[0_1px_3px_rgba(0,0,0,0.05)] text-slate-500 hover:text-slate-800 transition cursor-pointer"
-                        >
-                          <BiMinus className="text-[10px]" />
-                        </button>
-                        <input className="input-style"
-                          type="number"
-                          value={item.quantity}
-                          onChange={(e) => updateQty(item.cartKey, parseInt(e.target.value, 10) || 1)}
-                        />
-                        <button
-                          onClick={() => updateQty(item.cartKey, item.quantity + 1)}
-                          className="w-5 h-5 flex items-center justify-center rounded-md hover:bg-white hover:shadow-[0_1px_3px_rgba(0,0,0,0.05)] text-slate-500 hover:text-slate-800 transition cursor-pointer"
-                        >
-                          <BiPlus className="text-[10px]" />
-                        </button>
-                      </div>
+                          {/* 3. Variant */}
+                          <td className="py-2.5 px-2 text-center">
+                            {item.variant_name ? (
+                              <span className="text-[9px] font-bold bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded leading-none inline-block whitespace-nowrap">
+                                {item.variant_name}
+                              </span>
+                            ) : (
+                              <span className="text-slate-300 text-[10px]">-</span>
+                            )}
+                          </td>
 
-                      {/* Total Price & Delete Trigger */}
-                      <div className="text-right shrink-0 min-w-[70px] flex flex-col items-end gap-1">
-                        <span className="text-xs font-bold text-slate-900 block font-mono">
-                          ৳{(item.price * item.quantity).toFixed(2)}
-                        </span>
-                        <button
-                          onClick={() => removeCartItem(item.cartKey)}
-                          className="flex items-center gap-1 text-[10px] font-medium text-slate-400 hover:text-rose-600 transition-colors cursor-pointer group/delete"
-                        >
-                          <BiTrash className="text-[10px] group-hover/delete:scale-110 transition-transform" />
-                          <span>Delete</span>
-                        </button>
-                      </div>
+                          {/* 4. Single Price */}
+                          <td className="py-2.5 px-2 text-center font-mono text-slate-600 text-xs whitespace-nowrap">
+                            ৳{item.price.toFixed(2)}
+                          </td>
 
-                    </div>
-                  ))}
+                          {/* 5. Discount */}
+                          <td className="py-2.5 px-2 text-center font-mono text-xs whitespace-nowrap">
+                            {item.discount > 0 ? (
+                              <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 border border-emerald-100 px-1 py-0.5 rounded">
+                                -৳{(item.discount * item.quantity).toFixed(2)}
+                              </span>
+                            ) : (
+                              <span className="text-slate-300 text-[10px]">-</span>
+                            )}
+                          </td>
+
+                          {/* 6. Quantity */}
+                          <td className="py-2.5 px-2 text-center">
+                            <div className="inline-flex items-center bg-slate-50 border border-slate-200 rounded-lg p-0.5">
+                              <button
+                                onClick={() => updateQty(item.cartKey, item.quantity - 1)}
+                                className="w-4 h-4 flex items-center justify-center rounded hover:bg-white text-slate-500 hover:text-slate-800 transition cursor-pointer"
+                              >
+                                <BiMinus className="text-[9px]" />
+                              </button>
+                              <input className="w-7 text-center bg-transparent border-0 text-xs font-semibold focus:outline-none p-0"
+                                type="number"
+                                value={item.quantity}
+                                onChange={(e) => updateQty(item.cartKey, parseInt(e.target.value, 10) || 1)}
+                              />
+                              <button
+                                onClick={() => updateQty(item.cartKey, item.quantity + 1)}
+                                className="w-4 h-4 flex items-center justify-center rounded hover:bg-white text-slate-500 hover:text-slate-800 transition cursor-pointer"
+                              >
+                                <BiPlus className="text-[9px]" />
+                              </button>
+                            </div>
+                          </td>
+
+                          {/* 7. Total Price */}
+                          <td className="py-2.5 px-2 text-right font-mono font-bold text-slate-900 text-xs whitespace-nowrap">
+                            ৳{(item.price * item.quantity).toFixed(2)}
+                          </td>
+
+                          {/* 8. Delete Option */}
+                          <td className="py-2.5 px-2 text-center">
+                            <button
+                              onClick={() => removeCartItem(item.cartKey)}
+                              className="p-1 text-slate-400 hover:text-rose-600 transition-colors cursor-pointer rounded hover:bg-rose-50"
+                              title="Remove item"
+                            >
+                              <BiTrash className="text-xs" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center text-slate-400 gap-1 py-12">
@@ -431,15 +465,19 @@ export default function POSPageClean() {
               )}
 
               {/* Price summary */}
-              <div className="border-t border-slate-100 pt-3.5 mt-auto flex flex-col gap-2.5">
-                <div className="flex justify-between items-center text-xxs font-bold text-slate-400">
-                  <span>Subtotal</span>
-                  <span className="font-mono text-slate-700">৳{subtotal.toFixed(2)}</span>
+              <div className="border-t border-slate-100 pt-3 mt-auto flex flex-col gap-2">
+                {/* 1. Discount per product (Sum of item discounts) */}
+                <div className="flex justify-between items-center text-xs font-medium text-slate-500">
+                  <span>Product Discounts</span>
+                  <span className="font-mono text-emerald-600 font-bold">
+                    {totalProductDiscount > 0 ? `-৳${totalProductDiscount.toFixed(2)}` : '৳0.00'}
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3.5">
+                {/* Extra Discount & Delivery Charge Inputs */}
+                <div className="grid grid-cols-2 gap-3.5 my-1">
                   <div>
-                    <label className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Discount (৳)</label>
+                    <label className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Extra Discount (৳)</label>
                     <input className="input-style"
                       type="number"
                       min="0"
@@ -448,7 +486,7 @@ export default function POSPageClean() {
                     />
                   </div>
                   <div>
-                    <label className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Delivery (৳)</label>
+                    <label className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Delivery Charge (৳)</label>
                     <input className="input-style"
                       type="number"
                       min="0"
@@ -458,9 +496,29 @@ export default function POSPageClean() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center border-t border-slate-100 pt-3 mt-1.5">
-                  <span className="text-xs font-bold text-slate-800">Grand Total</span>
-                  <span className="font-mono text-slate-900 font-extrabold text-base">৳{totalAmount.toFixed(2)}</span>
+                {/* 2. Total Discount */}
+                <div className="flex justify-between items-center text-xs font-semibold text-slate-600 border-t border-slate-100 pt-2">
+                  <span>Total Discount</span>
+                  <span className="font-mono text-emerald-600 font-bold">-৳{totalDiscount.toFixed(2)}</span>
+                </div>
+
+                {/* 3. Sub Total */}
+                <div className="flex justify-between items-center text-xs font-semibold text-slate-600">
+                  <span>Sub Total</span>
+                  <span className="font-mono text-slate-800">৳{subtotal.toFixed(2)}</span>
+                </div>
+
+                {deliveryChargeVal > 0 && (
+                  <div className="flex justify-between items-center text-xs font-medium text-slate-500">
+                    <span>Delivery Charge</span>
+                    <span className="font-mono text-slate-700">+৳{deliveryChargeVal.toFixed(2)}</span>
+                  </div>
+                )}
+
+                {/* 4. Total Price */}
+                <div className="flex justify-between items-center border-t border-slate-200 pt-3 mt-1">
+                  <span className="text-sm font-bold text-slate-900">Total Price</span>
+                  <span className="font-mono text-slate-900 font-extrabold text-lg">৳{totalAmount.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -524,7 +582,7 @@ export default function POSPageClean() {
               <button
                 onClick={handleCheckout}
                 disabled={submitting || cart.length === 0}
-                className="w-full py-2.5 text-white bg-[#73976A] hover:bg-[#607E59] text-xs font-bold rounded-lg transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
+                className="w-full py-2.5 text-white bg-primary hover:bg-primary-dark text-xs font-bold rounded-lg transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
               >
                 {submitting ? (
                   <>
@@ -541,13 +599,10 @@ export default function POSPageClean() {
 
           </div>
 
-          {/* RIGHT COLUMN: Products grid (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            {/* Search & Category Pills */}
-            <div className="flex flex-col gap-3">
-              <div className="relative">
-                <BiSearch className="absolute left-3 top-2.5 text-slate-400 text-base" />
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-1">
                 <input className="input-style"
                   type="text"
                   placeholder="Search catalog by title, brand, or barcode..."
@@ -556,31 +611,19 @@ export default function POSPageClean() {
                 />
               </div>
 
-              {/* Minimal category pills */}
-              <div className="flex gap-1.5 overflow-x-auto pb-1.5 scrollbar-thin">
-                <button
-                  onClick={() => setActiveCategory('all')}
-                  className={`px-3 py-1 text-xs font-semibold rounded-md border transition cursor-pointer ${
-                    activeCategory === 'all'
-                      ? 'bg-slate-900 border-slate-900 text-white'
-                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }`}
+              <div className="w-full sm:w-48 shrink-0">
+                <select
+                  className="input-style cursor-pointer text-xs font-semibold"
+                  value={activeCategory}
+                  onChange={(e) => setActiveCategory(e.target.value)}
                 >
-                  All
-                </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.category_id}
-                    onClick={() => setActiveCategory(cat.category_id)}
-                    className={`px-3 py-1 text-xs font-semibold rounded-md border transition cursor-pointer ${
-                      activeCategory === cat.category_id
-                        ? 'bg-slate-900 border-slate-900 text-white'
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
+                  <option value="all">All Categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat.category_id} value={cat.category_id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 

@@ -211,3 +211,30 @@ export async function PUT(req, { params }) {
     client.release();
   }
 }
+
+export async function DELETE(req, { params }) {
+  const client = await pool.connect();
+  try {
+    const { orderId } = await params;
+    await client.query('BEGIN');
+
+    await client.query('DELETE FROM public.order_items WHERE order_id = $1', [orderId]);
+    await client.query('DELETE FROM public.payments WHERE order_id = $1', [orderId]);
+
+    const res = await client.query('DELETE FROM public.orders WHERE order_id = $1 RETURNING order_id', [orderId]);
+    if (res.rows.length === 0) {
+      await client.query('ROLLBACK');
+      return Response.json({ error: 'Order not found' }, { status: 404 });
+    }
+
+    await client.query('COMMIT');
+    return Response.json({ message: 'Order deleted successfully' }, { status: 200 });
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Failed to delete order:', error);
+    return Response.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
+  } finally {
+    client.release();
+  }
+}
+
