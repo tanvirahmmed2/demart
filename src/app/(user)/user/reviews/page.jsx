@@ -18,8 +18,7 @@ import {
 } from 'react-icons/bi'
 
 export default function UserReviewsPage() {
-  const { user, loading: userLoading, userSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
+  const { user, loading: userLoading, userSidebar } = useContext(Context)
   
   const [reviews, setReviews] = useState([])
   const [reviewsLoading, setReviewsLoading] = useState(true)
@@ -157,7 +156,7 @@ export default function UserReviewsPage() {
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
             <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiCommentDetail style={{ color: themeColor }} className="text-2xl" />
+              <BiCommentDetail className="text-2xl text-primary" />
               Your Reviews & Feedback
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Submit product reviews, share testimonials, and check moderation states.</p>
@@ -187,7 +186,7 @@ export default function UserReviewsPage() {
               <>
                 <div>
                   <h2 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-                    <BiPlusCircle style={{ color: themeColor }} /> Write a Testimonial
+                    <BiPlusCircle className="text-primary" /> Write a Testimonial
                   </h2>
                   <p className="text-slate-500 text-xs mt-1">Let us know how your experience with our store and catalog products was!</p>
                 </div>
@@ -217,8 +216,7 @@ export default function UserReviewsPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="mt-2 w-full py-2.5 text-white font-bold text-xs shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
-                    style={{ backgroundColor: themeColor }}
+                    className="mt-2 w-full py-2.5 bg-primary hover:bg-primary-dark text-white font-bold text-xs shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
                   >
                     {submitting ? (
                       <>

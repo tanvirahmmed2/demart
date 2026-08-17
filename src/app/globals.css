@@ -38,11 +38,12 @@
         border-radius: 4px;
         color: var(--color-tertiary-dark);
         transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        
     }
+    
 
 }
 
-/* Tiptap Editor Styling */
 .ProseMirror {
   outline: none;
 }

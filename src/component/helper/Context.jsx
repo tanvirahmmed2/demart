@@ -200,8 +200,9 @@ const ContextProvider = ({ children }) => {
     const logout = async () => {
         try {
             await axios.post('/api/user/logout');
-            setUser(null);
+            
             window.location.replace('/login')
+            setUser(null);
         } catch (error) {
             console.error("Logout failed:", error);
             throw error;

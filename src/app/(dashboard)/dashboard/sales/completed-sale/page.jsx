@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '@/component/helper/Context'
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { printReceipt } from '@/lib/printreceipt'
@@ -10,17 +11,22 @@ import {
   BiLoaderAlt,
   BiPrinter,
   BiTrash,
-  BiUndo
+  BiUndo,
+  BiDotsVerticalRounded,
+  BiShow
 } from 'react-icons/bi'
 
 export default function CompletedSalesPage() {
+  const router = useRouter()
   const { dashSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#10b981'
 
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 20
+
+  // 3-dot dropdown menu state
+  const [openMenuId, setOpenMenuId] = useState(null)
 
   const fetchCompletedOrders = async () => {
     setLoading(true)
@@ -40,12 +46,23 @@ export default function CompletedSalesPage() {
     fetchCompletedOrders()
   }, [])
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.action-menu-container')) {
+        setOpenMenuId(null)
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [])
+
   const handleReturnOrder = async (orderId) => {
     if (!window.confirm(`Are you sure you want to mark order #${orderId} as returned? Items will be restocked.`)) return
     const toastId = toast.loading(`Processing return for order #${orderId}...`)
     try {
       await axios.put(`/api/sale/${orderId}`, { status: 'returned' })
-      toast.success(`Order #${orderId} marked as returned`, { id: toastId })
+      toast.success(`Order #${orderId} marked as returned & restocked`, { id: toastId })
       fetchCompletedOrders()
     } catch (err) {
       console.error('Failed to return order:', err)
@@ -76,25 +93,26 @@ export default function CompletedSalesPage() {
         
         <div className="flex items-center justify-between border-b border-slate-200 pb-4">
           <div>
-            <h1 className="text-2xl font-black text-slate-800 tracking-tight">Completed Sales</h1>
-            <p className="text-xs text-slate-500 mt-1">Review all finalized checkouts, delivery logs, and settled payments.</p>
+            <h1 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Completed Sales</h1>
+            <p className="text-xs text-slate-500 mt-0.5">Review all finalized checkouts, delivery logs, and settled payments.</p>
           </div>
           <button
             onClick={fetchCompletedOrders}
             disabled={loading}
-            className="p-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition cursor-pointer shadow-sm disabled:opacity-40"
+            className="p-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition cursor-pointer shadow-sm disabled:opacity-40"
+            title="Refresh Orders"
           >
-            <BiRefresh className={`text-xl ${loading ? 'animate-spin' : ''}`} />
+            <BiRefresh className={`text-lg ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
 
         {loading ? (
           <div className="w-full py-20 flex flex-col items-center justify-center gap-2">
             <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
-            <p className="text-slate-500 text-sm font-semibold animate-pulse">Fetching completed orders...</p>
+            <p className="text-slate-500 text-xs font-semibold animate-pulse">Fetching completed orders...</p>
           </div>
         ) : orders.length === 0 ? (
-          <div className="w-full bg-white border border-slate-200 py-16 px-6 text-center flex flex-col items-center gap-3">
+          <div className="w-full bg-white border border-slate-200 py-16 px-6 text-center flex flex-col items-center gap-3 shadow-sm">
             <div className="w-12 h-12 bg-slate-100 flex items-center justify-center text-slate-400 text-2xl">
               <BiCheckCircle />
             </div>
@@ -105,9 +123,8 @@ export default function CompletedSalesPage() {
           </div>
         ) : (
           <div className="w-full bg-white border border-slate-200 shadow-sm">
-            {/* Responsive Table with decreasing columns on lower screens */}
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200">
+              <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200 uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="px-2 sm:px-3 py-3 text-center">Order ID</th>
                   <th className="hidden sm:table-cell px-2 sm:px-3 py-3">Date</th>
@@ -130,28 +147,30 @@ export default function CompletedSalesPage() {
                     ? order.items.map(item => `${item.product_name}${item.variant_name ? ` (${item.variant_name})` : ''} x${item.quantity}`).join(', ')
                     : 'N/A'
                   const paidAmount = parseFloat(order.total_amount || 0) - parseFloat(order.due_amount || 0)
+                  const isMenuOpen = openMenuId === order.order_id
+
                   return (
-                    <tr key={order.order_id} className="hover:bg-slate-50/50 transition">
-                      <td className="px-2 sm:px-3 py-3 text-center font-bold text-slate-800">#{order.order_id}</td>
-                      <td className="hidden sm:table-cell px-2 sm:px-3 py-3 whitespace-nowrap text-slate-500">{new Date(order.created_at).toLocaleDateString()}</td>
-                      <td className="px-2 sm:px-3 py-3">
+                    <tr key={order.order_id} className="hover:bg-slate-50/70 transition">
+                      <td className="px-2 sm:px-3 py-3.5 text-center font-bold font-mono text-slate-800">#{order.order_id}</td>
+                      <td className="hidden sm:table-cell px-2 sm:px-3 py-3.5 whitespace-nowrap text-slate-500 font-mono text-[11px]">{new Date(order.created_at).toLocaleDateString()}</td>
+                      <td className="px-2 sm:px-3 py-3.5">
                         <div className="font-semibold text-slate-800">{order.customer_name || 'Guest'}</div>
-                        <div className="text-[10px] text-slate-500">{order.phone}</div>
+                        <div className="text-[10px] font-mono text-slate-500">{order.phone}</div>
                         <div className="hidden sm:block text-[10px] text-slate-400 truncate max-w-[130px]" title={order.shipping_address}>{order.shipping_address}</div>
                         {order.note && (
                           <div className="text-[9px] text-rose-500 italic mt-0.5" title={order.note}>Note: "{order.note}"</div>
                         )}
                       </td>
-                      <td className="hidden lg:table-cell px-2 sm:px-3 py-3 text-slate-500 max-w-[150px] truncate" title={productsSummary}>
+                      <td className="hidden lg:table-cell px-2 sm:px-3 py-3.5 text-slate-500 max-w-[150px] truncate" title={productsSummary}>
                         {productsSummary}
                       </td>
-                      <td className="hidden 2xl:table-cell px-2 sm:px-3 py-3 text-right font-medium">৳{parseFloat(order.subtotal_amount || 0).toFixed(2)}</td>
-                      <td className="hidden 2xl:table-cell px-2 sm:px-3 py-3 text-right text-rose-500">৳{parseFloat(order.total_discount_amount || 0).toFixed(2)}</td>
-                      <td className="hidden 2xl:table-cell px-2 sm:px-3 py-3 text-right">৳{parseFloat(order.delivery_charge || 0).toFixed(2)}</td>
-                      <td className="px-2 sm:px-3 py-3 text-right font-bold text-slate-900">৳{parseFloat(order.total_amount || 0).toFixed(2)}</td>
-                      <td className="hidden xl:table-cell px-2 sm:px-3 py-3 text-right text-emerald-600 font-bold">৳{paidAmount.toFixed(2)}</td>
-                      <td className="hidden xl:table-cell px-2 sm:px-3 py-3 text-right text-rose-600 font-bold">৳{parseFloat(order.due_amount || 0).toFixed(2)}</td>
-                      <td className="hidden md:table-cell px-2 sm:px-3 py-3 text-slate-500">
+                      <td className="hidden 2xl:table-cell px-2 sm:px-3 py-3.5 text-right font-medium">৳{parseFloat(order.subtotal_amount || 0).toFixed(2)}</td>
+                      <td className="hidden 2xl:table-cell px-2 sm:px-3 py-3.5 text-right text-rose-500">৳{parseFloat(order.total_discount_amount || 0).toFixed(2)}</td>
+                      <td className="hidden 2xl:table-cell px-2 sm:px-3 py-3.5 text-right">৳{parseFloat(order.delivery_charge || 0).toFixed(2)}</td>
+                      <td className="px-2 sm:px-3 py-3.5 text-right font-bold text-slate-900">৳{parseFloat(order.total_amount || 0).toFixed(2)}</td>
+                      <td className="hidden xl:table-cell px-2 sm:px-3 py-3.5 text-right text-emerald-600 font-bold">৳{paidAmount.toFixed(2)}</td>
+                      <td className="hidden xl:table-cell px-2 sm:px-3 py-3.5 text-right text-rose-600 font-bold">৳{parseFloat(order.due_amount || 0).toFixed(2)}</td>
+                      <td className="hidden md:table-cell px-2 sm:px-3 py-3.5 text-slate-500">
                         {order.courier_name ? (
                           <div>
                             <div className="font-semibold text-slate-800">{order.courier_name}</div>
@@ -159,35 +178,70 @@ export default function CompletedSalesPage() {
                           </div>
                         ) : 'N/A'}
                       </td>
-                      <td className="px-2 sm:px-3 py-3 text-center">
-                        <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase border" style={{ color: themeColor, backgroundColor: themeColor + '10', borderColor: themeColor + '30' }}>
+                      <td className="px-2 sm:px-3 py-3.5 text-center">
+                        <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase border border-emerald-200 bg-emerald-50 text-emerald-700">
                           {order.status}
                         </span>
                       </td>
-                      <td className="px-2 sm:px-3 py-3 text-center">
-                        <div className="flex items-center justify-center gap-1">
-                          <button
-                            onClick={() => printReceipt(order, website)}
-                            title="Print Order Receipt"
-                            className="p-1 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition cursor-pointer"
-                          >
-                            <BiPrinter />
-                          </button>
-                          <button
-                            onClick={() => handleReturnOrder(order.order_id)}
-                            title="Return Order"
-                            className="p-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition cursor-pointer"
-                          >
-                            <BiUndo />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteOrder(order.order_id)}
-                            title="Delete Order"
-                            className="p-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition cursor-pointer"
-                          >
-                            <BiTrash />
-                          </button>
-                        </div>
+                      <td className="px-2 sm:px-3 py-3.5 text-center relative action-menu-container">
+                        
+                        {/* 3-Dot Action Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setOpenMenuId(isMenuOpen ? null : order.order_id)
+                          }}
+                          className="p-1.5 hover:bg-slate-100 text-slate-700 transition cursor-pointer border border-slate-200 shadow-xs"
+                          title="Actions Menu"
+                        >
+                          <BiDotsVerticalRounded className="text-lg" />
+                        </button>
+
+                        {/* Dropdown Menu */}
+                        {isMenuOpen && (
+                          <div className="absolute right-2 top-11 w-44 bg-white border border-slate-200 shadow-lg z-30 flex flex-col divide-y divide-slate-100 py-1 text-left">
+                            <button
+                              onClick={() => {
+                                setOpenMenuId(null)
+                                router.push(`/dashboard/orders/${order.order_id}`)
+                              }}
+                              className="w-full px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition cursor-pointer"
+                            >
+                              <BiShow className="text-slate-500 text-base" /> Preview
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setOpenMenuId(null)
+                                printReceipt(order, website)
+                              }}
+                              className="w-full px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition cursor-pointer"
+                            >
+                              <BiPrinter className="text-slate-500 text-base" /> Print Receipt
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setOpenMenuId(null)
+                                handleReturnOrder(order.order_id)
+                              }}
+                              className="w-full px-3 py-2 text-xs font-bold text-amber-700 hover:bg-amber-50 flex items-center gap-2 transition cursor-pointer"
+                            >
+                              <BiUndo className="text-amber-600 text-base" /> Return Order
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setOpenMenuId(null)
+                                handleDeleteOrder(order.order_id)
+                              }}
+                              className="w-full px-3 py-2 text-xs font-bold text-rose-700 hover:bg-rose-100 flex items-center gap-2 transition cursor-pointer"
+                            >
+                              <BiTrash className="text-rose-700 text-base" /> Delete
+                            </button>
+                          </div>
+                        )}
+
                       </td>
                     </tr>
                   )
@@ -250,5 +304,3 @@ export default function CompletedSalesPage() {
     </div>
   )
 }
-
-

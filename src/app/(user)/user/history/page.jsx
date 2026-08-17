@@ -16,7 +16,6 @@ import { printReceipt } from '@/lib/printreceipt'
 
 export default function UserHistoryPage() {
   const { userSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
 
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
@@ -45,7 +44,7 @@ export default function UserHistoryPage() {
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
             <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiHistory className="text-2xl" style={{ color: themeColor }} />
+              <BiHistory className="text-2xl text-primary" />
               Order History
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Review all your previous orders, shipping details, and invoice summaries.</p>
@@ -63,7 +62,7 @@ export default function UserHistoryPage() {
           </div>
         ) : orders.length === 0 ? (
           <div className="w-full bg-white border border-slate-200 py-16 px-6 text-center flex flex-col items-center gap-4 shadow-sm">
-            <div className="w-14 h-14 flex items-center justify-center text-3xl text-white font-bold" style={{ backgroundColor: themeColor }}>
+            <div className="w-14 h-14 flex items-center justify-center text-3xl bg-primary text-white font-bold">
               <BiPackage />
             </div>
             <div>
@@ -123,7 +122,7 @@ export default function UserHistoryPage() {
                       <td className="px-3 py-3.5 text-right text-emerald-600 font-bold hidden sm:table-cell">৳{paidAmount.toFixed(2)}</td>
                       <td className="px-3 py-3.5 text-right text-rose-600 font-bold hidden md:table-cell">৳{parseFloat(order.due_amount).toFixed(2)}</td>
                       <td className="px-3 py-3.5 text-center">
-                        <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase border" style={{ color: themeColor, backgroundColor: themeColor + '10', borderColor: themeColor + '30' }}>
+                        <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase border bg-sky-50 text-sky-700 border-sky-200">
                           {order.status}
                         </span>
                       </td>

@@ -26,8 +26,7 @@ import {
 } from 'react-icons/bi'
 
 const Dashboardsidebar = () => {
-    const { dashSidebar, logout, user, website } = useContext(Context)
-    const themeColor = website?.theme_color || '#73976A'
+    const { dashSidebar, logout, user } = useContext(Context)
     const pathname = usePathname()
 
     const isActive = (path) => pathname === path || pathname.startsWith(path + '/')
@@ -86,8 +85,7 @@ const Dashboardsidebar = () => {
 
     return (
         <aside 
-          className={`${dashSidebar ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out w-64 h-[calc(100vh-3.5rem)] fixed top-14 left-0 text-white flex flex-col justify-between p-4 z-30 shadow-xl border-r border-black/10`}
-          style={{ backgroundColor: themeColor }}
+          className={`${dashSidebar ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out w-64 h-[calc(100vh-3.5rem)] fixed top-14 left-0 bg-primary text-white flex flex-col justify-between p-4 z-30 shadow-xl border-r border-black/10`}
         >
             
             <div className="w-full flex-1 flex flex-col gap-1.5 overflow-y-auto pr-1">
@@ -126,7 +124,7 @@ const Dashboardsidebar = () => {
                   className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-left hover:bg-black/20 text-white/80 hover:text-white transition cursor-pointer"
                 >
                     <BiLogOut className="text-base text-white" />
-                    <span>Sign Out</span>
+                    <span>Log out</span>
                 </button>
             </div>
 

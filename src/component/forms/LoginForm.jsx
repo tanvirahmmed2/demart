@@ -6,6 +6,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Context } from '../helper/Context'
 import { FiLock, FiMail } from 'react-icons/fi'
+import { STORE_NAME, STORE_TAGLINE } from '@/lib/secret'
 
 const LoginForm = () => {
     const router = useRouter()
@@ -36,8 +37,7 @@ const LoginForm = () => {
                 setUser(response.data.user)
             }
 
-            router.push('/')
-            router.refresh()
+            window.location.replace('/user')
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'Failed to login. Please try again.'
             toast.error(errorMessage, { id: toastId })
@@ -52,8 +52,9 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit} className='w-full max-w-md flex flex-col gap-4 shadow-xl shadow-slate-100/40 border border-slate-100 p-8 md:p-10 rounded-3xl bg-white relative z-10 animate-fade-in'>
                 <div className='flex flex-col items-center text-center mb-4'>
                    
-                    <h2 className='text-2xl  text-secondary font-semibold tracking-tight'>Welcome Back</h2>
-                    <p className='text-xs text-slate-500 mt-1 font-semibold'>Access your secure Ecom dashboard</p>
+                    <h2 className='  text-secondary font-semibold tracking-tight'>Welcome Back</h2>
+                    <h1  className='text-2xl font-semibold'>{STORE_NAME}</h1>
+                    <p className='text-xs text-slate-500 mt-1 font-semibold'>Access your secure dashboard</p>
                 </div>
                 
                 <div className='w-full flex flex-col gap-1.5'>
@@ -94,7 +95,7 @@ const LoginForm = () => {
                     disabled={submitting}
                     className={`w-full mt-4 bg-primary hover:bg-primary-light text-white font-bold text-sm py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-primary/15 hover:scale-[1.01] active:scale-[0.99] ${submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                    {submitting ? 'Authenticating...' : 'Sign In'}
+                    {submitting ? 'Authenticating...' : 'Login'}
                 </button>
             </form>
         </div>

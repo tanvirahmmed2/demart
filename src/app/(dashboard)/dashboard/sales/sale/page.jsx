@@ -627,7 +627,6 @@ export default function POSPageClean() {
               </div>
             </div>
 
-            {/* Product items catalog */}
             {loading ? (
               <div className="h-84 flex flex-col items-center justify-center text-slate-400 gap-2 bg-white border border-slate-200 rounded-xl">
                 <BiLoaderAlt className="animate-spin text-xl text-slate-900" />
@@ -645,11 +644,11 @@ export default function POSPageClean() {
                     <div 
                       key={p.product_id}
                       onClick={() => !isOutOfStock && triggerAddProduct(p)}
-                      className={`bg-white border border-slate-200 hover:border-slate-400 rounded-lg p-3 flex flex-col justify-between gap-3 transition cursor-pointer select-none ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`bg-white border border-slate-200 hover:border-primary rounded-lg p-2 flex flex-col justify-between gap-3 transition cursor-pointer select-none ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       <div className="flex flex-col gap-2">
                         <div className="relative aspect-square w-full rounded-md overflow-hidden bg-slate-50 border border-slate-100 shrink-0">
-                          <img 
+                          <Image width={100} height={100} 
                             src={p.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100'} 
                             alt={p.name}
                             className="w-full h-full object-cover"

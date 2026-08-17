@@ -41,7 +41,7 @@ export async function PUT(req, { params }) {
   const client = await pool.connect();
   try {
     const { orderId } = await params;
-    const { status, courier_name, courier_tracking_id } = await req.json();
+    const { status, courier_name, courier_tracking_id, payment_amount, payment_method, note } = await req.json();
 
     const allowedStatuses = [
       'pending', 'confirmed', 'processing', 'shipped', 
@@ -70,11 +70,6 @@ export async function PUT(req, { params }) {
     const order = orderRes.rows[0];
     const oldStatus = order.status;
     const newStatus = status;
-
-    if (oldStatus === newStatus) {
-      await client.query('COMMIT');
-      return Response.json({ message: 'Status is already updated to ' + newStatus }, { status: 200 });
-    }
 
     // Helper functions for stock adjustments
     const deductStock = async () => {
@@ -158,47 +153,58 @@ export async function PUT(req, { params }) {
       await deductStock();
     }
 
-    // If transitioning from reduced state to un-reduced state (e.g. cancelled/returned): add stock back
+    // If transitioning from reduced state to un-reduced state: add stock back
     if (stockWasReduced && !stockShouldBeReduced) {
       await addStockBack();
     }
 
-    // Special behavior for returns (re-stock items and zero amounts)
-    if (newStatus === 'returned') {
-      await addStockBack();
+    // Special behavior for returns & cancellations (always ensure stock is restored)
+    if (newStatus === 'returned' || newStatus === 'cancelled') {
+      if (!stockWasReduced) {
+        await addStockBack();
+      }
       stockShouldBeReduced = false;
     }
 
-    // Payment registration on delivery
-    let updateDueAmount = order.due_amount;
-    if (newStatus === 'delivered') {
-      // Create payment log if not exists
+    // Payment registration
+    let updateDueAmount = parseFloat(order.due_amount || 0);
+
+    if (newStatus === 'returned' || newStatus === 'cancelled') {
+      updateDueAmount = 0;
+    } else if (payment_amount !== undefined && payment_amount !== null && parseFloat(payment_amount) > 0) {
+      const payAmount = parseFloat(payment_amount);
+      const method = payment_method || 'cash';
+      const payNote = note || `Payment received during status change to ${newStatus}`;
+
+      await client.query(
+        `INSERT INTO public.payments (order_id, payment_method, amount, amount_received, change_amount, payment_status, note)
+         VALUES ($1, $2, $3, $3, 0, 'completed', $4)`,
+        [orderId, method, payAmount, payNote]
+      );
+      updateDueAmount = Math.max(0, updateDueAmount - payAmount);
+    } else if (newStatus === 'delivered') {
       const payRes = await client.query(
         `SELECT payment_id FROM public.payments WHERE order_id = $1 AND payment_status = 'completed'`,
         [orderId]
       );
-      if (payRes.rows.length === 0) {
+      if (payRes.rows.length === 0 && updateDueAmount > 0) {
         await client.query(
           `INSERT INTO public.payments (order_id, payment_method, amount, amount_received, change_amount, payment_status, note)
            VALUES ($1, 'cod', $2, $2, 0, 'completed', 'COD payment received on delivery')`,
-          [orderId, order.total_amount]
+          [orderId, updateDueAmount]
         );
       }
-      updateDueAmount = 0; // fully paid
-    }
-
-    if (newStatus === 'returned') {
       updateDueAmount = 0;
     }
 
     // Update order status and courier info
     await client.query(
       `UPDATE public.orders 
-       SET status = $1, 
-           subtotal_amount = CASE WHEN $1 = 'returned' THEN 0 ELSE subtotal_amount END,
-           total_discount_amount = CASE WHEN $1 = 'returned' THEN 0 ELSE total_discount_amount END,
-           delivery_charge = CASE WHEN $1 = 'returned' THEN 0 ELSE delivery_charge END,
-           total_amount = CASE WHEN $1 = 'returned' THEN 0 ELSE total_amount END,
+       SET status = $1::text, 
+           subtotal_amount = CASE WHEN $1::text = 'returned' THEN 0 ELSE subtotal_amount END,
+           total_discount_amount = CASE WHEN $1::text = 'returned' THEN 0 ELSE total_discount_amount END,
+           delivery_charge = CASE WHEN $1::text = 'returned' THEN 0 ELSE delivery_charge END,
+           total_amount = CASE WHEN $1::text = 'returned' THEN 0 ELSE total_amount END,
            due_amount = $2, 
            courier_name = CASE WHEN $3::text IS NOT NULL THEN $3 ELSE courier_name END,
            courier_tracking_id = CASE WHEN $4::text IS NOT NULL THEN $4 ELSE courier_tracking_id END,

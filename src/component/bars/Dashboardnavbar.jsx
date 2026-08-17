@@ -5,13 +5,11 @@ import { Context } from '../helper/Context'
 import Link from 'next/link'
 
 const Dashboardnavbar = () => {
-  const { user, dashSidebar, setDashSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
+  const { user, dashSidebar, setDashSidebar } = useContext(Context)
 
   return (
     <header 
-      className="w-full h-14 fixed top-0 z-40 text-white flex items-center justify-between px-4 border-b border-black/10 shadow-md transition-colors"
-      style={{ backgroundColor: themeColor }}
+      className="w-full h-14 fixed top-0 z-40 bg-primary text-white flex items-center justify-between px-4 border-b border-black/10 shadow-md"
     >
       <div className="flex items-center gap-3">
         <button 

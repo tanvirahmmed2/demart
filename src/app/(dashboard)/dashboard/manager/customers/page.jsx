@@ -125,15 +125,19 @@ export default function ManagerCustomersDirectoryPage() {
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700 bg-white">
                 {customers.map(cust => (
-                  <tr key={cust.customer_id} className="hover:bg-slate-50/50 transition">
-                    <td className="px-2 sm:px-3 py-3.5 text-center font-bold text-slate-800">#{cust.customer_id}</td>
+                  <tr key={cust.customer_id} className="hover:bg-slate-50 transition">
+                    <td className="px-2 sm:px-3 py-3.5 text-center font-bold text-slate-800">
+                      <Link href={`/dashboard/manager/customers/${cust.customer_id}`} className="hover:underline">
+                        #{cust.customer_id}
+                      </Link>
+                    </td>
                     <td className="px-2 sm:px-3 py-3.5">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">
+                      <Link href={`/dashboard/manager/customers/${cust.customer_id}`} className="flex items-center gap-2.5 group">
+                        <div className="w-7 h-7 text-white text-xs font-bold flex items-center justify-center" style={{ backgroundColor: themeColor }}>
                           {cust.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                         </div>
-                        <div className="font-bold text-slate-900">{cust.name}</div>
-                      </div>
+                        <div className="font-bold text-slate-900 group-hover:underline">{cust.name}</div>
+                      </Link>
                     </td>
                     <td className="px-2 sm:px-3 py-3.5 font-medium text-slate-600">{cust.phone}</td>
                     <td className="hidden sm:table-cell px-2 sm:px-3 py-3.5 text-slate-500 font-mono text-[10px]">{cust.email || 'N/A'}</td>

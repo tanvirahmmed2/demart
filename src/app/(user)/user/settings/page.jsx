@@ -18,8 +18,7 @@ import {
 } from 'react-icons/bi'
 
 export default function UserSettingsPage() {
-  const { user, setUser, loading: userLoading, userSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
+  const { user, setUser, loading: userLoading, userSidebar } = useContext(Context)
 
   // Profile states
   const [name, setName] = useState('')
@@ -167,7 +166,7 @@ export default function UserSettingsPage() {
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
             <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiCog style={{ color: themeColor }} className="text-2xl" />
+              <BiCog className="text-2xl text-primary" />
               Account Settings
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Manage your personal profile details, change security credentials, or manage account state.</p>
@@ -182,7 +181,7 @@ export default function UserSettingsPage() {
           
           {/* Left panel (Avatar block) */}
           <div className="md:col-span-4 bg-slate-50 p-6 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-slate-200 gap-3">
-            <div className="w-20 h-20 text-white font-bold text-2xl flex items-center justify-center shadow-sm select-none" style={{ backgroundColor: themeColor }}>
+            <div className="w-20 h-20 bg-primary text-white font-bold text-2xl flex items-center justify-center shadow-sm select-none">
               {initials}
             </div>
             <div>
@@ -249,8 +248,7 @@ export default function UserSettingsPage() {
               <button
                 type="submit"
                 disabled={submittingProfile}
-                className="px-5 py-2.5 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-50"
-                style={{ backgroundColor: themeColor }}
+                className="px-5 py-2.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-50"
               >
                 {submittingProfile ? (
                   <>
@@ -271,7 +269,7 @@ export default function UserSettingsPage() {
         {/* Section 2: Password Security */}
         <div className="bg-white border border-slate-200 shadow-sm p-5 md:p-6 flex flex-col gap-4">
           <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-1.5">
-            <BiLockAlt style={{ color: themeColor }} className="text-base" /> Change Password
+            <BiLockAlt className="text-primary text-base" /> Change Password
           </h2>
 
           <form onSubmit={handleChangePassword} className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -318,8 +316,7 @@ export default function UserSettingsPage() {
               <button
                 type="submit"
                 disabled={submittingPassword || !newPassword}
-                className="px-5 py-2.5 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-40"
-                style={{ backgroundColor: themeColor }}
+                className="px-5 py-2.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm disabled:opacity-40"
               >
                 {submittingPassword ? (
                   <>

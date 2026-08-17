@@ -21,8 +21,7 @@ import {
 } from 'react-icons/bi'
 
 export default function UserSupportPage() {
-  const { user, loading: userLoading, userSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
+  const { user, loading: userLoading, userSidebar } = useContext(Context)
 
   const [tickets, setTickets] = useState([])
   const [activeTicket, setActiveTicket] = useState(null)
@@ -230,7 +229,7 @@ export default function UserSupportPage() {
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
             <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiSupport style={{ color: themeColor }} className="text-2xl" />
+              <BiSupport className="text-primary text-2xl" />
               Customer Support Center
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Submit support inquiries and chat with our staff in real-time.</p>
@@ -241,8 +240,7 @@ export default function UserSupportPage() {
             </Link>
             <button
               onClick={() => setIsCreateOpen(true)}
-              className="px-4 py-2 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm"
-              style={{ backgroundColor: themeColor }}
+              className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-sm"
             >
               <BiPlus className="text-base" /> Create New Ticket
             </button>
@@ -285,10 +283,9 @@ export default function UserSupportPage() {
                       onClick={() => fetchTicketDetails(ticket.support_id)}
                       className={`p-3.5 border cursor-pointer transition select-none flex flex-col gap-1.5 ${
                         isActive 
-                          ? 'text-white shadow-sm' 
+                          ? 'bg-primary border-primary text-white shadow-sm' 
                           : 'bg-slate-50/60 hover:bg-slate-50 border-slate-200 text-slate-800'
                       }`}
-                      style={isActive ? { backgroundColor: themeColor, borderColor: themeColor } : {}}
                     >
                       <div className="flex justify-between items-start gap-2">
                         <span className="text-xs font-bold truncate flex-1">{ticket.subject}</span>
@@ -368,7 +365,7 @@ export default function UserSupportPage() {
                   <div className="bg-white p-4 border border-slate-200 shadow-sm max-w-2xl mx-auto w-full flex flex-col gap-2">
                     <div className="flex justify-between items-center border-b border-slate-100 pb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 text-white font-bold text-xs flex items-center justify-center" style={{ backgroundColor: themeColor }}>
+                        <div className="w-7 h-7 bg-primary text-white font-bold text-xs flex items-center justify-center">
                           {activeTicket.ticket.user_name?.substring(0,2).toUpperCase() || 'US'}
                         </div>
                         <div>
@@ -415,19 +412,18 @@ export default function UserSupportPage() {
                           <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-0.5 px-1 font-semibold">
                             <span>{msg.sender_name}</span>
                             {isSupport && (
-                              <span className="px-1.5 py-0.2 text-[9px] font-bold text-white uppercase border" style={{ backgroundColor: themeColor, borderColor: themeColor }}>Staff</span>
+                              <span className="px-1.5 py-0.2 text-[9px] font-bold bg-primary text-white uppercase border border-primary">Staff</span>
                             )}
                           </div>
 
                           <div 
                             className={`p-3 text-xs leading-relaxed shadow-sm ProseMirror border ${
                               isMe 
-                                ? 'text-white' 
+                                ? 'bg-primary text-white border-primary' 
                                 : isSupport
                                   ? 'bg-slate-100 text-slate-900 border-slate-200 font-medium'
                                   : 'bg-white text-slate-800 border-slate-200'
                             }`}
-                            style={isMe ? { backgroundColor: themeColor, borderColor: themeColor } : {}}
                             dangerouslySetInnerHTML={{ __html: msg.message }}
                           />
 
@@ -453,8 +449,7 @@ export default function UserSupportPage() {
                     <button
                       type="submit"
                       disabled={submittingMessage || !(replyMessage && replyMessage.replace(/<[^>]*>/g, '').trim())}
-                      className="px-4 py-2.5 text-white text-sm font-bold transition cursor-pointer flex items-center justify-center shrink-0 disabled:opacity-40 shadow-sm"
-                      style={{ backgroundColor: themeColor }}
+                      className="px-4 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-bold transition cursor-pointer flex items-center justify-center shrink-0 disabled:opacity-40 shadow-sm"
                     >
                       {submittingMessage ? (
                         <BiLoaderAlt className="animate-spin text-lg" />
@@ -488,7 +483,7 @@ export default function UserSupportPage() {
             {/* Modal Header */}
             <div className="p-5 border-b border-slate-200 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <BiSupport style={{ color: themeColor }} className="text-xl" />
+                <BiSupport className="text-xl text-primary" />
                 <h3 className="font-bold text-slate-800 text-sm">Initiate Support Query</h3>
               </div>
               <button 
@@ -522,10 +517,9 @@ export default function UserSupportPage() {
                       onClick={() => setNewPriority(p)}
                       className={`px-3 py-2 text-[10px] font-bold uppercase border transition cursor-pointer ${
                         newPriority === p
-                          ? 'text-white shadow-sm'
+                          ? 'bg-primary border-primary text-white shadow-sm'
                           : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-600'
                       }`}
-                      style={newPriority === p ? { backgroundColor: themeColor, borderColor: themeColor } : {}}
                     >
                       {p}
                     </button>
@@ -549,8 +543,7 @@ export default function UserSupportPage() {
                 <button
                   type="submit"
                   disabled={submittingTicket}
-                  className="px-4 py-2 text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 shadow-sm"
-                  style={{ backgroundColor: themeColor }}
+                  className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 shadow-sm"
                 >
                   {submittingTicket ? (
                     <>

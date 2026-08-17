@@ -11,8 +11,7 @@ import {
 } from 'react-icons/bi'
 
 export default function UserPaymentsPage() {
-  const { userSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
+  const { userSidebar } = useContext(Context)
 
   const [payments, setPayments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,7 +40,7 @@ export default function UserPaymentsPage() {
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
             <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiDollarCircle style={{ color: themeColor }} className="text-2xl" />
+              <BiDollarCircle className="text-primary text-2xl" />
               Payments Log
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Check settlement records, transaction methods, and receipt history.</p>
@@ -59,7 +58,7 @@ export default function UserPaymentsPage() {
           </div>
         ) : payments.length === 0 ? (
           <div className="w-full bg-white border border-slate-200 py-16 px-6 text-center flex flex-col items-center gap-4 shadow-sm">
-            <div className="w-12 h-12 text-white flex items-center justify-center text-2xl font-bold" style={{ backgroundColor: themeColor }}>
+            <div className="w-12 h-12 bg-primary text-white flex items-center justify-center text-2xl font-bold">
               <BiDollarCircle />
             </div>
             <div>
@@ -86,7 +85,7 @@ export default function UserPaymentsPage() {
                   <tr key={pay.payment_id} className="hover:bg-slate-50 transition">
                     <td className="px-3 md:px-4 py-3.5 text-center font-bold text-slate-500 font-mono">#PAY-{pay.payment_id}</td>
                     <td className="hidden md:table-cell px-3 md:px-4 py-3.5 whitespace-nowrap text-slate-500 font-mono text-[11px]">{new Date(pay.paid_at).toLocaleString()}</td>
-                    <td className="px-3 md:px-4 py-3.5 text-center font-bold font-mono" style={{ color: themeColor }}>
+                    <td className="px-3 md:px-4 py-3.5 text-center font-bold font-mono text-primary">
                       <Link href={`/track-order?id=${pay.order_id}`} className="hover:underline cursor-pointer">
                         #ORD-{pay.order_id}
                       </Link>

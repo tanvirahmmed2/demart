@@ -18,8 +18,7 @@ import {
 } from 'react-icons/bi'
 
 export default function UserPage() {
-  const { user, loading, logout, userSidebar, website } = useContext(Context)
-  const themeColor = website?.theme_color || '#73976A'
+  const { user, loading, logout, userSidebar } = useContext(Context)
 
   if (loading) {
     return (
@@ -97,7 +96,7 @@ export default function UserPage() {
         {/* User Profile Banner */}
         <div className="bg-white border border-slate-200 shadow-sm p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-slate-900 text-white text-xl font-bold flex items-center justify-center shadow-sm shrink-0">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-primary text-white text-xl font-bold flex items-center justify-center shadow-sm shrink-0">
               {initials}
             </div>
             <div>
@@ -138,7 +137,7 @@ export default function UserPage() {
                 className="bg-white border border-slate-200 shadow-sm p-5 flex flex-col justify-between hover:shadow-md transition group cursor-pointer"
               >
                 <div>
-                  <div className="w-10 h-10 flex items-center justify-center text-lg mb-3.5 text-white font-bold" style={{ backgroundColor: themeColor }}>
+                  <div className="w-10 h-10 flex items-center justify-center text-lg mb-3.5 bg-primary text-white font-bold">
                     {link.icon}
                   </div>
                   <h3 className="font-bold text-slate-800 text-sm transition-colors">{link.name}</h3>
@@ -147,7 +146,7 @@ export default function UserPage() {
                   </p>
                 </div>
                 
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between font-bold text-xs" style={{ color: themeColor }}>
+                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between font-bold text-xs text-primary">
                   <span>Access Module</span>
                   <BiChevronRight className="text-base group-hover:translate-x-1 transition-transform" />
                 </div>
