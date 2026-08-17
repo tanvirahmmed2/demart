@@ -18,7 +18,9 @@ import {
 } from 'react-icons/bi'
 
 export default function DashboardManagerSupplierPage() {
-  const { dashSidebar } = useContext(Context)
+  const { dashSidebar, website } = useContext(Context)
+  const themeColor = website?.theme_color || '#73976A'
+  
   const [suppliers, setSuppliers] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -65,135 +67,135 @@ export default function DashboardManagerSupplierPage() {
   )
 
   return (
-    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
-      <div className="max-w-6xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'}`}>
+      <div className="w-full flex flex-col gap-6">
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2 animate-fade-in">
-              <BiUser className="text-emerald-600" />
+            <h1 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-2">
+              <BiUser style={{ color: themeColor }} />
               Suppliers Directory
             </h1>
-            <p className="text-slate-500 text-sm mt-0.5 animate-fade-in">Manage external product suppliers, contacts, and metadata.</p>
+            <p className="text-slate-500 text-xs md:text-sm mt-0.5">Manage external product suppliers, contacts, and metadata.</p>
           </div>
           <Link
             href="/dashboard/manager/supplier/create"
-            className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition flex items-center justify-center gap-2 shadow-sm shadow-emerald-600/10 cursor-pointer self-start sm:self-auto"
+            className="px-4 py-2.5 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer self-start sm:self-auto"
+            style={{ backgroundColor: themeColor }}
           >
-            <BiPlus className="text-lg" /> Create Supplier
+            <BiPlus className="text-base" /> Create Supplier
           </Link>
         </div>
 
         {/* Actions bar */}
-        <div className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm animate-fade-in">
-          <div className="flex-1 max-w-md relative">
-            <BiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg" />
-            <input className="input-style"
+        <div className="flex items-center gap-3 bg-white p-4 border border-slate-200 shadow-sm">
+          <div className="flex-1 max-w-md flex items-center gap-2 bg-slate-50 px-3 py-2 border border-slate-200">
+            <BiSearch className="text-slate-400 text-base shrink-0" />
+            <input 
               type="text"
               placeholder="Search by name, company, email or phone..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              className="w-full text-xs text-slate-800 bg-transparent outline-none"
             />
           </div>
         </div>
 
         {/* Table content */}
         {loading ? (
-          <div className="w-full h-64 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-slate-500 gap-2">
-            <BiLoaderAlt className="animate-spin text-xl text-emerald-600" />
-            <span>Loading suppliers...</span>
+          <div className="w-full h-64 bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 gap-2">
+            <BiLoaderAlt className="animate-spin text-xl text-slate-800" />
+            <span className="text-xs font-semibold">Loading suppliers...</span>
           </div>
         ) : filteredSuppliers.length > 0 ? (
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden animate-fade-in">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-left text-sm text-slate-500">
-                <thead className="bg-slate-55 bg-slate-50/75 text-xs font-semibold text-slate-700 uppercase border-b border-slate-100">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">Supplier Info</th>
-                    <th scope="col" className="px-6 py-4">Contact Info</th>
-                    <th scope="col" className="px-6 py-4">Address</th>
-                    <th scope="col" className="px-6 py-4">Status</th>
-                    <th scope="col" className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 border-t border-slate-100">
-                  {filteredSuppliers.map((supplier) => (
-                    <tr key={supplier.supplier_id} className="hover:bg-slate-50/50 transition">
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col">
-                          <span className="font-semibold text-slate-800 text-base">{supplier.name}</span>
-                          {supplier.company_name && (
-                            <span className="text-slate-500 text-xs flex items-center gap-1 mt-0.5">
-                              <BiBuildingHouse className="text-slate-400" />
-                              {supplier.company_name}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col gap-1 text-xs">
-                          <span className="flex items-center gap-1.5 text-slate-700">
-                            <BiPhone className="text-slate-400" />
-                            {supplier.phone}
+          <div className="bg-white border border-slate-200 shadow-sm">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200">
+                <tr>
+                  <th className="px-3 md:px-4 py-3">Supplier Info</th>
+                  <th className="hidden sm:table-cell px-3 md:px-4 py-3">Contact Info</th>
+                  <th className="hidden md:table-cell px-3 md:px-4 py-3">Address</th>
+                  <th className="hidden lg:table-cell px-3 md:px-4 py-3">Status</th>
+                  <th className="px-3 md:px-4 py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 text-slate-700">
+                {filteredSuppliers.map((supplier) => (
+                  <tr key={supplier.supplier_id} className="hover:bg-slate-50 transition">
+                    <td className="px-3 md:px-4 py-3.5">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-slate-800 text-xs md:text-sm">{supplier.name}</span>
+                        {supplier.company_name && (
+                          <span className="text-slate-500 text-[10px] flex items-center gap-1 mt-0.5">
+                            <BiBuildingHouse className="text-slate-400" />
+                            {supplier.company_name}
                           </span>
-                          {supplier.email && (
-                            <span className="flex items-center gap-1.5 text-slate-500">
-                              <BiEnvelope className="text-slate-400" />
-                              {supplier.email}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        {supplier.address ? (
-                          <div className="max-w-[200px] truncate text-xs text-slate-650 flex items-start gap-1" title={supplier.address}>
-                            <BiMapPin className="text-slate-450 shrink-0 mt-0.5" />
-                            <span>{supplier.address}</span>
-                          </div>
-                        ) : (
-                          <span className="text-slate-400 text-xs">N/A</span>
                         )}
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                          supplier.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'
-                        }`}>
-                          {supplier.is_active ? 'Active' : 'Inactive'}
+                      </div>
+                    </td>
+                    <td className="hidden sm:table-cell px-3 md:px-4 py-3.5">
+                      <div className="flex flex-col gap-0.5 text-[11px]">
+                        <span className="flex items-center gap-1 text-slate-700">
+                          <BiPhone className="text-slate-400" />
+                          {supplier.phone}
                         </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <Link
-                            href={`/dashboard/manager/supplier/edit/${supplier.supplier_id}`}
-                            className="p-2 hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 rounded-lg transition"
-                          >
-                            <BiEditAlt className="text-lg" />
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(supplier.supplier_id)}
-                            disabled={deletingId === supplier.supplier_id}
-                            className="p-2 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-lg transition disabled:opacity-50"
-                          >
-                            {deletingId === supplier.supplier_id ? (
-                              <BiLoaderAlt className="animate-spin text-lg" />
-                            ) : (
-                              <BiTrash className="text-lg" />
-                            )}
-                          </button>
+                        {supplier.email && (
+                          <span className="flex items-center gap-1 text-slate-500 font-mono">
+                            <BiEnvelope className="text-slate-400" />
+                            {supplier.email}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="hidden md:table-cell px-3 md:px-4 py-3.5">
+                      {supplier.address ? (
+                        <div className="max-w-[200px] truncate text-slate-600 flex items-start gap-1" title={supplier.address}>
+                          <BiMapPin className="text-slate-400 shrink-0 mt-0.5" />
+                          <span>{supplier.address}</span>
                         </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      ) : (
+                        <span className="text-slate-400">N/A</span>
+                      )}
+                    </td>
+                    <td className="hidden lg:table-cell px-3 md:px-4 py-3.5">
+                      <span className={`px-1.5 py-0.5 text-[9px] font-bold uppercase border ${
+                        supplier.is_active ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-500 border-slate-200'
+                      }`}>
+                        {supplier.is_active ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="px-3 md:px-4 py-3.5 text-right">
+                      <div className="flex items-center justify-end gap-1">
+                        <Link
+                          href={`/dashboard/manager/supplier/edit/${supplier.supplier_id}`}
+                          className="p-1.5 hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition border border-transparent"
+                        >
+                          <BiEditAlt className="text-base" />
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(supplier.supplier_id)}
+                          disabled={deletingId === supplier.supplier_id}
+                          className="p-1.5 hover:bg-rose-50 text-slate-500 hover:text-rose-600 transition disabled:opacity-50 border border-transparent"
+                        >
+                          {deletingId === supplier.supplier_id ? (
+                            <BiLoaderAlt className="animate-spin text-base" />
+                          ) : (
+                            <BiTrash className="text-base" />
+                          )}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : (
-          <div className="w-full py-16 bg-white rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center text-slate-400 gap-2 animate-fade-in">
+          <div className="w-full py-16 bg-white border border-slate-200 shadow-sm flex flex-col items-center justify-center text-slate-400 gap-2">
             <BiUser className="text-4xl text-slate-300" />
-            <p className="font-semibold text-slate-600">No suppliers found</p>
-            <p className="text-xs text-slate-400 mt-0.5">Try a different search query or add a supplier above.</p>
+            <p className="font-bold text-slate-600 text-xs">No suppliers found</p>
+            <p className="text-[10px] text-slate-400">Try a different search query or add a supplier above.</p>
           </div>
         )}
 
@@ -201,3 +203,4 @@ export default function DashboardManagerSupplierPage() {
     </div>
   )
 }
+

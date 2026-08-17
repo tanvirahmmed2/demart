@@ -112,9 +112,9 @@ export default function DashboardAdminSettingsPage() {
 
   if (fetching) {
     return (
-      <div className={`w-full min-h-screen bg-[#F1F5F9] pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'} flex items-center justify-center`}>
+      <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'} flex items-center justify-center`}>
         <div className="flex items-center gap-2 text-slate-500 font-semibold">
-          <BiLoaderAlt className="animate-spin text-xl text-[#73976A]" />
+          <BiLoaderAlt className="animate-spin text-xl text-slate-800" />
           <span>Loading settings details...</span>
         </div>
       </div>
@@ -122,13 +122,13 @@ export default function DashboardAdminSettingsPage() {
   }
 
   return (
-    <div className={`w-full min-h-screen bg-[#F1F5F9] pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'}`}>
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'}`}>
+      <div className="w-full flex flex-col gap-6">
         
         {/* Header */}
-        <div>
+        <div className="border-b border-slate-200 pb-4">
           <h1 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <BiCog className="text-[#73976A]" />
+            <BiCog style={{ color: themeColor }} />
             Website Settings & Configuration
           </h1>
           <p className="text-slate-500 text-xs md:text-sm mt-0.5">Configure store branding, theme palettes, contact details, and landing page banner headers.</p>
@@ -140,19 +140,19 @@ export default function DashboardAdminSettingsPage() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             
             {/* General Identity */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 md:p-6 flex flex-col gap-5">
+            <div className="bg-white border border-slate-200 shadow-sm p-5 md:p-6 flex flex-col gap-5">
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-1.5">
-                <BiGlobe className="text-[#73976A] text-base" /> General Identity
+                <BiGlobe style={{ color: themeColor }} className="text-base" /> General Identity
               </h2>
               
               {/* Secret.js Info Box */}
-              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row justify-between gap-3 items-start sm:items-center">
+              <div className="p-3.5 bg-slate-50 border border-slate-200 flex flex-col sm:flex-row justify-between gap-3 items-start sm:items-center">
                 <div>
-                  <span className="text-[10px] font-bold text-[#73976A] uppercase tracking-wider block">Secret Configured</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider block" style={{ color: themeColor }}>Secret Configured</span>
                   <h4 className="text-xs font-bold text-slate-800">{STORE_NAME}</h4>
                   <p className="text-[11px] text-slate-500 italic mt-0.5">"{STORE_TAGLINE}"</p>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-[#73976A]/10 text-[#73976A] border border-[#73976A]/20 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5">
                   Managed in secret.js
                 </span>
               </div>
@@ -161,20 +161,22 @@ export default function DashboardAdminSettingsPage() {
                 {/* Contact Email */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-slate-700">Store Support Email</label>
-                  <input className="input-style border border-slate-200 focus:border-[#73976A]"
+                  <input 
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="px-3 py-2 border border-slate-200 text-xs text-slate-800 outline-none"
                   />
                 </div>
 
                 {/* Contact Phone */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold text-slate-700">Store Customer Phone</label>
-                  <input className="input-style border border-slate-200 focus:border-[#73976A]"
+                  <input 
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    className="px-3 py-2 border border-slate-200 text-xs text-slate-800 outline-none"
                   />
                 </div>
               </div>
@@ -186,37 +188,39 @@ export default function DashboardAdminSettingsPage() {
                   rows={2}
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="px-3 py-2.5 bg-[#F1F5F9] border border-slate-200 rounded-xl text-slate-800 text-xs md:text-sm focus:bg-white focus:ring-2 focus:ring-[#73976A]/20 focus:border-[#73976A] outline-none transition resize-none"
+                  className="px-3 py-2 border border-slate-200 text-xs text-slate-800 outline-none resize-none"
                 />
               </div>
 
               {/* Social Link */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700 flex items-center gap-1">
-                  <BiLink className="text-slate-450 text-sm" /> Social Profile Link (e.g. Facebook/Instagram)
+                  <BiLink className="text-slate-400 text-sm" /> Social Profile Link (e.g. Facebook/Instagram)
                 </label>
-                <input className="input-style border border-slate-200 focus:border-[#73976A]"
+                <input 
                   type="text"
                   value={sociallink}
                   onChange={(e) => setSociallink(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 text-xs text-slate-800 outline-none"
                 />
               </div>
 
             </div>
 
             {/* Layout Settings & Hero Banner */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 md:p-6 flex flex-col gap-5">
+            <div className="bg-white border border-slate-200 shadow-sm p-5 md:p-6 flex flex-col gap-5">
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-1.5">
-                <BiLayout className="text-[#73976A] text-base" /> Landing Hero Section
+                <BiLayout style={{ color: themeColor }} className="text-base" /> Landing Hero Section
               </h2>
 
               {/* Hero Banner Title */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700">Hero Main Title Banner</label>
-                <input className="input-style border border-slate-200 focus:border-[#73976A]"
+                <input 
                   type="text"
                   value={heroTitle}
                   onChange={(e) => setHeroTitle(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 text-xs text-slate-800 outline-none"
                 />
               </div>
 
@@ -227,7 +231,7 @@ export default function DashboardAdminSettingsPage() {
                   rows={2}
                   value={heroSubtitle}
                   onChange={(e) => setHeroSubtitle(e.target.value)}
-                  className="px-3 py-2.5 bg-[#F1F5F9] border border-slate-200 rounded-xl text-slate-800 text-xs md:text-sm focus:bg-white focus:ring-2 focus:ring-[#73976A]/20 focus:border-[#73976A] outline-none transition resize-none"
+                  className="px-3 py-2 border border-slate-200 text-xs text-slate-800 outline-none resize-none"
                 />
               </div>
             </div>
@@ -238,16 +242,16 @@ export default function DashboardAdminSettingsPage() {
           <div className="flex flex-col gap-6">
             
             {/* Visual Branding Appearance */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 md:p-6 flex flex-col gap-5">
+            <div className="bg-white border border-slate-200 shadow-sm p-5 md:p-6 flex flex-col gap-5">
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-1.5">
-                <BiPalette className="text-[#73976A] text-base" /> Visual Branding
+                <BiPalette style={{ color: themeColor }} className="text-base" /> Visual Branding
               </h2>
 
               {/* Theme Color Picker */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold text-slate-700">Primary Theme Color</label>
-                <div className="flex gap-3 items-center bg-[#F1F5F9] p-2.5 border border-slate-200 rounded-xl">
-                  <input className="w-8 h-8 rounded border border-slate-300 cursor-pointer"
+                <div className="flex gap-3 items-center bg-slate-50 p-2.5 border border-slate-200">
+                  <input className="w-8 h-8 border border-slate-300 cursor-pointer"
                     type="color"
                     value={themeColor}
                     onChange={(e) => setThemeColor(e.target.value)}
@@ -263,10 +267,10 @@ export default function DashboardAdminSettingsPage() {
               <div className="flex flex-col gap-2.5">
                 <label className="text-xs font-bold text-slate-700">Website Logo File</label>
                 
-                <div className="flex flex-col items-center gap-4 border-2 border-dashed border-slate-200 p-4 rounded-2xl hover:bg-slate-50 transition relative">
+                <div className="flex flex-col items-center gap-4 border-2 border-dashed border-slate-200 p-4 hover:bg-slate-50 transition relative">
                   
                   {logoPreview ? (
-                    <div className="relative w-24 h-24 rounded-xl border border-slate-200 overflow-hidden bg-[#F1F5F9] flex items-center justify-center shrink-0">
+                    <div className="relative w-24 h-24 border border-slate-200 bg-slate-50 flex items-center justify-center shrink-0">
                       <img
                         src={logoPreview}
                         alt="Logo Preview"
@@ -274,13 +278,13 @@ export default function DashboardAdminSettingsPage() {
                       />
                     </div>
                   ) : (
-                    <div className="w-24 h-24 rounded-xl border border-slate-200 overflow-hidden bg-[#F1F5F9] flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase tracking-wider border-dashed border-2">
+                    <div className="w-24 h-24 border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-400 text-[10px] font-bold uppercase tracking-wider border-dashed border-2">
                       No Logo
                     </div>
                   )}
 
-                  <label className="w-full flex items-center justify-center py-2 bg-[#F1F5F9] hover:bg-slate-200/80 rounded-xl text-slate-700 text-xs font-bold transition cursor-pointer select-none gap-1.5 border border-slate-200">
-                    <BiUpload className="text-base text-[#73976A]" /> Click to upload
+                  <label className="w-full flex items-center justify-center py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition cursor-pointer select-none gap-1.5 border border-slate-200">
+                    <BiUpload className="text-base" style={{ color: themeColor }} /> Click to upload
                     <input className="hidden"
                       type="file"
                       accept="image/*"
@@ -295,7 +299,8 @@ export default function DashboardAdminSettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full py-2.5 bg-[#73976A] hover:bg-[#607E59] text-white rounded-xl text-xs md:text-sm font-bold transition cursor-pointer flex items-center justify-center gap-2 shadow-xs"
+                  className="w-full py-2.5 text-white text-xs md:text-sm font-bold transition cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+                  style={{ backgroundColor: themeColor }}
                 >
                   {saving ? (
                     <>
@@ -313,13 +318,13 @@ export default function DashboardAdminSettingsPage() {
             </div>
 
             {/* Banner Live Rendering Card */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 md:p-6 flex flex-col gap-4">
+            <div className="bg-white border border-slate-200 shadow-sm p-5 md:p-6 flex flex-col gap-4">
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-1.5">
-                <BiShow className="text-[#73976A] text-base" /> Live Hero Preview
+                <BiShow style={{ color: themeColor }} className="text-base" /> Live Hero Preview
               </h2>
 
               {/* Simulated Hero Card */}
-              <div className="w-full rounded-2xl p-5 border border-slate-200 overflow-hidden relative min-h-[160px] flex flex-col justify-center gap-2"
+              <div className="w-full p-5 border border-slate-200 relative min-h-[160px] flex flex-col justify-center gap-2"
                    style={{
                      background: `linear-gradient(135deg, ${themeColor}1a, ${themeColor}05)`,
                      borderLeft: `5px solid ${themeColor}`
@@ -327,7 +332,7 @@ export default function DashboardAdminSettingsPage() {
               >
                 {/* Logo mock */}
                 {logoPreview && (
-                  <div className="w-10 h-10 rounded overflow-hidden bg-white/80 p-1 w-fit mb-1 border border-slate-200">
+                  <div className="w-10 h-10 bg-white/80 p-1 w-fit mb-1 border border-slate-200">
                     <img src={logoPreview} alt="mock" className="object-contain w-full h-full" />
                   </div>
                 )}
@@ -342,7 +347,7 @@ export default function DashboardAdminSettingsPage() {
                 
                 <button
                   type="button"
-                  className="w-fit px-3 py-1 mt-1 text-white text-[10px] font-bold rounded transition shadow-xs"
+                  className="w-fit px-3 py-1 mt-1 text-white text-[10px] font-bold transition shadow-sm"
                   style={{ backgroundColor: themeColor }}
                 >
                   Shop Now
@@ -358,4 +363,5 @@ export default function DashboardAdminSettingsPage() {
     </div>
   )
 }
+
 

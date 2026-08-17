@@ -18,7 +18,9 @@ import {
 } from 'react-icons/bi'
 
 export default function UserReviewsPage() {
-  const { user, loading: userLoading, userSidebar } = useContext(Context)
+  const { user, loading: userLoading, userSidebar, website } = useContext(Context)
+  const themeColor = website?.theme_color || '#73976A'
+  
   const [reviews, setReviews] = useState([])
   const [reviewsLoading, setReviewsLoading] = useState(true)
 
@@ -102,7 +104,7 @@ export default function UserReviewsPage() {
             key={star}
             type="button"
             onClick={() => setRating(star)}
-            className="text-xl transition cursor-pointer hover:scale-110"
+            className="text-xl transition cursor-pointer"
           >
             <BiStar className={star <= rating ? 'text-amber-500 fill-amber-500' : 'text-slate-300'} />
           </button>
@@ -124,21 +126,21 @@ export default function UserReviewsPage() {
 
   if (userLoading) {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-[#F1F5F9]">
-        <BiLoaderAlt className="animate-spin text-4xl text-[#73976A]" />
+      <div className="w-full min-h-screen flex items-center justify-center bg-slate-50">
+        <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
       </div>
     )
   }
 
   if (!user) {
     return (
-      <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 md:p-8 bg-[#F1F5F9]">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xs border border-slate-200 p-6 md:p-8 flex flex-col gap-4 text-center">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 md:p-8 bg-slate-50">
+        <div className="w-full max-w-md bg-white border border-slate-200 p-6 md:p-8 flex flex-col gap-4 text-center shadow-sm">
           <BiCommentDetail className="text-5xl text-slate-400 mx-auto" />
           <h1 className="text-xl font-bold text-slate-800">Reviews Panel</h1>
           <p className="text-slate-600 text-xs leading-relaxed">Please log in to write testimonials and review your submitted feedback.</p>
           <div className="mt-2">
-            <Link href="/login" className="px-6 py-2.5 bg-[#73976A] text-white rounded-xl text-xs font-bold hover:bg-[#607E59] transition cursor-pointer shadow-xs">
+            <Link href="/login" className="px-6 py-2.5 bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition cursor-pointer shadow-sm">
               Log In
             </Link>
           </div>
@@ -148,19 +150,19 @@ export default function UserReviewsPage() {
   }
 
   return (
-    <div className={`w-full min-h-screen bg-[#F1F5F9] pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${userSidebar ? 'lg:pl-60' : 'lg:pl-8'}`}>
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${userSidebar ? 'lg:pl-60' : 'lg:pl-8'}`}>
+      <div className="w-full flex flex-col gap-6">
         
         {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-200 pb-4">
           <div>
             <h1 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiCommentDetail className="text-[#73976A] text-2xl" />
+              <BiCommentDetail style={{ color: themeColor }} className="text-2xl" />
               Your Reviews & Feedback
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Submit product reviews, share testimonials, and check moderation states.</p>
           </div>
-          <Link href="/user" className="px-4 py-2 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl hover:bg-slate-50 transition cursor-pointer flex items-center gap-1.5 bg-white shadow-2xs">
+          <Link href="/user" className="px-4 py-2 border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition cursor-pointer flex items-center gap-1.5 bg-white shadow-sm">
             <BiArrowBack /> Back to Profile
           </Link>
         </div>
@@ -169,7 +171,7 @@ export default function UserReviewsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* Left panel: Submit Review Form */}
-          <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-xs flex flex-col gap-6">
+          <div className="lg:col-span-5 bg-white border border-slate-200 p-5 md:p-6 shadow-sm flex flex-col gap-6">
             {reviews.length > 0 ? (
               <div className="flex flex-col gap-3 text-center py-6">
                 <BiInfoCircle className="text-3xl text-amber-500 mx-auto" />
@@ -185,7 +187,7 @@ export default function UserReviewsPage() {
               <>
                 <div>
                   <h2 className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-                    <BiPlusCircle className="text-[#73976A]" /> Write a Testimonial
+                    <BiPlusCircle style={{ color: themeColor }} /> Write a Testimonial
                   </h2>
                   <p className="text-slate-500 text-xs mt-1">Let us know how your experience with our store and catalog products was!</p>
                 </div>
@@ -197,12 +199,13 @@ export default function UserReviewsPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-slate-700 uppercase">Subject Title <span className="text-[#BD4444]">*</span></label>
-                    <input className="input-style focus:border-[#73976A]"
+                    <label className="text-xs font-bold text-slate-700 uppercase">Subject Title <span className="text-rose-600">*</span></label>
+                    <input 
                       required
                       type="text"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
+                      className="w-full text-xs text-slate-800 bg-white border border-slate-200 px-3 py-2 outline-none"
                     />
                   </div>
 
@@ -214,7 +217,8 @@ export default function UserReviewsPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="mt-2 w-full py-2.5 bg-[#73976A] hover:bg-[#607E59] text-white font-bold text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    className="mt-2 w-full py-2.5 text-white font-bold text-xs shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    style={{ backgroundColor: themeColor }}
                   >
                     {submitting ? (
                       <>
@@ -230,7 +234,7 @@ export default function UserReviewsPage() {
           </div>
 
           {/* Right panel: Listing customer's reviews */}
-          <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-xs flex flex-col gap-4">
+          <div className="lg:col-span-7 bg-white border border-slate-200 p-5 md:p-6 shadow-sm flex flex-col gap-4">
             <h2 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Your Feedback Log</h2>
 
             {reviewsLoading ? (
@@ -238,7 +242,7 @@ export default function UserReviewsPage() {
                 <BiLoaderAlt className="animate-spin text-base" /> Loading reviews...
               </div>
             ) : reviews.length === 0 ? (
-              <div className="flex flex-col items-center justify-center p-8 text-center text-slate-400 gap-2 py-12 border-2 border-dashed border-slate-200 rounded-xl">
+              <div className="flex flex-col items-center justify-center p-8 text-center text-slate-400 gap-2 py-12 border-2 border-dashed border-slate-200">
                 <BiCommentDetail className="text-3xl text-slate-350" />
                 <p className="text-xs font-bold text-slate-700">No reviews posted yet</p>
                 <p className="text-xs text-slate-400 max-w-xs">You have not submitted any product feedback or store testimonials yet.</p>
@@ -249,7 +253,7 @@ export default function UserReviewsPage() {
                   return (
                     <div 
                       key={rev.review_id}
-                      className="border border-slate-200 rounded-xl p-4 bg-slate-50/50 flex flex-col gap-2 hover:border-slate-300 transition"
+                      className="border border-slate-200 p-4 bg-slate-50/50 flex flex-col gap-2 hover:border-slate-300 transition"
                     >
                       <div className="flex justify-between items-start gap-2 flex-wrap">
                         <div>
@@ -259,11 +263,11 @@ export default function UserReviewsPage() {
 
                         <div>
                           {rev.is_approved ? (
-                            <span className="px-2.5 py-0.5 text-[10px] font-bold rounded bg-[#73976A]/10 text-[#73976A] border border-[#73976A]/20 flex items-center gap-1">
+                            <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase border bg-emerald-50 text-emerald-700 border-emerald-200 flex items-center gap-1">
                               <BiCheckCircle /> Approved
                             </span>
                           ) : (
-                            <span className="px-2.5 py-0.5 text-[10px] font-bold rounded bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
+                            <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase border bg-amber-50 text-amber-700 border-amber-200 flex items-center gap-1">
                               <BiTime /> Pending Approval
                             </span>
                           )}
@@ -271,7 +275,7 @@ export default function UserReviewsPage() {
                       </div>
 
                       {rev.comment && (
-                        <p className="text-slate-700 text-xs leading-relaxed italic bg-white p-3 rounded-lg border border-slate-200 mt-1">
+                        <p className="text-slate-700 text-xs leading-relaxed italic bg-white p-3 border border-slate-200 mt-1">
                           "{rev.comment.replace(/<[^>]*>/g, '').trim()}"
                         </p>
                       )}
@@ -285,7 +289,7 @@ export default function UserReviewsPage() {
                         <button
                           onClick={() => handleDeleteReview(rev.review_id)}
                           disabled={deletingId === rev.review_id}
-                          className="text-[#BD4444] hover:text-[#842f2f] p-1 rounded transition cursor-pointer flex items-center gap-1 font-sans text-xs font-bold"
+                          className="text-rose-600 hover:text-rose-800 p-1 transition cursor-pointer flex items-center gap-1 font-sans text-xs font-bold"
                         >
                           {deletingId === rev.review_id ? (
                             <BiLoaderAlt className="animate-spin" />
@@ -309,4 +313,5 @@ export default function UserReviewsPage() {
     </div>
   )
 }
+
 

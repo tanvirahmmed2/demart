@@ -163,10 +163,9 @@ export async function PUT(req, { params }) {
       await addStockBack();
     }
 
-    // Special behavior for returns (re-stock if it was reduced before)
-    if (newStatus === 'returned' && stockWasReduced) {
+    // Special behavior for returns (re-stock items and zero amounts)
+    if (newStatus === 'returned') {
       await addStockBack();
-      // Ensure stockShouldBeReduced is noted as false so we don't double count
       stockShouldBeReduced = false;
     }
 
@@ -188,10 +187,18 @@ export async function PUT(req, { params }) {
       updateDueAmount = 0; // fully paid
     }
 
+    if (newStatus === 'returned') {
+      updateDueAmount = 0;
+    }
+
     // Update order status and courier info
     await client.query(
       `UPDATE public.orders 
        SET status = $1, 
+           subtotal_amount = CASE WHEN $1 = 'returned' THEN 0 ELSE subtotal_amount END,
+           total_discount_amount = CASE WHEN $1 = 'returned' THEN 0 ELSE total_discount_amount END,
+           delivery_charge = CASE WHEN $1 = 'returned' THEN 0 ELSE delivery_charge END,
+           total_amount = CASE WHEN $1 = 'returned' THEN 0 ELSE total_amount END,
            due_amount = $2, 
            courier_name = CASE WHEN $3::text IS NOT NULL THEN $3 ELSE courier_name END,
            courier_tracking_id = CASE WHEN $4::text IS NOT NULL THEN $4 ELSE courier_tracking_id END,
@@ -199,6 +206,7 @@ export async function PUT(req, { params }) {
        WHERE order_id = $5`,
       [newStatus, updateDueAmount, courier_name || null, courier_tracking_id || null, orderId]
     );
+
 
     await client.query('COMMIT');
     return Response.json({ message: 'Order status updated successfully' }, { status: 200 });

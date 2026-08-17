@@ -5,17 +5,14 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { printReceipt } from '@/lib/printreceipt'
 import { 
-  BiTime, 
-  BiCheck, 
-  BiSolidTruck, 
+  BiUndo, 
   BiRefresh, 
   BiLoaderAlt,
   BiPrinter,
-  BiTrash,
-  BiUndo
+  BiTrash
 } from 'react-icons/bi'
 
-export default function PendingSalesPage() {
+export default function ReturnedSalesPage() {
   const { dashSidebar, website } = useContext(Context)
   const themeColor = website?.theme_color || '#10b981'
 
@@ -24,51 +21,23 @@ export default function PendingSalesPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 20
 
-  const fetchPendingOrders = async () => {
+  const fetchReturnedOrders = async () => {
     setLoading(true)
     try {
-      const res = await axios.get('/api/sale?status=pending')
+      const res = await axios.get('/api/sale?status=returned')
       setOrders(res.data || [])
       setCurrentPage(1)
     } catch (err) {
-      console.error('Failed to load pending sales orders:', err)
-      toast.error('Failed to fetch pending orders')
+      console.error('Failed to load returned orders:', err)
+      toast.error('Failed to fetch returned orders')
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    fetchPendingOrders()
+    fetchReturnedOrders()
   }, [])
-
-  const handleUpdateStatus = async (orderId, newStatus) => {
-    const confirmMsg = `Are you sure you want to change status to "${newStatus}"?`
-    if (!window.confirm(confirmMsg)) return
-
-    const toastId = toast.loading(`Updating order #${orderId} status...`)
-    try {
-      await axios.put(`/api/sale/${orderId}`, { status: newStatus })
-      toast.success(`Order #${orderId} marked as ${newStatus}`, { id: toastId })
-      fetchPendingOrders()
-    } catch (err) {
-      console.error('Failed to update order status:', err)
-      toast.error(err.response?.data?.error || `Failed to update status to ${newStatus}`, { id: toastId })
-    }
-  }
-
-  const handleReturnOrder = async (orderId) => {
-    if (!window.confirm(`Are you sure you want to mark order #${orderId} as returned? Items will be restocked.`)) return
-    const toastId = toast.loading(`Processing return for order #${orderId}...`)
-    try {
-      await axios.put(`/api/sale/${orderId}`, { status: 'returned' })
-      toast.success(`Order #${orderId} marked as returned`, { id: toastId })
-      fetchPendingOrders()
-    } catch (err) {
-      console.error('Failed to return order:', err)
-      toast.error(err.response?.data?.error || 'Failed to process return', { id: toastId })
-    }
-  }
 
   const handleDeleteOrder = async (orderId) => {
     if (!window.confirm(`Are you sure you want to delete order #${orderId}? This action cannot be undone.`)) return
@@ -76,7 +45,7 @@ export default function PendingSalesPage() {
     try {
       await axios.delete(`/api/sale/${orderId}`)
       toast.success(`Order #${orderId} deleted successfully`, { id: toastId })
-      fetchPendingOrders()
+      fetchReturnedOrders()
     } catch (err) {
       console.error('Failed to delete order:', err)
       toast.error(err.response?.data?.error || 'Failed to delete order', { id: toastId })
@@ -91,14 +60,13 @@ export default function PendingSalesPage() {
     <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
       <div className="w-full flex flex-col gap-6">
         
-        {/* Header section */}
         <div className="flex items-center justify-between border-b border-slate-200 pb-4">
           <div>
-            <h1 className="text-2xl font-black text-slate-800 tracking-tight">Pending Orders Desk</h1>
-            <p className="text-xs text-slate-500 mt-1">Review, decline, confirm, or instantly deliver incoming checkout sales orders.</p>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight">Returned Sales</h1>
+            <p className="text-xs text-slate-500 mt-1">Review all returned orders. Items are restocked and order total amounts are zeroed out.</p>
           </div>
           <button
-            onClick={fetchPendingOrders}
+            onClick={fetchReturnedOrders}
             disabled={loading}
             className="p-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition cursor-pointer shadow-sm disabled:opacity-40"
           >
@@ -106,20 +74,19 @@ export default function PendingSalesPage() {
           </button>
         </div>
 
-        {/* Orders list container */}
         {loading ? (
           <div className="w-full py-20 flex flex-col items-center justify-center gap-2">
             <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
-            <p className="text-slate-500 text-sm font-semibold animate-pulse">Fetching pending sales desk...</p>
+            <p className="text-slate-500 text-sm font-semibold animate-pulse">Fetching returned orders...</p>
           </div>
         ) : orders.length === 0 ? (
           <div className="w-full bg-white border border-slate-200 py-16 px-6 text-center flex flex-col items-center gap-3">
             <div className="w-12 h-12 bg-slate-100 flex items-center justify-center text-slate-400 text-2xl">
-              <BiTime />
+              <BiUndo />
             </div>
             <div>
-              <h3 className="font-bold text-slate-800 text-base">No Pending Orders</h3>
-              <p className="text-slate-500 text-xs mt-1">There are no client checkouts waiting in the queue.</p>
+              <h3 className="font-bold text-slate-800 text-base">No Returned Orders</h3>
+              <p className="text-slate-500 text-xs mt-1">There are no orders marked as returned yet.</p>
             </div>
           </div>
         ) : (
@@ -130,13 +97,14 @@ export default function PendingSalesPage() {
                   <th className="px-2 sm:px-3 py-3 text-center">Order ID</th>
                   <th className="hidden sm:table-cell px-2 sm:px-3 py-3">Date</th>
                   <th className="px-2 sm:px-3 py-3">Customer</th>
-                  <th className="hidden lg:table-cell px-2 sm:px-3 py-3">Products</th>
+                  <th className="hidden lg:table-cell px-2 sm:px-3 py-3">Restocked Products</th>
                   <th className="hidden 2xl:table-cell px-2 sm:px-3 py-3 text-right">Subtotal</th>
                   <th className="hidden 2xl:table-cell px-2 sm:px-3 py-3 text-right">Discount</th>
                   <th className="hidden 2xl:table-cell px-2 sm:px-3 py-3 text-right">Shipping</th>
-                  <th className="px-2 sm:px-3 py-3 text-right">Total</th>
+                  <th className="px-2 sm:px-3 py-3 text-right">Total Amount</th>
                   <th className="hidden xl:table-cell px-2 sm:px-3 py-3 text-right">Paid</th>
                   <th className="hidden xl:table-cell px-2 sm:px-3 py-3 text-right">Due</th>
+                  <th className="hidden md:table-cell px-2 sm:px-3 py-3">Courier</th>
                   <th className="px-2 sm:px-3 py-3 text-center">Status</th>
                   <th className="px-2 sm:px-3 py-3 text-center">Actions</th>
                 </tr>
@@ -168,41 +136,27 @@ export default function PendingSalesPage() {
                       <td className="px-2 sm:px-3 py-3 text-right font-bold text-slate-900">৳{parseFloat(order.total_amount || 0).toFixed(2)}</td>
                       <td className="hidden xl:table-cell px-2 sm:px-3 py-3 text-right text-emerald-600 font-bold">৳{paidAmount.toFixed(2)}</td>
                       <td className="hidden xl:table-cell px-2 sm:px-3 py-3 text-right text-rose-600 font-bold">৳{parseFloat(order.due_amount || 0).toFixed(2)}</td>
+                      <td className="hidden md:table-cell px-2 sm:px-3 py-3 text-slate-500">
+                        {order.courier_name ? (
+                          <div>
+                            <div className="font-semibold text-slate-800">{order.courier_name}</div>
+                            {order.courier_tracking_id && <div className="text-[10px] text-slate-400 font-mono">ID: {order.courier_tracking_id}</div>}
+                          </div>
+                        ) : 'N/A'}
+                      </td>
                       <td className="px-2 sm:px-3 py-3 text-center">
-                        <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase border bg-amber-50 text-amber-700 border-amber-200">
+                        <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase border border-amber-200 bg-amber-50 text-amber-700">
                           {order.status}
                         </span>
                       </td>
                       <td className="px-2 sm:px-3 py-3 text-center">
                         <div className="flex items-center justify-center gap-1 flex-wrap">
                           <button
-                            onClick={() => handleUpdateStatus(order.order_id, 'confirmed')}
-                            title="Confirm Order"
-                            className="p-1 bg-[#73976A] hover:bg-[#607E59] text-white text-xs font-bold transition cursor-pointer"
-                          >
-                            <BiCheck />
-                          </button>
-                          <button
-                            onClick={() => handleUpdateStatus(order.order_id, 'delivered')}
-                            title="Direct Deliver"
-                            className="p-1 text-white text-xs font-bold transition cursor-pointer"
-                            style={{ backgroundColor: themeColor }}
-                          >
-                            <BiSolidTruck />
-                          </button>
-                          <button
                             onClick={() => printReceipt(order, website)}
                             title="Print Order Receipt"
                             className="p-1 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition cursor-pointer"
                           >
                             <BiPrinter />
-                          </button>
-                          <button
-                            onClick={() => handleReturnOrder(order.order_id)}
-                            title="Return Order"
-                            className="p-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition cursor-pointer"
-                          >
-                            <BiUndo />
                           </button>
                           <button
                             onClick={() => handleDeleteOrder(order.order_id)}
@@ -274,4 +228,3 @@ export default function PendingSalesPage() {
     </div>
   )
 }
-

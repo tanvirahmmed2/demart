@@ -14,7 +14,9 @@ import {
 } from 'react-icons/bi'
 
 export default function DashboardManagerBrandsPage() {
-  const { dashSidebar } = useContext(Context)
+  const { dashSidebar, website } = useContext(Context)
+  const themeColor = website?.theme_color || '#73976A'
+
   const [brands, setBrands] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -59,61 +61,63 @@ export default function DashboardManagerBrandsPage() {
   )
 
   return (
-    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
-      <div className="max-w-6xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
+      <div className="w-full flex flex-col gap-6">
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2 animate-fade-in">
-              <BiTag className="text-emerald-600" />
+            <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+              <BiTag style={{ color: themeColor }} />
               Brands Catalog
             </h1>
-            <p className="text-slate-500 text-sm mt-0.5 animate-fade-in">Manage product brands and visual store logos.</p>
+            <p className="text-slate-500 text-xs mt-0.5">Manage product brands and visual store logos.</p>
           </div>
           <Link
             href="/dashboard/manager/brands/create"
-            className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition flex items-center justify-center gap-2 shadow-sm shadow-emerald-600/10 cursor-pointer self-start sm:self-auto"
+            className="px-4 py-2 text-white text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-sm self-start sm:self-auto"
+            style={{ backgroundColor: themeColor }}
           >
-            <BiPlus className="text-lg" /> Create Brand
+            <BiPlus className="text-base" /> Create Brand
           </Link>
         </div>
 
         {/* Actions bar */}
-        <div className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm animate-fade-in">
-          <div className="flex-1 max-w-md relative">
-            <BiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg" />
-            <input className="input-style"
+        <div className="flex items-center gap-3 bg-white p-4 border border-slate-200 shadow-sm">
+          <div className="flex-1 max-w-md flex items-center gap-2 bg-slate-50 px-3 py-2 border border-slate-200">
+            <BiSearch className="text-slate-400 text-base shrink-0" />
+            <input 
               type="text"
               placeholder="Search brand name or description..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              className="w-full text-xs text-slate-800 bg-transparent outline-none"
             />
           </div>
         </div>
 
         {/* Grid content */}
         {loading ? (
-          <div className="w-full h-64 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-slate-500 gap-2">
-            <BiLoaderAlt className="animate-spin text-xl text-emerald-600" />
-            <span>Loading brands...</span>
+          <div className="w-full h-64 bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 gap-2">
+            <BiLoaderAlt className="animate-spin text-xl text-slate-800" />
+            <span className="text-xs font-semibold">Loading brands...</span>
           </div>
         ) : filteredBrands.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredBrands.map((brand) => (
-              <div key={brand.brand_id} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex flex-col justify-between hover:shadow-md transition gap-4">
+              <div key={brand.brand_id} className="bg-white border border-slate-200 shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition gap-4">
                 
                 {/* Logo and Status */}
                 <div className="flex justify-between items-start">
-                  <div className="w-16 h-16 rounded-xl border border-slate-100 overflow-hidden bg-slate-50 flex items-center justify-center shrink-0">
+                  <div className="w-14 h-14 border border-slate-200 bg-slate-50 flex items-center justify-center shrink-0">
                     {brand.image ? (
                       <img src={brand.image} alt={brand.name} className="object-cover w-full h-full" />
                     ) : (
-                      <BiTag className="text-2xl text-slate-400" />
+                      <BiTag className="text-xl text-slate-400" />
                     )}
                   </div>
-                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                    brand.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'
+                  <span className={`px-1.5 py-0.5 text-[9px] font-bold uppercase border ${
+                    brand.is_active ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-500 border-slate-200'
                   }`}>
                     {brand.is_active ? 'Active' : 'Inactive'}
                   </span>
@@ -121,31 +125,31 @@ export default function DashboardManagerBrandsPage() {
 
                 {/* Details */}
                 <div>
-                  <h3 className="font-bold text-slate-800 text-lg line-clamp-1">{brand.name}</h3>
+                  <h3 className="font-bold text-slate-800 text-sm line-clamp-1">{brand.name}</h3>
                   <p className="text-slate-500 text-xs mt-1 line-clamp-2 leading-relaxed">
                     {brand.description ? brand.description.replace(/<[^>]*>/g, '') : 'No description available for this brand label.'}
                   </p>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center justify-between border-t border-slate-50 pt-3 mt-1">
-                  <span className="text-xs text-slate-400 font-mono">ID: #{brand.brand_id}</span>
-                  <div className="flex gap-2">
+                <div className="flex items-center justify-between border-t border-slate-100 pt-3 mt-1">
+                  <span className="text-[10px] text-slate-400 font-mono">ID: #{brand.brand_id}</span>
+                  <div className="flex gap-1">
                     <Link
                       href={`/dashboard/manager/brands/edit/${brand.brand_id}`}
-                      className="p-1.5 hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 rounded-lg transition"
+                      className="p-1 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition cursor-pointer"
                     >
-                      <BiEditAlt className="text-base" />
+                      <BiEditAlt />
                     </Link>
                     <button
                       onClick={() => handleDelete(brand.brand_id)}
                       disabled={deletingId === brand.brand_id}
-                      className="p-1.5 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-lg transition disabled:opacity-50"
+                      className="p-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition cursor-pointer disabled:opacity-50"
                     >
                       {deletingId === brand.brand_id ? (
-                        <BiLoaderAlt className="animate-spin text-base" />
+                        <BiLoaderAlt className="animate-spin text-xs" />
                       ) : (
-                        <BiTrash className="text-base" />
+                        <BiTrash />
                       )}
                     </button>
                   </div>
@@ -155,10 +159,10 @@ export default function DashboardManagerBrandsPage() {
             ))}
           </div>
         ) : (
-          <div className="w-full py-16 bg-white rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center text-slate-400 gap-2">
+          <div className="w-full py-16 bg-white border border-slate-200 shadow-sm flex flex-col items-center justify-center text-slate-400 gap-2">
             <BiTag className="text-4xl text-slate-300" />
-            <p className="font-semibold text-slate-600">No brands found</p>
-            <p className="text-xs text-slate-400 mt-0.5">Try a different search query or add a brand above.</p>
+            <p className="font-semibold text-slate-600 text-xs">No brands found</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">Try a different search query or add a brand above.</p>
           </div>
         )}
 
@@ -166,3 +170,4 @@ export default function DashboardManagerBrandsPage() {
     </div>
   )
 }
+

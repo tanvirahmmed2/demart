@@ -15,7 +15,8 @@ import {
 } from 'react-icons/bi'
 
 export default function ManagerCustomersDirectoryPage() {
-  const { dashSidebar, user, loading: userLoading } = useContext(Context)
+  const { dashSidebar, user, loading: userLoading, website } = useContext(Context)
+  const themeColor = website?.theme_color || '#73976A'
   
   const [customers, setCustomers] = useState([])
   const [search, setSearch] = useState('')
@@ -51,7 +52,7 @@ export default function ManagerCustomersDirectoryPage() {
       <div className="w-full min-h-screen flex items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-2">
           <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
-          <p className="text-slate-655 text-sm font-semibold animate-pulse">Loading customers directory...</p>
+          <p className="text-slate-600 text-sm font-semibold animate-pulse">Loading customers directory...</p>
         </div>
       </div>
     )
@@ -61,11 +62,11 @@ export default function ManagerCustomersDirectoryPage() {
   if (!isManager) {
     return (
       <div className="w-full min-h-screen flex flex-col items-center justify-center p-8 bg-slate-50">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-100 p-8 flex flex-col gap-4 text-center">
+        <div className="w-full max-w-md bg-white border border-slate-200 p-8 flex flex-col gap-4 text-center shadow-sm">
           <BiShieldQuarter className="text-5xl text-rose-500 mx-auto" />
           <h1 className="text-2xl font-bold text-slate-800">Access Denied</h1>
           <p className="text-slate-600 text-sm">Please sign in with a Manager or Admin account to view clients.</p>
-          <Link href="/login" className="mt-4 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-sm font-medium transition cursor-pointer shadow-sm">
+          <Link href="/login" className="mt-4 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium transition cursor-pointer shadow-sm">
             Sign In
           </Link>
         </div>
@@ -74,8 +75,8 @@ export default function ManagerCustomersDirectoryPage() {
   }
 
   return (
-    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
-      <div className="max-w-6xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-68' : 'lg:pl-8'}`}>
+      <div className="w-full flex flex-col gap-6">
         
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
@@ -86,13 +87,14 @@ export default function ManagerCustomersDirectoryPage() {
         </div>
 
         {/* Search Panel */}
-        <form onSubmit={handleSearchSubmit} className="flex gap-2 items-center bg-white px-3 py-2 border border-slate-200 rounded-xl w-full md:w-80 shadow-sm">
+        <form onSubmit={handleSearchSubmit} className="flex gap-2 items-center bg-white px-3 py-2 border border-slate-200 w-full md:w-80 shadow-sm">
           <BiSearch className="text-slate-400 text-lg" />
-          <input className="input-style"
+          <input 
             type="text"
             placeholder="Search by name, email, or phone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            className="w-full text-xs text-slate-800 bg-transparent outline-none"
           />
           <button type="submit" className="hidden">Search</button>
         </form>
@@ -104,39 +106,39 @@ export default function ManagerCustomersDirectoryPage() {
             <p className="text-slate-500 text-sm font-semibold animate-pulse">Filtering directory records...</p>
           </div>
         ) : customers.length === 0 ? (
-          <div className="bg-white border border-slate-100 rounded-3xl py-16 px-6 text-center">
-            <h3 className="font-bold text-slate-850 text-base">No Customers Found</h3>
-            <p className="text-slate-550 text-xs mt-1">There are no client profile records matching your search criteria.</p>
+          <div className="bg-white border border-slate-200 py-16 px-6 text-center shadow-sm">
+            <h3 className="font-bold text-slate-800 text-base">No Customers Found</h3>
+            <p className="text-slate-500 text-xs mt-1">There are no client profile records matching your search criteria.</p>
           </div>
         ) : (
-          <div className="w-full overflow-x-auto bg-white border border-slate-150 rounded-2xl shadow-sm">
+          <div className="w-full bg-white border border-slate-200 shadow-sm">
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="bg-slate-55 text-slate-655 font-bold border-b border-slate-200">
+              <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200">
                 <tr>
-                  <th className="px-4 py-3 text-center">ID</th>
-                  <th className="px-4 py-3">Customer Profile</th>
-                  <th className="px-4 py-3"><div className="flex items-center gap-1"><BiPhone /> Phone</div></th>
-                  <th className="px-4 py-3"><div className="flex items-center gap-1"><BiEnvelope /> Email</div></th>
-                  <th className="px-4 py-3"><div className="flex items-center gap-1"><BiMap /> Physical Address</div></th>
-                  <th className="px-4 py-3 text-center"><div className="flex items-center justify-center gap-1"><BiCalendar /> Date Joined</div></th>
+                  <th className="px-2 sm:px-3 py-3 text-center">ID</th>
+                  <th className="px-2 sm:px-3 py-3">Customer Profile</th>
+                  <th className="px-2 sm:px-3 py-3">Phone</th>
+                  <th className="hidden sm:table-cell px-2 sm:px-3 py-3">Email</th>
+                  <th className="hidden md:table-cell px-2 sm:px-3 py-3">Physical Address</th>
+                  <th className="hidden lg:table-cell px-2 sm:px-3 py-3 text-center">Date Joined</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700 bg-white">
                 {customers.map(cust => (
                   <tr key={cust.customer_id} className="hover:bg-slate-50/50 transition">
-                    <td className="px-4 py-3.5 text-center font-bold text-slate-500">#CUST-{cust.customer_id}</td>
-                    <td className="px-4 py-3.5">
+                    <td className="px-2 sm:px-3 py-3.5 text-center font-bold text-slate-800">#{cust.customer_id}</td>
+                    <td className="px-2 sm:px-3 py-3.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center">
+                        <div className="w-7 h-7 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">
                           {cust.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                         </div>
                         <div className="font-bold text-slate-900">{cust.name}</div>
                       </div>
                     </td>
-                    <td className="px-4 py-3.5 font-medium text-slate-600">{cust.phone}</td>
-                    <td className="px-4 py-3.5 text-slate-550 font-mono text-[10px]">{cust.email || 'N/A'}</td>
-                    <td className="px-4 py-3.5 text-slate-550 font-medium max-w-[200px] truncate" title={cust.address}>{cust.address || 'N/A'}</td>
-                    <td className="px-4 py-3.5 text-center text-slate-400 font-mono text-[10px]">
+                    <td className="px-2 sm:px-3 py-3.5 font-medium text-slate-600">{cust.phone}</td>
+                    <td className="hidden sm:table-cell px-2 sm:px-3 py-3.5 text-slate-500 font-mono text-[10px]">{cust.email || 'N/A'}</td>
+                    <td className="hidden md:table-cell px-2 sm:px-3 py-3.5 text-slate-500 font-medium max-w-[200px] truncate" title={cust.address}>{cust.address || 'N/A'}</td>
+                    <td className="hidden lg:table-cell px-2 sm:px-3 py-3.5 text-center text-slate-500 font-mono text-[10px]">
                       {cust.created_at ? new Date(cust.created_at).toLocaleDateString() : 'N/A'}
                     </td>
                   </tr>
@@ -150,3 +152,4 @@ export default function ManagerCustomersDirectoryPage() {
     </div>
   )
 }
+

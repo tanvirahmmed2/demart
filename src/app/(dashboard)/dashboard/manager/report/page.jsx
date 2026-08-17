@@ -24,6 +24,7 @@ import {
 
 export default function ManagerReportPage() {
   const { dashSidebar, user, loading: userLoading, website } = useContext(Context)
+  const themeColor = website?.theme_color || '#73976A'
   
   const [reportData, setReportData] = useState({
     topProducts: [],
@@ -79,35 +80,30 @@ export default function ManagerReportPage() {
       type: 'customers',
       title: 'Customer Directory',
       description: 'Profiles, contact phones, emails, shipping addresses, and registration dates.',
-      gradient: 'from-[#73976A] to-[#607E59]',
       icon: BiUser,
     },
     {
       type: 'payments',
       title: 'Payment Transactions',
       description: 'Billing receipts, methods, transaction IDs, received amounts, and status.',
-      gradient: 'from-[#73976A] to-teal-600',
       icon: BiReceipt,
     },
     {
       type: 'purchases',
       title: 'Purchase Audits',
       description: 'Supply logs, supplier details, discounts, payments, and balances.',
-      gradient: 'from-amber-600 to-orange-600',
       icon: BiPackage,
     },
     {
       type: 'sales',
       title: 'Sales Invoices',
       description: 'Customer order logs, items, shipping details, totals, and due amounts.',
-      gradient: 'from-[#73976A] to-[#607E59]',
       icon: BiCart,
     },
     {
       type: 'products',
       title: 'Product Stock',
       description: 'Catalog items, barcode, pricing structures, category mapping, and stock units.',
-      gradient: 'from-[#BD4444] to-[#842f2f]',
       icon: BiBarcode,
     },
   ]
@@ -253,9 +249,9 @@ export default function ManagerReportPage() {
 
   if (userLoading || (loading && reportData.salesTrend.length === 0)) {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-[#F1F5F9]">
+      <div className="w-full min-h-screen flex items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-2">
-          <BiLoaderAlt className="animate-spin text-4xl text-[#73976A]" />
+          <BiLoaderAlt className="animate-spin text-4xl text-slate-800" />
           <p className="text-slate-600 text-sm font-semibold animate-pulse">Compiling database analytics report...</p>
         </div>
       </div>
@@ -265,12 +261,12 @@ export default function ManagerReportPage() {
   const isManager = user && ['manager', 'admin'].includes(user.role)
   if (!isManager) {
     return (
-      <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 md:p-8 bg-[#F1F5F9]">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 flex flex-col gap-4 text-center">
-          <BiShieldQuarter className="text-5xl text-[#BD4444] mx-auto" />
+      <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 md:p-8 bg-slate-50">
+        <div className="w-full max-w-md bg-white border border-slate-200 p-6 md:p-8 flex flex-col gap-4 text-center shadow-sm">
+          <BiShieldQuarter className="text-5xl text-rose-500 mx-auto" />
           <h1 className="text-2xl font-bold text-slate-800">Access Denied</h1>
           <p className="text-slate-600 text-xs md:text-sm">Please sign in with a Manager or Admin account to view reporting.</p>
-          <Link href="/login" className="mt-4 px-6 py-2.5 bg-[#73976A] hover:bg-[#607E59] text-white rounded-xl text-xs md:text-sm font-bold transition cursor-pointer shadow-sm">
+          <Link href="/login" className="mt-4 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs md:text-sm font-bold transition cursor-pointer shadow-sm">
             Sign In
           </Link>
         </div>
@@ -283,8 +279,8 @@ export default function ManagerReportPage() {
   const totalRevenue = reportData.categorySales.reduce((acc, curr) => acc + curr.revenue, 0)
 
   return (
-    <div className={`w-full min-h-screen bg-[#F1F5F9] pt-20 pb-12 px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'}`}>
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6">
+    <div className={`w-full min-h-screen bg-slate-50 pt-20 pb-12 px-2 sm:px-4 md:px-8 transition-all duration-300 ${dashSidebar ? 'lg:pl-64' : 'lg:pl-8'}`}>
+      <div className="w-full flex flex-col gap-6">
         
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
@@ -294,7 +290,8 @@ export default function ManagerReportPage() {
           </div>
           <button
             onClick={handlePrintReport}
-            className="px-4 py-2.5 bg-[#73976A] hover:bg-[#607E59] text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer"
+            className="px-4 py-2.5 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+            style={{ backgroundColor: themeColor }}
           >
             <BiPrinter className="text-sm" /> Print Audit Sheet
           </button>
@@ -302,31 +299,31 @@ export default function ManagerReportPage() {
 
         {/* Aggregate Overview Widgets */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5">
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-[#73976A]/10 text-[#73976A] border border-[#73976A]/20 flex items-center justify-center text-xl shrink-0">
-              <BiDollarCircle />
-            </div>
+          <div className="bg-white border border-slate-200 p-5 shadow-sm flex items-center justify-between">
             <div>
               <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Gross Items Sales</p>
               <h3 className="text-base md:text-lg font-bold text-slate-800 mt-0.5">৳{totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</h3>
             </div>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-xl shrink-0">
-              <BiTrendingUp />
+            <div className="w-10 h-10 text-white flex items-center justify-center text-xl shrink-0 font-bold" style={{ backgroundColor: themeColor }}>
+              <BiDollarCircle />
             </div>
+          </div>
+          <div className="bg-white border border-slate-200 p-5 shadow-sm flex items-center justify-between">
             <div>
               <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Total Items Dispatched</p>
               <h3 className="text-base md:text-lg font-bold text-slate-800 mt-0.5">{totalQtySold} Units</h3>
             </div>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center text-xl shrink-0">
-              <BiFile />
+            <div className="w-10 h-10 bg-blue-600 text-white flex items-center justify-center text-xl shrink-0 font-bold">
+              <BiTrendingUp />
             </div>
+          </div>
+          <div className="bg-white border border-slate-200 p-5 shadow-sm flex items-center justify-between">
             <div>
               <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Audit Coverage</p>
               <h3 className="text-base md:text-lg font-bold text-slate-800 mt-0.5">Last 30 Days</h3>
+            </div>
+            <div className="w-10 h-10 bg-amber-500 text-white flex items-center justify-center text-xl shrink-0 font-bold">
+              <BiFile />
             </div>
           </div>
         </div>
@@ -335,20 +332,20 @@ export default function ManagerReportPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
           {/* Top Selling Products */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-xs flex flex-col gap-4">
+          <div className="bg-white border border-slate-200 p-5 md:p-6 shadow-sm flex flex-col gap-4">
             <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <BiTrendingUp className="text-[#73976A]" /> Top Selling Products
+              <BiTrendingUp style={{ color: themeColor }} /> Top Selling Products
             </h3>
             {reportData.topProducts.length === 0 ? (
               <p className="text-xs text-slate-500 text-center py-6">No product sale data available.</p>
             ) : (
-              <div className="w-full overflow-x-auto">
+              <div className="w-full bg-white border border-slate-200 shadow-sm">
                 <table className="w-full text-left border-collapse text-xs">
-                  <thead className="bg-[#F1F5F9] text-slate-700 font-bold border-b border-slate-200">
+                  <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200">
                     <tr>
                       <th className="px-2.5 py-2 text-center" style={{ width: '10%' }}>Rank</th>
                       <th className="px-2.5 py-2">Product Title</th>
-                      <th className="px-2.5 py-2 text-center hidden sm:table-cell" style={{ width: '15%' }}>Qty</th>
+                      <th className="hidden sm:table-cell px-2.5 py-2 text-center" style={{ width: '15%' }}>Qty</th>
                       <th className="px-2.5 py-2 text-right" style={{ width: '30%' }}>Revenue</th>
                     </tr>
                   </thead>
@@ -357,8 +354,8 @@ export default function ManagerReportPage() {
                       <tr key={idx} className="hover:bg-slate-50 transition">
                         <td className="px-2.5 py-2 text-center font-bold text-slate-500">#{idx + 1}</td>
                         <td className="px-2.5 py-2 font-bold text-slate-800 truncate max-w-[120px] sm:max-w-[200px]" title={row.name}>{row.name}</td>
-                        <td className="px-2.5 py-2 text-center font-bold text-slate-700 hidden sm:table-cell">{row.quantity}</td>
-                        <td className="px-2.5 py-2 text-right font-bold text-[#73976A]">৳{parseFloat(row.revenue).toFixed(2)}</td>
+                        <td className="hidden sm:table-cell px-2.5 py-2 text-center font-bold text-slate-700">{row.quantity}</td>
+                        <td className="px-2.5 py-2 text-right font-bold text-emerald-600">৳{parseFloat(row.revenue).toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -368,19 +365,19 @@ export default function ManagerReportPage() {
           </div>
 
           {/* Sales by Category */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-xs flex flex-col gap-4">
+          <div className="bg-white border border-slate-200 p-5 md:p-6 shadow-sm flex flex-col gap-4">
             <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <BiCategory className="text-[#73976A]" /> Sales by Category
+              <BiCategory style={{ color: themeColor }} /> Sales by Category
             </h3>
             {reportData.categorySales.length === 0 ? (
               <p className="text-xs text-slate-500 text-center py-6">No sales logs categorized.</p>
             ) : (
-              <div className="w-full overflow-x-auto">
+              <div className="w-full bg-white border border-slate-200 shadow-sm">
                 <table className="w-full text-left border-collapse text-xs">
-                  <thead className="bg-[#F1F5F9] text-slate-700 font-bold border-b border-slate-200">
+                  <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200">
                     <tr>
                       <th className="px-2.5 py-2">Category Name</th>
-                      <th className="px-2.5 py-2 text-center hidden sm:table-cell" style={{ width: '20%' }}>Qty</th>
+                      <th className="hidden sm:table-cell px-2.5 py-2 text-center" style={{ width: '20%' }}>Qty</th>
                       <th className="px-2.5 py-2 text-right" style={{ width: '35%' }}>Revenue</th>
                     </tr>
                   </thead>
@@ -388,8 +385,8 @@ export default function ManagerReportPage() {
                     {reportData.categorySales.map((row, idx) => (
                       <tr key={idx} className="hover:bg-slate-50 transition">
                         <td className="px-2.5 py-2 font-bold text-slate-800">{row.name}</td>
-                        <td className="px-2.5 py-2 text-center font-bold text-slate-700 hidden sm:table-cell">{row.quantity}</td>
-                        <td className="px-2.5 py-2 text-right font-bold text-[#73976A]">৳{parseFloat(row.revenue).toFixed(2)}</td>
+                        <td className="hidden sm:table-cell px-2.5 py-2 text-center font-bold text-slate-700">{row.quantity}</td>
+                        <td className="px-2.5 py-2 text-right font-bold text-emerald-600">৳{parseFloat(row.revenue).toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -404,19 +401,19 @@ export default function ManagerReportPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* 30 Day daily trends */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-xs flex flex-col gap-4 lg:col-span-2">
+          <div className="bg-white border border-slate-200 p-5 md:p-6 shadow-sm flex flex-col gap-4 lg:col-span-2">
             <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <BiTrendingUp className="text-[#73976A]" /> Daily Revenue (Last 30 Days)
+              <BiTrendingUp style={{ color: themeColor }} /> Daily Revenue (Last 30 Days)
             </h3>
             {reportData.salesTrend.length === 0 ? (
               <p className="text-xs text-slate-500 text-center py-6">No trends available in the last 30 days.</p>
             ) : (
-              <div className="w-full overflow-x-auto">
+              <div className="w-full bg-white border border-slate-200 shadow-sm">
                 <table className="w-full text-left border-collapse text-xs">
-                  <thead className="bg-[#F1F5F9] text-slate-700 font-bold border-b border-slate-200">
+                  <thead className="bg-slate-100/80 text-slate-650 font-bold border-b border-slate-200">
                     <tr>
                       <th className="px-2.5 py-2">Date</th>
-                      <th className="px-2.5 py-2 text-center hidden sm:table-cell">Orders Count</th>
+                      <th className="hidden sm:table-cell px-2.5 py-2 text-center">Orders Count</th>
                       <th className="px-2.5 py-2 text-right">Revenue</th>
                     </tr>
                   </thead>
@@ -424,8 +421,8 @@ export default function ManagerReportPage() {
                     {reportData.salesTrend.map((row, idx) => (
                       <tr key={idx} className="hover:bg-slate-50 transition">
                         <td className="px-2.5 py-2 font-bold text-slate-700 font-mono text-[11px]">{new Date(row.date).toLocaleDateString()}</td>
-                        <td className="px-2.5 py-2 text-center font-bold text-slate-700 hidden sm:table-cell">{row.count}</td>
-                        <td className="px-2.5 py-2 text-right font-bold text-[#73976A]">৳{parseFloat(row.total).toFixed(2)}</td>
+                        <td className="hidden sm:table-cell px-2.5 py-2 text-center font-bold text-slate-700">{row.count}</td>
+                        <td className="px-2.5 py-2 text-right font-bold text-emerald-600">৳{parseFloat(row.total).toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -435,16 +432,16 @@ export default function ManagerReportPage() {
           </div>
 
           {/* Payment Type Splits */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-xs flex flex-col gap-4">
+          <div className="bg-white border border-slate-200 p-5 md:p-6 shadow-sm flex flex-col gap-4">
             <h3 className="text-xs font-bold text-slate-800 border-b border-slate-100 pb-2 flex items-center gap-1.5 uppercase tracking-wider">
-              <BiCreditCard className="text-[#73976A]" /> Payment Methods Share
+              <BiCreditCard style={{ color: themeColor }} /> Payment Methods Share
             </h3>
             {reportData.paymentBreakdown.length === 0 ? (
               <p className="text-xs text-slate-500 text-center py-6">No transaction payment data.</p>
             ) : (
               <div className="flex flex-col gap-3 mt-2">
                 {reportData.paymentBreakdown.map((row, idx) => (
-                  <div key={idx} className="bg-[#F1F5F9] border border-slate-200 rounded-xl p-4 flex justify-between items-center">
+                  <div key={idx} className="bg-slate-50 border border-slate-200 p-4 flex justify-between items-center">
                     <div>
                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Method</span>
                       <h4 className="text-xs font-bold text-slate-800 uppercase mt-0.5">{row.type}</h4>
@@ -452,7 +449,7 @@ export default function ManagerReportPage() {
                     </div>
                     <div className="text-right">
                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sales Value</span>
-                      <h4 className="text-sm font-bold text-[#73976A] mt-0.5">৳{parseFloat(row.total).toFixed(2)}</h4>
+                      <h4 className="text-sm font-bold text-emerald-600 mt-0.5">৳{parseFloat(row.total).toFixed(2)}</h4>
                     </div>
                   </div>
                 ))}
@@ -463,10 +460,10 @@ export default function ManagerReportPage() {
         </div>
 
         {/* Data Export Hub */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-8 shadow-xs flex flex-col gap-6">
+        <div className="bg-white border border-slate-200 p-5 md:p-8 shadow-sm flex flex-col gap-6">
           <div>
             <h2 className="text-base font-bold text-slate-800 tracking-tight flex items-center gap-2">
-              <BiCloudDownload className="text-[#73976A] text-xl" /> Data Export Hub
+              <BiCloudDownload style={{ color: themeColor }} className="text-xl" /> Data Export Hub
             </h2>
             <p className="text-xs text-slate-500 mt-1">
               Download complete datasets in high-fidelity Excel (.xlsx) formats for accounting, analytics, or archival purposes.
@@ -479,17 +476,14 @@ export default function ManagerReportPage() {
               return (
                 <div
                   key={card.type}
-                  className="relative bg-[#F1F5F9]/50 hover:bg-white border border-slate-200 hover:border-[#73976A]/40 rounded-2xl p-5 flex flex-col justify-between transition-all duration-200 group hover:-translate-y-1 hover:shadow-md"
+                  className="bg-slate-50 border border-slate-200 p-4 flex flex-col justify-between transition group hover:shadow-md"
                 >
-                  {/* Accent strip */}
-                  <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-gradient-to-r ${card.gradient}`} />
-                  
                   <div className="flex flex-col gap-3">
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-lg shadow-xs`}>
+                    <div className="w-9 h-9 text-white flex items-center justify-center text-lg font-bold" style={{ backgroundColor: themeColor }}>
                       <card.icon />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-slate-800 group-hover:text-[#73976A] transition-colors duration-200">
+                      <h4 className="text-xs font-bold text-slate-800">
                         {card.title}
                       </h4>
                       <p className="text-[10px] text-slate-500 mt-1 leading-relaxed">
@@ -501,11 +495,7 @@ export default function ManagerReportPage() {
                   <button
                     onClick={() => handleExport(card.type)}
                     disabled={isExporting}
-                    className={`w-full mt-5 py-2 px-3 rounded-xl text-[10px] font-bold tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-xs border ${
-                      isExporting
-                        ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
-                        : 'bg-white hover:bg-[#73976A] border-slate-200 hover:border-[#73976A] text-slate-700 hover:text-white cursor-pointer'
-                    }`}
+                    className="w-full mt-4 py-2 px-3 bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
                   >
                     {isExporting ? (
                       <>
@@ -527,4 +517,5 @@ export default function ManagerReportPage() {
     </div>
   )
 }
+
 
