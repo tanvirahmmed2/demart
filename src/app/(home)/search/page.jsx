@@ -45,7 +45,7 @@ function SearchResultsContent() {
     }, [queryStr])
 
     return (
-        <div className="w-full md:p-20 mx-auto p-4 min-h-screen">
+        <div className="w-full md:p-10 mx-auto p-4 min-h-screen">
             <div className="mb-8 border-b border-slate-100 ">
                 <h1 className="text-2xl  font-semibold text-slate-900 tracking-tight flex items-center gap-2">
                     <BiSearch style={{ color: themeColor }} />

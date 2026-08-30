@@ -171,7 +171,7 @@ const Navbar = () => {
                 <div className='w-auto hidden md:flex flex-row items-center justify-center gap-4 h-14'>
                     <Link href={'/offers'}>Offers</Link>
                     <Link href={'/about'}>About</Link>
-                    <button onClick={() => setCartbar(!cartbar)} className='text-xl text-secondary-light cursor-pointer'><BiCart /></button>
+                    <button onClick={() => setCartbar(!cartbar)} className='text-xl text-tertiary-light cursor-pointer'><BiCart /></button>
                     {loading ? (
                         <span className="text-xs text-slate-400">Loading...</span>
                     ) : user ? (

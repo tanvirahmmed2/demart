@@ -38,7 +38,7 @@ const Brands = () => {
   const marqueeItems = [...brands, ...brands, ...brands]
 
   return (
-    <div className="w-full py-12 p-4 md:p-20 overflow-hidden relative">
+    <div className="w-full py-12 p-4 md:p-10 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-brands {
@@ -67,7 +67,7 @@ const Brands = () => {
           {marqueeItems.map((brand, idx) => (
             <div
               key={`${brand.brand_id}-${idx}`}
-              className="w-auto flex flex-col items-center justify-center gap-4 p-4 cursor-pointer bg-white rounded-sm group"
+              className="w-auto flex flex-col items-center justify-center gap-4 p-4 cursor-pointer group"
             >
               <div className='w-full max-w-36 aspect-square overflow-hidden'>
                 <Image width={500} height={500}

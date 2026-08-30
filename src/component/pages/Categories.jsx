@@ -13,7 +13,7 @@ const Categories = () => {
   const marqueeItems = [...categories, ...categories, ...categories]
 
   return (
-    <div className="w-full py-12 p-4 md:p-20 overflow-hidden relative">
+    <div className="w-full py-12 p-4 md:p-10 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-categories {
@@ -43,7 +43,7 @@ const Categories = () => {
             <Link
               key={`${cat.id}-${idx}`}
               href={`/products/category/${cat.slug}`}
-              className="w-auto flex flex-col items-center justify-center gap-4 shrink-0 bg-white p-4 rounded-lg group cursor-pointer"
+              className="w-auto flex flex-col items-center justify-center gap-4 shrink-0  p-4 group cursor-pointer"
             >
               <div className='w-full max-w-36 overflow-hidden aspect-square'>
                 <Image width={500} height={500}

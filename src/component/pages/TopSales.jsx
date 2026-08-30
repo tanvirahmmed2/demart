@@ -43,7 +43,7 @@ const TopSales = () => {
   if (products.length === 0) return null
 
   return (
-    <div className="w-full py-16 p-4 md:p-20">
+    <div className="w-full py-16 p-4 md:p-10">
       <div className="w-full flex flex-col gap-8">
         
         <div className="flex justify-between items-end">

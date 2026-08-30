@@ -52,7 +52,7 @@ export default function ReviewsPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 pt-24 pb-16 p-4 md:p-20">
+    <div className="w-full min-h-screen bg-slate-50 pt-24 pb-16 p-4 md:p-10">
       <div className="w-full flex flex-col gap-8">
         
         <div className="text-center flex flex-col items-center gap-2 max-w-2xl mx-auto">

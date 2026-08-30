@@ -47,7 +47,7 @@ const Contact = () => {
   }
 
   return (
-    <div className="w-full py-16 p-4 md:p-20">
+    <div className="w-full py-16 p-4 md:p-10">
       <div className="w-full mx-auto flex flex-col md:flex-row gap-12 bg-white rounded-3xl p-6 md:p-10 border border-slate-100 shadow-sm animate-fade-in">
 
         <div className="flex-1 flex flex-col gap-5 justify-center">
@@ -64,7 +64,7 @@ const Contact = () => {
 
         <form onSubmit={handleSendMessage} className="flex-1 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-semibold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiUser /> Name
             </label>
             <input className="input-style"
@@ -76,7 +76,7 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-semibold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiEnvelope /> Email
             </label>
             <input className="input-style"
@@ -88,7 +88,7 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-semibold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiEdit /> Subject
             </label>
             <input className="input-style"
@@ -100,7 +100,7 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
+            <label className="text-[10px] font-semibold text-tertiary-dark flex items-center gap-1 uppercase tracking-wider">
               <BiMessageDetail /> Message
             </label>
             <textarea
@@ -115,7 +115,7 @@ const Contact = () => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 mt-2 bg-primary text-white font-bold text-xs rounded-xl shadow-md transition hover:scale-[1.01] hover:brightness-105 active:scale-100 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+            className="w-full py-3 mt-2 bg-primary text-white font-semibold text-xs rounded-xl shadow-md transition hover:scale-[1.01] hover:brightness-105 active:scale-100 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
             
           >
             {submitting ? (

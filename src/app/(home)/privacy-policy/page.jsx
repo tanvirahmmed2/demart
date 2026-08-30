@@ -5,7 +5,7 @@ import { BiShieldQuarter, BiLockAlt, BiUserCheck, BiCookie, BiEnvelope } from 'r
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="w-full min-h-screen  pt-28 pb-16 p-4 md:p-20">
+    <div className="w-full min-h-screen  pt-28 pb-16 p-4 md:p-10">
       <div className="w-full flex flex-col gap-8">
         
         <div className="border-b border-slate-100 pb-6 text-center md:text-left">

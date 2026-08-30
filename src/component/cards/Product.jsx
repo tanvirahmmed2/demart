@@ -71,10 +71,10 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <div className="group bg-tertiary-light cursor-pointer rounded-lg border border-slate-100 shadow-sm hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden relative">
+    <div className="group  cursor-pointer flex flex-col overflow-hidden relative">
 
-      <div className="relative aspect-square w-full overflow-hidden bg-slate-50 border-b border-slate-100">
-        
+      <div className="relative aspect-square w-full overflow-hidden">
+
 
         <Image width={500} height={500}
           src={image}
@@ -94,7 +94,7 @@ export default function ProductCard({ product }) {
       </div>
 
       <div className="p-3 sm:p-4 flex flex-col flex-1 gap-1.5">
-        
+
 
         <Link href={`/products/${slug}`} className="block">
           <h3 className="text-sm font-semibold text-slate-850 hover:text-emerald-605 transition line-clamp-1">
@@ -126,7 +126,7 @@ export default function ProductCard({ product }) {
             <button
               onClick={handleAddToCart}
               disabled={loadingVariants}
-              className="p-2 bg-slate-900/5 text-slate-650 hover:bg-primary hover:text-white rounded-xl transition-all duration-200 shadow-sm border border-slate-100 flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer disabled:opacity-50"
+              className="p-2 rounded-xl transition-all duration-200 flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer disabled:opacity-50"
               title="Add to Cart"
             >
               {loadingVariants ? (
@@ -180,8 +180,8 @@ export default function ProductCard({ product }) {
                     setShowVariants(false)
                   }}
                   className={`w-full py-2 px-3 border rounded-xl text-left text-xs font-semibold transition flex items-center justify-between cursor-pointer ${inStock
-                      ? 'border-slate-200 bg-slate-50 hover:bg-primary-light hover:border-primary hover:text-primary-dark'
-                      : 'border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-50'
+                    ? 'border-slate-200 bg-slate-50 hover:bg-primary-light hover:border-primary hover:text-primary-dark'
+                    : 'border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-50'
                     }`}
                 >
                   <span className="truncate">{v.variant_name}</span>

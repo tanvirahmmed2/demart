@@ -52,7 +52,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="w-full min-h-screen  py-24 p-4 md:p-20">
+    <div className="w-full min-h-screen  py-24 p-4 md:p-10">
       <div className=" flex flex-col gap-12">
         
         <div className="text-center flex flex-col gap-3 max-w-2xl mx-auto">

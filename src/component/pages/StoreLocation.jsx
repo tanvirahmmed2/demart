@@ -12,7 +12,7 @@ const StoreLocation = () => {
   const storeEmail = website?.email || 'support@vanguard.com'
 
   return (
-    <div className="w-full py-16 p-4 md:p-20 animate-fade-in">
+    <div className="w-full py-16 p-4 md:p-10 animate-fade-in">
       <div className="w-full flex flex-col lg:flex-row gap-10 items-stretch">
 
         <div className="flex-1 flex flex-col gap-6 justify-center">

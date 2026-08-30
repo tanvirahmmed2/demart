@@ -173,7 +173,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 py-12 p-4 md:p-20 relative overflow-hidden">
+    <div className="w-full min-h-screen bg-slate-50 py-12 p-4 md:p-10 relative overflow-hidden">
       
       <div className="w-full flex flex-col gap-6 relative z-10">
         

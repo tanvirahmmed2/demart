@@ -23,7 +23,7 @@ const CartBar = () => {
             />
 
             <div
-                className={`fixed top-0 right-0 h-screen w-full sm:max-w-md bg-primary-light border-l border-slate-800 text-white z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${cartbar ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed top-0 right-0 h-screen w-full sm:max-w-md bg-primary-light  text-white z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${cartbar ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 <div className="p-4 border-b border-slate-800 flex items-center justify-between">
@@ -57,7 +57,7 @@ const CartBar = () => {
                                     <Image width={200} height={200}
                                         src={item.image || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150'} 
                                         alt={item.name} 
-                                        className="w-12 h-12 object-cover rounded-lg border border-slate-800 shrink-0"
+                                        className="w-12 h-12 object-cover rounded-lg  shrink-0"
                                     />
                                     <div className="flex-1 min-w-0 flex flex-col gap-0.5">
                                         <Link 
@@ -84,7 +84,7 @@ const CartBar = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center bg-primary border border-slate-800 rounded-lg p-0.5 shrink-0">
+                                    <div className="flex items-center bg-primary-light  rounded-lg p-0.5 shrink-0">
                                         <button
                                             onClick={() => decreaseCartQty(item.product_id, item.variant)}
                                             className="w-6 h-6 flex items-center justify-center font-semibold text-xs text-tertiary hover:text-white hover:bg-slate-850 rounded transition cursor-pointer"
@@ -114,7 +114,7 @@ const CartBar = () => {
                         })
                     ) : (
                         <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 py-12">
-                            <div className="w-16 h-16 rounded-full bg-slate-800/50 border border-slate-700 flex items-center justify-center text-tertiary text-3xl">
+                            <div className="w-16 h-16 rounded-full bg-primary-light border border-slate-700 flex items-center justify-center text-tertiary text-3xl">
                                 <BiCart />
                             </div>
                             <div>
@@ -123,7 +123,7 @@ const CartBar = () => {
                             </div>
                             <Link href={'/products'}
                                 onClick={() => setCartbar(false)}
-                                className="mt-2 px-6 py-2 bg-secondary hover:bg-secondary-dark text-white rounded-xl font-semibold text-sm transition-colors cursor-pointer"
+                                className="mt-2 px-6 py-2 bg-secondary hover:bg-secondary-dark text-white rounded-full font-semibold text-sm transition-colors cursor-pointer"
                             >
                                 Continue Shopping
                             </Link>
@@ -132,7 +132,7 @@ const CartBar = () => {
                 </div>
 
                 {cart?.items && cart.items.length > 0 && (
-                    <div className="p-4 border-t border-slate-800 bg-slate-950/40">
+                    <div className="p-4  bg-slate-950/40">
                         <div className="flex justify-between text-sm font-medium text-slate-350 mb-4">
                             <span>Subtotal</span>
                             <span className="font-bold text-white text-base">৳{subtotal.toFixed(2)}</span>

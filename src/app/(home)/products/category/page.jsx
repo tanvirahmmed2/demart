@@ -20,7 +20,7 @@ export default function ProductsCategoryPage() {
   }
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden py-16 p-4 md:p-20">
+    <div className="w-full min-h-screen relative overflow-hidden py-16 p-4 md:p-10">
       
       {/* Background Ambient Glows */}
       <div 

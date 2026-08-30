@@ -135,7 +135,7 @@ export default function OffersPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 py-12 p-4 md:p-20 relative overflow-hidden">
+    <div className="w-full min-h-screen bg-slate-50 py-12 p-4 md:p-10 relative overflow-hidden">
       
       <div 
         className="absolute top-[-10%] left-[-10%] w-[35%] h-[35%] rounded-full blur-[100px] opacity-10 pointer-events-none"
