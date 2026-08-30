@@ -2,6 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { FiCheckCircle, FiShield, FiTruck, FiUsers, FiClock, FiAward, FiTrendingUp, FiThumbsUp, FiDatabase, FiSettings, FiHeart } from 'react-icons/fi'
+import { STORE_NAME } from '@/lib/secret'
 
 export default function AboutPage() {
   const stats = [
@@ -42,7 +43,7 @@ export default function AboutPage() {
     {
       id: 2,
       title: 'Certified Product Authenticity',
-      description: 'We partner directly with official manufacturers and licensed distributors. Every item on Ecom goes through double-inspection audits to guarantee 100% genuine quality.',
+      description: 'We partner directly with official manufacturers and licensed distributors. Every item on {STORE_NAME} goes through double-inspection audits to guarantee 100% genuine quality.',
       icon: <FiAward className="w-8 h-8 text-slate-800" />,
     },
     {
@@ -65,7 +66,7 @@ export default function AboutPage() {
     },
     {
       id: 6,
-      title: 'Ecom Rewards & VIP Tier',
+      title: '{STORE_NAME} Rewards & VIP Tier',
       description: 'Earn loyalty points with every checkout. Enjoy exclusive discount prices, free shipping offers, and priority customer support queues as a member of our VIP club.',
       icon: <FiTrendingUp className="w-8 h-8 text-slate-800" />,
     },
@@ -78,7 +79,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 opacity-10 bg-radial-gradient from-white to-transparent pointer-events-none"></div>
         
         <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
-          Celebrating 10 Years of Ecom
+          Celebrating 10 Years of {STORE_NAME}
         </h1>
         <p className="text-slate-300 max-w-3xl text-lg md:text-xl leading-relaxed">
           Launched in 2016 as a fully digital online shop, we have spent the last ten years perfecting the online shopping experience. Serving your city with authentic products and fast logistics.
@@ -101,13 +102,13 @@ export default function AboutPage() {
         <div className="flex flex-col gap-4">
           <h2 className="text-3xl font-semibold text-slate-800">Our Decade-Long Journey</h2>
           <p className="text-slate-600 leading-relaxed text-base">
-            Ecom was founded in 2016 with a singular, clear vision: to establish a premier, fully online storefront that bridges the gap between quality products and seamless digital delivery. Unlike traditional brick-and-mortar retailers that transitioned online, Ecom was built as a digital-native platform from day one, optimizing every single layer of cataloging, stock control, and shipment.
+            {STORE_NAME} was founded in 2016 with a singular, clear vision: to establish a premier, fully online storefront that bridges the gap between quality products and seamless digital delivery. Unlike traditional brick-and-mortar retailers that transitioned online, {STORE_NAME} was built as a digital-native platform from day one, optimizing every single layer of cataloging, stock control, and shipment.
           </p>
           <p className="text-slate-600 leading-relaxed text-base">
             Over the past ten years, we have continuously iterated on our web technologies to offer an intuitive user interface, lightning-fast search capabilities, and highly structured inventory logging. We have focused on cultivating direct relationships with brands and global suppliers, removing middlemen to pass savings directly to our customers.
           </p>
           <p className="text-slate-600 leading-relaxed text-base">
-            Today, Ecom stands at the forefront of the digital commerce industry, boasting automated order routing pipelines, state-of-the-art encryption standards, and a dedicated network of warehouses. Whether you are ordering consumer electronics, daily necessities, or fashion items, Ecom ensures that your transaction remains secure and your package arrives on schedule.
+            Today, {STORE_NAME} stands at the forefront of the digital commerce industry, boasting automated order routing pipelines, state-of-the-art encryption standards, and a dedicated network of warehouses. Whether you are ordering consumer electronics, daily necessities, or fashion items, {STORE_NAME} ensures that your transaction remains secure and your package arrives on schedule.
           </p>
         </div>
 
@@ -129,7 +130,7 @@ export default function AboutPage() {
         <div className="flex flex-col gap-4 bg-slate-900 text-white rounded-2xl p-8 shadow-md mt-4">
           <h3 className="text-xl font-semibold">Secure and Scalable Infrastructure</h3>
           <p className="text-slate-300 text-sm leading-relaxed">
-            Our platform is engineered for speed, safety, and reliability. Running on high-performance database infrastructures with secure SSL configurations, Ecom processes thousands of queries in milliseconds. By combining real-time inventory synchronization with direct API checks, we protect vendor stock counts and prevent transaction delays. Every session is encrypted via advanced JSON Web Token (JWT) standards and hosted using state-of-the-art serverless hosting networks.
+            Our platform is engineered for speed, safety, and reliability. Running on high-performance database infrastructures with secure SSL configurations, {STORE_NAME} processes thousands of queries in milliseconds. By combining real-time inventory synchronization with direct API checks, we protect vendor stock counts and prevent transaction delays. Every session is encrypted via advanced JSON Web Token (JWT) standards and hosted using state-of-the-art serverless hosting networks.
           </p>
         </div>
 
@@ -142,7 +143,7 @@ export default function AboutPage() {
               <div className="absolute -left-7.75 top-1.5 w-4 h-4 rounded-full 0 border-4 border-white shadow-sm"></div>
               <span className="text-sm font-semibold text-secondary">2016</span>
               <h4 className="font-semibold text-slate-800 mt-0.5">Founding & Digital Storefront Launch</h4>
-              <p className="text-sm text-slate-500 mt-1">Ecom opens its fully digital online marketplace, enabling instant secure checkouts and establishing direct relationships with core suppliers.</p>
+              <p className="text-sm text-slate-500 mt-1">{STORE_NAME} opens its fully digital online marketplace, enabling instant secure checkouts and establishing direct relationships with core suppliers.</p>
             </div>
             <div className="relative">
               <div className="absolute -left-7.75 top-1.5 w-4 h-4 rounded-full bg-slate-900 border-4 border-white shadow-sm"></div>
@@ -154,12 +155,12 @@ export default function AboutPage() {
               <div className="absolute -left-7.75 top-1.5 w-4 h-4 rounded-full bg-slate-900 border-4 border-white shadow-sm"></div>
               <span className="text-sm font-semibold text-slate-800">2023</span>
               <h4 className="font-semibold text-slate-800 mt-0.5">Direct Brand & Manufacturer Integration</h4>
-              <p className="text-sm text-slate-500 mt-1">Formed strict brand-auditing standards and direct manufacturer contracts, establishing Ecom as a trusted provider of genuine goods.</p>
+              <p className="text-sm text-slate-500 mt-1">Formed strict brand-auditing standards and direct manufacturer contracts, establishing {STORE_NAME} as a trusted provider of genuine goods.</p>
             </div>
             <div className="relative">
               <div className="absolute -left-7.75 top-1.5 w-4 h-4 rounded-full bg-slate-900 border-4 border-white shadow-sm"></div>
               <span className="text-sm font-semibold text-slate-800">2026</span>
-              <h4 className="font-semibold text-slate-800 mt-0.5">Ecom v2 Core Upgrade</h4>
+              <h4 className="font-semibold text-slate-800 mt-0.5">{STORE_NAME} v2 Core Upgrade</h4>
               <p className="text-sm text-slate-500 mt-1">Upgraded our core backend engine, introducing modern API architectures, real-time inventory synchronization, and automated client notifications.</p>
             </div>
           </div>
@@ -187,7 +188,7 @@ export default function AboutPage() {
 
       <section className="w-full px-8 py-16 text-center">
         <div className="bg-slate-950 text-white rounded-3xl p-8 md:p-12 flex flex-col items-center gap-6 shadow-lg">
-          <h2 className="text-2xl md:text-4xl font-semibold">Ready to Experience Ecom?</h2>
+          <h2 className="text-2xl md:text-4xl font-semibold">Ready to Experience {STORE_NAME}?</h2>
           <p className="text-slate-300 text-sm md:text-base max-w-md">
             Create an account today to access thousands of certified products and experience fast, trusted deliveries.
           </p>
