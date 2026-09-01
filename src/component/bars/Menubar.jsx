@@ -37,7 +37,6 @@ const Menubar = () => {
                 )}
             </Link>
 
-            {/* Offers */}
             <Link href="/offers" className={getLinkClass(pathname === '/offers')} title="Offers">
                 <MdLocalOffer className="text-2xl" />
                 {pathname === '/offers' && (
