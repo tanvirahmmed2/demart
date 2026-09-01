@@ -13,7 +13,7 @@ const Menubar = () => {
     const pathname = usePathname()
 
     const getLinkClass = (isActive) => {
-        return `relative p-3.5 rounded-full transition-all duration-300 flex items-center justify-center active:scale-95 ${
+        return `relative p-2.5 sm:p-3.5 rounded-full transition-all duration-300 flex items-center justify-center active:scale-95 ${
             isActive 
                 ? 'bg-white/25 text-white scale-110 shadow-sm' 
                 : 'text-white/75 hover:text-white hover:bg-white/10'
@@ -21,24 +21,24 @@ const Menubar = () => {
     }
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden bg-primary-light backdrop-blur-xl p-2 rounded-full flex flex-row items-center justify-between gap-8 shadow-xl border border-primary-dark/30 text-white">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden bg-primary-light backdrop-blur-xl p-1.5 sm:p-2 rounded-full flex flex-row items-center justify-between gap-2 sm:gap-6 w-[calc(100vw-2rem)] shadow-xl border border-primary-dark/30 text-white">
             
             <Link href="/" className={getLinkClass(pathname === '/')} title="Home">
-                <BiHome className="text-2xl" />
+                <BiHome className="text-xl sm:text-2xl" />
                 {pathname === '/' && (
                     <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
             </Link>
 
             <Link href="/products" className={getLinkClass(pathname === '/products')} title="Products">
-                <AiFillProduct className="text-2xl" />
+                <AiFillProduct className="text-xl sm:text-2xl" />
                 {pathname === '/products' && (
                     <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
             </Link>
 
             <Link href="/offers" className={getLinkClass(pathname === '/offers')} title="Offers">
-                <MdLocalOffer className="text-2xl" />
+                <MdLocalOffer className="text-xl sm:text-2xl" />
                 {pathname === '/offers' && (
                     <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
@@ -50,7 +50,7 @@ const Menubar = () => {
                 className={`${getLinkClass(cartbar)} cursor-pointer`}
                 title="Cart"
             >
-                <BiCart className="text-2xl" />
+                <BiCart className="text-xl sm:text-2xl" />
                 {cartbar && (
                     <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 )}
@@ -59,14 +59,14 @@ const Menubar = () => {
             {/* User Profile / Login */}
             {user ? (
                 <Link href="/user" className={getLinkClass(pathname?.startsWith('/user'))} title="Profile">
-                    <FiUser className="text-2xl" />
+                    <FiUser className="text-xl sm:text-2xl" />
                     {pathname?.startsWith('/user') && (
                         <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     )}
                 </Link>
             ) : (
                 <Link href="/login" className={getLinkClass(pathname === '/login')} title="Login">
-                    <FiLogIn className="text-2xl" />
+                    <FiLogIn className="text-xl sm:text-2xl" />
                     {pathname === '/login' && (
                         <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     )}
