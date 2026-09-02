@@ -38,7 +38,7 @@ const Brands = () => {
   const marqueeItems = [...brands, ...brands, ...brands]
 
   return (
-    <div className="w-full py-12 p-4 md:p-10 overflow-hidden relative">
+    <div className="w-full py-12 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-brands {
@@ -55,7 +55,7 @@ const Brands = () => {
         }
       `}} />
 
-      <div className="w-full mb-6">
+      <div className="w-full p-4 md:p-10 mb-6">
 
         <h2 className="text-2xl  font-semibold text-secondary tracking-tight mt-1">
           Authorized Brands

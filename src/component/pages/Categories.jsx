@@ -13,7 +13,7 @@ const Categories = () => {
   const marqueeItems = [...categories, ...categories, ...categories]
 
   return (
-    <div className="w-full py-12 p-4 md:p-10 overflow-hidden relative">
+    <div className="w-full py-12 overflow-hidden relative">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes scroll-categories {
@@ -32,7 +32,7 @@ const Categories = () => {
 
       <div className="w-full  mb-6">
 
-        <h2 className="text-2xl font-semibold text-primary tracking-tight mt-1">
+        <h2 className="text-2xl  p-4 md:p-10 font-semibold text-primary tracking-tight mt-1">
           Browse Categories
         </h2>
       </div>
